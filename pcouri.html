@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Ouri</title>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script type="text/javascript">
+
+
+    function EstadoSimulado(stateTabuleiro,deposito1,deposito2){
+        this.estado = stateTabuleiro;
+        this.dep1 = deposito1;
+        this.dep2 = deposito2;
+    }
+
+    function TreeNode() {  
+        this.root = 0;      
+        this.descendants = [];
+        this.estadoSimulado = new EstadoSimulado([],0,0);
+        this.node = 0;
+        
+    }
+        
+        var config = {
+            type: Phaser.AUTO,
+            width: 2224,
+            height: 600,
+            scene: {
+                preload: preload,
+                create: create,
+                update: update
+            }
+        };
+
+        let game = new Phaser.Game(config);
+        let state = [];
+        let player = 1;
+        let dep1 = 0;
+        let dep2 = 0;
+        let check = 0;
+        let dif = 2;
+        function preload() {
+            this.load.image('deposito', 'img/deposito.png');
+            this.load.image('buraco', 'img/buraco.png');
+            for (var i = 0; i < 30; i++) {
+                this.load.image('i' + i, 'img/' + i + '.png')
+            }
+        };
+
+        function create() {
+
+            //inicializar Tabuleiro Vazio
+            this.add.image(150, 300, 'deposito');
+            this.add.image(2250, 300, 'deposito');
+
+            for (var j = 0; j < 2; j++) {
+                for (var i = 0; i < 6; i++) {
+                    this.add.image(450 + i * 300, 150 + j * 300, 'buraco');
+                }
+            }
+
+            //inicializar Numeros e State inicial
+
+            this.add.image(150, 300, 'i0');
+            this.add.image(2250, 300, 'i0');
+            aux = 0;
+            for (var j = 0; j < 2; j++) {
+                for (var i = 0; i < 6; i++) {
+                    this.add.image(450 + i * 300, 150 + j * 300, 'i4');
+                    state[aux] = 4;
+                    aux++;
+                }
+            }
+
+
+            // Jogadas
+            this.input.on('pointerdown', function (pointer) {
+                if (pointer.x > 300 && pointer.x < 2100 && pointer.y > 300 && pointer.y < 600 && check == 0) {
+
+                    x = Math.floor((pointer.x / 300)) - 1;
+                    y = Math.floor((pointer.y / 300));
+                    
+                    /*
+                    jogadasJogador = verificaJogadas(state,1)
+                    verificar se os clicks do jogador
+
+                    
+
+                    */
+                    pos = x
+                    valor = state[pos]
+
+                    if (valor == 0) {
+                        y = 3
+                    }
+
+                    if (valor == 1) {
+                        y = one(player, state);
+                    }
+
+                    //
+                    if ((player == 1 && y == 1)) {
+                        y = popularOponente(player, state, pos)
+                    }
+
+                    // só deixa jogar o player 1 na fila de baixo
+                    if ((player == 1 && y == 1)) {
+
+                        // retirar as pedras da casa onde clicamos
+                        state[pos] = 0
+
+                        // distribuir as pedras pelas casas seguintes
+                        for (i = 1; valor > 0; i++) {
+                            //Quando atingir 12 pedras tem de saltar a casa onde clicamos
+                            if ((pos + i % 12) != pos) {
+                                state[(pos + i) % 12] = state[(pos + i) % 12] + 1;
+                                valor--;
+                            }
+                        }
+
+
+                        //verificar se posso recolher alguma pedra
+                        posfinal = (pos + i - 1) % 12
+                        state = recolher(player, state, posfinal);
+
+
+                        //atualizar as imagens
+                        aux = 0;
+                        console.log("update")
+
+                        this.add.image(150, 300, 'deposito');
+                        this.add.image(150, 300, 'i' + dep2);
+
+                        this.add.image(2250, 300, 'deposito');
+                        this.add.image(2250, 300, 'i' + dep1);
+
+
+                        for (var i = 0; i < 6; i++) {
+                            this.add.image(450 + i * 300, 450, 'buraco');
+                            this.add.image(450 + i * 300, 450, 'i' + state[aux]);
+                            aux++;
+                        }
+
+                        for (var i = 5; i >= 0; i--) {
+                            this.add.image(450 + i * 300, 150, 'buraco');
+                            this.add.image(450 + i * 300, 150, 'i' + state[aux]);
+                            aux++;
+                        }
+
+                        if (dep1 > 24) { check = 1 }
+                        if (dep2 > 24) { check = 1 }
+
+
+                        player = nextPlayer(player, state)
+
+
+                        // verifica se há uma possivel jogada para o computador
+                        y = 0;
+                        if (player == 1) {
+                            for (i = 0; i < 6; i++) {
+                                y = y + popularOponente(player, state, i)
+                            }
+                            if (y == 18) {
+                                check = 1
+                            }
+                        }
+
+                        if (player == 2) {
+                            for (i = 5; i < 12; i++) {
+                                y = y + popularOponente(player, state, i)
+                            }
+                            if (y == 18) {
+                                check = 1
+                            }
+                        }
+
+                        if (check == 1) {
+                            player = terminar(dep1, dep2, state)
+                            if (player == 2) {
+                                console.log("Computer wins")
+                            }
+                            else {
+                                console.log("player " + player + " wins")
+                            }
+
+                        }
+
+
+                        setTimeout(() => {
+                            if (player == 2) {
+                                y = 0
+                                // calcula uma casa random para clicar
+                        
+                                pos = dificuldade(dif, state);
+                                console.log(pos);
+                                player = 1;
+
+                                //não deixar o jogador jogar quando valor == 1
+                                valor = state[pos]
+
+
+                                if (valor == 0) {
+                                    y = 3
+                                }
+
+                                if (valor == 1) {
+                                    y = one(2, state);
+                                }
+
+
+                                // veirficar se tem de dar sementes ao adversário
+                                y = popularOponente(2, state, pos)
+
+
+                                if (y == 0) {
+                                    state[pos] = 0
+
+                                    // distribuir as pedras pelas casas seguintes
+                                    for (i = 1; valor > 0; i++) {
+                                        //Quando atingir 12 pedras tem de saltar a casa onde clicamos
+                                        if ((pos + i % 12) != pos) {
+                                            state[(pos + i) % 12] = state[(pos + i) % 12] + 1;
+                                            valor--;
+                                        }
+                                    }
+                                    //verificar se posso recolher alguma pedra
+                                    posfinal = (pos + i - 1) % 12
+                                    state = recolher(2, state, posfinal);
+
+
+
+                                    //atualizar as imagens
+                                    aux = 0;
+                                    console.log("update")
+                                    this.add.image(150, 300, 'deposito');
+                                    this.add.image(150, 300, 'i' + dep2);
+
+                                    this.add.image(2250, 300, 'deposito');
+                                    this.add.image(2250, 300, 'i' + dep1);
+
+
+                                    for (var i = 0; i < 6; i++) {
+                                        this.add.image(450 + i * 300, 450, 'buraco');
+                                        this.add.image(450 + i * 300, 450, 'i' + state[aux]);
+                                        aux++;
+                                    }
+
+                                    for (var i = 5; i >= 0; i--) {
+                                        this.add.image(450 + i * 300, 150, 'buraco');
+                                        this.add.image(450 + i * 300, 150, 'i' + state[aux]);
+                                        aux++;
+                                    }
+
+                                    if (dep1 > 24) { check = 1 }
+                                    if (dep2 > 24) { check = 1 }
+
+                                    player = nextPlayer(player, state)
+
+                                    y = 0;
+                                    if (player == 1) {
+                                        for (i = 0; i < 6; i++) {
+                                            y = y + popularOponente(player, state, i)
+                                        }
+                                        if (y == 18) {
+                                            check = 1
+                                        }
+                                    }
+
+                                    if (player == 2) {
+                                        for (i = 5; i < 12; i++) {
+                                            y = y + popularOponente(player, state, i)
+                                        }
+                                        if (y == 18) {
+                                            check = 1
+                                        }
+                                    }
+
+                                    if (check == 1) {
+                                        player = terminar(dep1, dep2, state)
+                                        if (player == 2) {
+                                            console.log("Computer wins")
+                                        }
+                                        else {
+                                            console.log("player " + player + " wins")
+                                        }
+                                    }
+                                }
+                            }
+                        }, 1000)
+                    }
+                }
+            }, this);
+        }
+
+
+        function popularOponente(player, state, pos) {
+            valor = state[pos]
+            
+            if (vazio(player, state) == 1) {
+                y = 3;
+                for (x = 0; x <= valor; x++) {
+                    finalpos = (pos + x) % 12
+                    if (player == 1) {
+                        // verifico que alguma pedra cai em territorio adversario
+                        if (finalpos > 5 && finalpos < 12) {
+                            y = 1;
+                        }
+                    }
+                    else {
+                        if (finalpos >= 0 && finalpos < 6) {
+                            y = 0;
+                        }
+                    }
+                }
+            }
+            return y
+        }
+
+        
+        function vazio(player, state) {
+            soma = 0;
+
+            if (player == 1) {
+                for (i = 5; i < 12; i++) {
+                    soma = soma + state[i]
+                }
+            }
+            else {
+                for (i = 0; i < 6; i++) {
+                    soma = soma + state[i]
+                }
+            }
+
+            if (soma == 0) { return 1 }
+            else {
+                return 0
+            }
+        }
+
+
+        function terminar(dep1, dep2, state) {
+            player = 1
+            for (i = 0; i < 6; i++) {
+                dep1 = dep1 + state[i]
+            }
+
+            for (i = 5; i < 12; i++) {
+                dep2 = dep2 + state[i]
+            }
+
+            if (dep1 > dep2) { player = 1 }
+            else { player = 2 }
+
+            return player
+        }
+        
+        //funcao que recolhe as pedras para os jogadores
+        function recolher(player, state, posfinal) {
+
+            //Recolher as pedras para o player 1
+            if (player == 1) {
+                while ((state[posfinal] == 2 || state[posfinal] == 3) && posfinal > 5 && posfinal < 12) {
+                    dep1 = dep1 + state[posfinal]
+                    state[posfinal] = 0;
+                    posfinal = posfinal - 1;
+
+                }
+            }
+
+            //Recolher as pedras para o player 2
+            if (player == 2) {
+                while ((state[posfinal] == 2 || state[posfinal] == 3) && posfinal >= 0 && posfinal < 6) {
+                    dep2 = dep2 + state[posfinal]
+                    state[posfinal] = 0;
+                    posfinal = posfinal - 1;
+
+                }
+            }
+            return state
+        }
+
+        // funcao que procura se existem numeros >1 na fila do jogador
+        function one(player, state) {
+        y = 0
+            // verifica se na fila de baixo existe algum valor > 1
+            if (player == 1) {
+                for (var i = 0; i < 6; i++) {
+                    if (state[i] > 1) {
+                        y = 3
+                    }
+                }
+            }
+            // verifica se na fila de cima esta algum valor > 1
+            if (player == 2) {
+                for (var i = 6; i < 12; i++) {
+                    if (state[i] > 1) {
+                        y = 3
+                    }
+                }
+            }
+            //retornar y = 3 impede que a jogada prossiga
+            return y
+        }
+
+
+    // Funcao que decide qual é o proximo jogador a jogar
+        function nextPlayer(player, state) {
+            totalP1 = 0
+            totalP2 = 0
+
+            // Verifica se algum dos tabuleiros estão vazios
+            for (i = 0; i < 6; i++) {
+                totalP1 = totalP1 + state[i]
+            }
+
+            for (i = 6; i < 12; i++) {
+                totalP2 = totalP2 + state[i]
+            }
+
+            // Se o player 1 tiver o tabuleiro vazio, joga o player 2
+            if (totalP1 == 0) {
+                player = 2
+
+            }
+            // Se o player 2 tiver o tabuleiro vazio, joga o player 1
+            else if (totalP2 == 0) {
+                player = 1
+            }
+            // Se nenhum tiver o tabuleiro vazio alterna-se as jogadas
+            else {
+                if (player == 1) { player = 2 } else { player = 1 }
+            }
+            return player
+        }
+        
+        function dificuldade(dif, state) {
+
+            
+            if (dif == 0) {
+                return facil();
+            }
+
+            if (dif == 1) {
+                return medio(state);
+            }
+
+            if (dif == 2) {
+                return dificil(state);
+            }
+        };
+
+        function facil() {
+            return Math.floor(Math.random() * 6 + 6);
+        };
+
+        function medio(state) { };
+
+        
+        
+        // Cria um array com as jogadas possiveis 
+        function verificaJogadas(estadoTabuleiro,jogador) { 
+
+            var copiaestado = estadoTabuleiro;
+            var jogador = jogador;
+            var jogPos = [];
+    
+            switch(jogador){
+                
+                // Jogador
+                case 1: 
+                    for (casap1 = 0; casap1 < 6; casap1++){
+
+                        /*
+                        Não pode ser 0;
+                        Se for 1, só pode ser jogado se todos forem 1
+                        Se o oponente tiver tudo a 0, tem que lhe popular
+                        */
+                        if(copiaestado[casap1] != 0){ 
+                            if (copiaestado[casap1] == 1 ){
+                                if(one(jogador,copiaestado) != 3){ // se existe uma maior entao != 3
+                                  if (popularOponente(jogador,copiaestado,casap1) == 0){
+                                      jogPos.push(casap1);
+                                   }
+                                }                          
+                            }
+                        
+                            else{
+                                if (popularOponente(jogador,copiaestado,casap1) == 0){
+                                    jogPos.push(casap1);
+                                }
+                            }    
+                        }   
+                    }
+                    break;  
+                
+                
+                // Computador
+                case 2:
+                    for (casap2 = 6; casap2 < 12; casap2++){
+
+                        /*
+                        Não pode ser 0;
+                        Se for 1, só pode ser jogado se todos forem 1
+                        Se o oponente tiver tudo a 0, tem que lhe popular
+                        */
+                      
+                        if(copiaestado[casap2] != 0){ 
+                            if (copiaestado[casap2] == 1 ){
+                                if(one(jogador,copiaestado) != 3){ // se existe uma maior entao != 3
+                                  if (popularOponente(jogador,copiaestado,casap2) == 0){
+                                      jogPos.push(casap2);
+                                   }
+                                }                          
+                            }
+                        
+                            else{
+                                if (popularOponente(jogador,copiaestado,casap2) == 0){
+                                    jogPos.push(casap2);
+                                }
+                            }    
+                        }   
+                    }
+                    break;  
+            }
+            
+            return jogPos;
+                   
+        };
+        
+
+        //Controi o resto dos nodos de acordo com os states simulados ao longo do jogo
+        function construirDescendentes(staterecebido,jogador,jogada,depth){ 
+
+            //receber um estado + 1 jogada -- Fazer a jogada -- Procurar novas jogadas -- passar aos descedentes
+            var nodo = new TreeNode();
+            nodo.root = jogada;
+            // Fazer copia das variaveis globais
+            var copiaestado = staterecebido;
+            
+            var dep1copy = dep1;
+            var dep2copy = dep2;
+            
+            nodo.estadoSimulado = simulaJogada(copiaestado,jogada,jogador,dep1copy,dep2copy);
+            
+            if (depth == 0){
+                return nodo;
+            }
+            //EstadoSimulado já tem a jogada feita e os deps calculados, e o jogador ANTIGO
+            
+            
+            var jogPosNew = verificaJogadas(nodo.estadoSimulado.estado,(jogador%2) +1);
+            for(i = 0;i < jogPosNew.length ; i++ ){
+                nodo.descendants.push(construirDescendentes(nodo.estadoSimulado.estado,(jogador%2)+1,jogPosNew[i],depth-1));
+            }
+            return nodo;
+            
+
+
+        }
+        
+
+        //Cria uma arvore de jogadas simuladas
+        function construirArvore(estadoTabuleiroConstruirArvore){
+            statecopia = estadoTabuleiroConstruirArvore;
+            var jogPos = verificaJogadas(statecopia,2);
+ 
+            arvore = new TreeNode();
+            // raiz
+            
+            
+            estadoRaiz = new EstadoSimulado(state,dep1,dep2);
+            
+            console.log(statecopia + "statecopia")
+            console.log(state)   
+            //tudobem
+            arvore.estadoSimulado = estadoRaiz;
+            
+            console.log(arvore);
+            
+            for(jogposlen = 0; jogposlen < jogPos.length; jogposlen++){
+               arvore.descendants.push(construirDescendentes(statecopia,player,jogPos[jogposlen],6));
+            }
+
+            
+            return arvore;
+
+
+        }
+        
+                
+        function dificil(state) {
+            
+            let copiaestado = [...state];
+            
+
+
+            tree = construirArvore(copiaestado);
+            console.log("FINAL")
+            console.log(tree)
+            melhorValorFinal = minimax(tree,6,-Infinity,+Infinity,true)
+
+            console.log(melhorValorFinal + "AHEY");
+
+            let procuraJogada = 0;
+            for ( procuraJogada ; procuraJogada < arvore.descendants.length; procuraJogada++){
+               if(arvore.descendants[procuraJogada].estadoSimulado.dep1 - arvore.descendants[procuraJogada].estadoSimulado.dep2 == melhorValorFinal){
+                    return arvore.root;
+                }
+            }
+            
+        };
+        
+
+
+
+        function minimax(node, depth, alpha,beta, maximizingPlayer) {
+            if ((depth == 0) || (node.estadoSimulado.dep1 == 25) || (node.estadoSimulado.dep2 == 25) || (node.estadoSimulado.dep1 == 24 && node.estadoSimulado.dep2 == 24)){
+                return node.estadoSimulado.dep2 - node.estadoSimulado.dep1;
+            }
+            
+            if (maximizingPlayer == true){
+            
+                let maxEval = -Infinity;
+                for (i = 0; i < node.descendants.length; i++){
+                    let eval = minimax(node.descendants[i], depth -1, alpha, beta, false);
+                    maxEval = Math.max(maxEval,eval);
+                    alpha = Math.max(alpha,eval);
+                    node.valor = alpha;
+                    // prune
+                    if (beta <= alpha){
+                        break;
+                    }
+                }
+
+                return maxEval;
+            }
+            else {
+                
+                let minEval = +Infinity;
+                for (i = 0; i < node.descendants.length; i++){
+                    let eval = minimax(node.descendants[i], depth -1, alpha, beta, true);
+                    minEval = Math.min(minEval,eval);
+                    beta = Math.min(beta,eval);
+                    node.valor = beta;
+                    // prune
+                    if (beta <= alpha){
+                        break;
+                    }
+                }
+                return minEval;
+            }
+        }
+    
+
+
+        function simulaJogada(copiaestado, jogada,jogador,dep1copy,dep2copy) { //reescrever isto
+
+            //Faz a jogada
+            var estadoarraysimulado = copiaestado
+            var sementesAEspalhar = estadoarraysimulado[jogada];
+            var ultimacasa = (jogada + sementesAEspalhar) % 12;
+            estadoarraysimulado[jogada] = 0;
+            
+            var casasPercorridas = 1
+            for (casasPercorridas = 1;  casasPercorridas <= sementesAEspalhar; casasPercorridas++) {
+                estadoarraysimulado[(jogada + casasPercorridas) % 12] =estadoarraysimulado[(jogada + casasPercorridas) % 12] + 1; //espalha as sementes todas
+            }
+///////  RECEBE O JOGADOR NESTE MOMENTO
+            if (estadoarraysimulado[ultimacasa] == (2 | 3)) {
+                if (jogador == 1) { //Em caso de ser o jogador a jogar
+                    while (estadoarraysimulado[ultimacasa] == (2 | 3) && (ultimacasa >= 6 && ultimacasa < 12)) {
+                        dep1copy += estadoarraysimulado[ultimacasa];
+                        estadoarraysimulado[ultimacasa] = 0;
+                        ultimacasa--;
+
+                    }
+                }
+                else { //Em caso de ser o computador a jogar
+                    while (estadoarraysimulado[ultimacasa] == (2 | 3) && (ultimacasa >=0 && ultimacasa < 6))
+                    {
+                        dep2copy += estadoarraysimulado[ultimacasa];
+                        estadoarraysimulado[ultimacasa] = 0;
+                        ultimacasa--;
+
+                    }
+                   
+                }
+            }
+            estado = new EstadoSimulado(estadoarraysimulado,dep1copy,dep2copy)
+            //console.log(estado);
+            
+            return estado;
+        }
+
+
+
+
+
+        /*Limpar o código :
+        
+            Jogada do CPU:
+                - verifica dificuldade
+                 -if (ez) : facil();
+                 -if (med) : medium();
+                 -if (hard) : hard();
+        
+            //Tudo que for igual função auxiliar
+                - Ver Jogadas Possiveis (Qual o jogador como parametro)
+                - Guardar num array
+                - random num dentro do array (Recebe o array como parametro, retorna um numero)
+                - Simulador de jogada (Recebe o estado do jogo num dado momento e quem vai jogar, retorna lista de pontos possiveis por cada jogada) -
+            
+            Dicionario de jogadas para medio e dificil como variavel global, simula X jogadas a frente e guarda, depois pode so simular mais uma jogada de cada vez que joga porque já tem as futuras guardadas
+            Gasta mais tempo (Se for sequer visivel na performance) ao inicio e depois so gasta numa jogada. Podemos calcular 3 de cada vez se for facil demais (duvido)
+        
+        
+            facil():
+        
+                -Ver jogadas possíveis (6/11)
+                -Guardar num array
+                 - x = Math.random()
+                 - x2 =  x * arrayLength
+                 - Math.floor(x2)
+                -jogar
+            
+            
+        
+            medium():
+                -Ver jogadas possíveis (6/11)
+                -Guardar num array  
+                -Popular dicionario do tipo 'Casa:[PontosPossiveis]'
+                -Por cada chave do dic :
+                    - Simular jogada
+                        - Joga 'Casa' : Guarda pontos capturados,
+                        - Simula Jogada : Guarda maior pontos capturados pelo jogador
+                    - Pontos Possiveis = Pontos Ganhos pelo CPU - Pontos Ganhos pelo Jogador 
+                -Percorrer dicionario e procurar jogada que dá mais pontos (ganhar 3 e perder 4 é pior que ganhar 2 e perder 0);
+                    -jogar
+                -Em caso de igualdade run facil(JogadasIguais);
+        
+            hard():
+                -Ver jogadas possíveis (6/11)
+                -Guardar num array  
+                -Popular dicionario do tipo 'Casa:[PontosPossiveis]'
+                -Por cada chave do dic :
+                    - Simular jogada - Simula mais depth
+                            - Cada depth equivale a 1 jogada pelo dois jogadores (1 CPU + 1 Jogador / Vice-versa)
+                        - Joga 'Casa' : Guarda pontos capturados,
+                        - Simula Jogada : Guarda maior pontos capturados pelo jogador
+                    - Pontos Possiveis = Pontos Ganhos pelo CPU - Pontos Ganhos pelo Jogador
+                -Percorrer dicionario e procurar jogada que dá mais pontos (ganhar 3 e perder 4 é pior que ganhar 2 e perder 0);
+                -Em caso de igualdade run facil(JogadasIguais);
+        
+        
+             cada simulacao de jogada retorna os pontos possiveis a funcao "mae" que irá decidir se vale a pena ou não continuar em cada ramo ou não (Por exemplo, se o CPU apos fazer 2 jogadas estiver com -8 sementes, não vale a pena investir mais naquele ramo mesmo que leve a melhores resultados a frente, se não o jogo fica "resolvido" e mais vale calcular todas as jogadas possiveis de uma so vez ate ao jogo acabar.
+        
+        */
+        function update() { };
+
+    </script>
+
+</body>
+
+</html>
