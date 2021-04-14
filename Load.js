@@ -9,9 +9,22 @@ class Load extends Phaser.Scene{
         this.load.image('background', 'img_menu/background_1.png');
         this.load.image('background_2', 'img_menu/background_2.png');
 
+        //Infos
+
+        for(var j = 1; j <= 6; j++){
+            this.load.image('info'+j, 'img_menu/info'+j+'.png')
+        }
+        
+
+
+
         //Buttons
         this.load.image('players', 'img_menu/button_2players.png');
         this.load.image('computer', 'img_menu/button_computador.png');
+
+        this.load.image('forward', 'img_menu/forward.png');
+        this.load.image('back', 'img_menu/backward.png');
+        this.load.image('close', 'img_menu/closeBT.png')
 
         this.load.image('trofeu', 'img_menu/bt_trofeus.png');
         this.load.image('info', 'img_menu/bt_info.png');
@@ -29,6 +42,7 @@ class Load extends Phaser.Scene{
         this.load.image('p3', 'img_menu/pinto03.png');
         this.load.image('p4', 'img_menu/pinto04.png');
     
+
 
         for(var i = 0; i<31; i++){
         this.load.image('i'+i, 'img/'+i+'.png')
