@@ -54,20 +54,25 @@ class Menu extends Phaser.Scene{
     }
 
     clickInfo(){
+
         console.log('Informações');
         var counter = 1;
-        
-        this.informacoes=this.add.sprite(config.width/2,config.height/2,"info1");
-        this.informacoes.setScale(.8);     
+        //info1
+        this.informacoes=this.add.sprite(config.width/2,config.height/2+config.height/12,"info1");
+        this.informacoes.setScale(.7);   
 
-        this.forward = this.add.sprite(config.width - config.width/18, config.height/2 + config.height/6, 'forward').setInteractive();
-        this.forward.on('pointerdown', () => this.info(counter+1));
-        
-        this.back = this.add.sprite(config.width - config.width/18, config.height/2 + config.height/6, 'back').setInteractive();
-        this.back.on('pointerdown', () => this.info(counter-1));
-        
-        this.close = this.add.sprite(config.width,config.height,'close').setInteractive();
-        this.close.on('pointerdown', ()=>this.scene.start(Menu));
+        //Forwards
+        this.forward = this.add.sprite(config.width-config.width/4 - config.width/24 - config.width/150, config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98, 'forward').setInteractive();
+        this.forward.on('pointerdown', () => this.counterInfo(counter+1));
+        this.forward.setScale(0.67)
+        //Backwards
+        this.back = this.add.sprite(config.width/4 + config.width/24 +config.width/150, config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98, 'back').setInteractive();
+        this.back.on('pointerdown', () => this.counterInfo(counter-1));
+        this.back.setScale(0.67)
+        //Fechar
+        this.close = this.add.sprite(config.width-config.width/4 - config.width/24 - config.width/240 + config.width/64,config.height/2 -config.height/12 - config.height/24 - config.height/48 - config.height/64,'close').setInteractive();
+        this.close.on('pointerdown', ()=>this.scene.start("menu"));
+        this.close.setScale(0.67)
 
     }
     clickCreditos(){
@@ -76,9 +81,22 @@ class Menu extends Phaser.Scene{
     clickTrofeu(){
         console.log('Troféu');
     }
-    info(contador){
-
-        this.informacoes=this.add.sprite(config.width/2,config.height/2,"info"+contador);
-        this.informacoes.setScale(.5);  
+    counterInfo(contador){
+        if(contador > 0){
+        this.informacoes=this.add.sprite(config.width/2,config.height/2+config.height/12,"info"+contador);
+        this.informacoes.setScale(.7);  
+        //Forwards
+        this.forward = this.add.sprite(config.width-config.width/4 - config.width/24 - config.width/150, config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98, 'forward').setInteractive();
+        this.forward.on('pointerdown', () => this.counterInfo(contador+1));
+        this.forward.setScale(0.67)
+        //Backwards
+        this.back = this.add.sprite(config.width/4 + config.width/24 +config.width/150, config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98, 'back').setInteractive();
+        this.back.on('pointerdown', () => this.counterInfo(contador-1));
+        this.back.setScale(0.67)
+        //Fechar
+        this.close = this.add.sprite(config.width-config.width/4 - config.width/24 - config.width/240 + config.width/64,config.height/2 -config.height/12 - config.height/24 - config.height/48 - config.height/64,'close').setInteractive();
+        this.close.on('pointerdown', ()=>this.scene.start("menu"));
+        this.close.setScale(0.67)
+        }
     }
 }
