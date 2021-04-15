@@ -1,8 +1,11 @@
 var config = {
-    type: Phaser.AUTO,
+    type: Phaser.CANVAS,
     width: 1024,
     height: 600,
+    zoom: 0.99999999999999999999999999,
+    resolution: window.devicePixelRatio,
     backgroundColor: 0x000000,
+    
     scene: [Load, Menu, Pvp, Pvc, Dificuldade],
     scale: {
         mode: Phaser.Scale.FIT,
