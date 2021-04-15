@@ -5,10 +5,18 @@ var config = {
     backgroundColor: 0x000000,
     scene: [Load, Menu, Pvp, Pvc, Dificuldade],
     scale: {
-        //mode: Phaser.Scale.FIT,
+        mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
         width: 1024,
-        height: 600
+        height: 600,
+        min: {
+            width: 1024,
+            height: 600
+        },
+        max: {
+            width: 1024,
+            height: 600
+        }
     }
 };
 

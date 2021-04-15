@@ -26,11 +26,13 @@ class Pvc extends Phaser.Scene {
                 this.scale.lockOrientation('landscape')
                 // User Interface
                 this.background = this.add.sprite(w / 2, h / 2, "background_2");
-                this.background.setScale(0.8);
+                this.background.displayWidth = 1024;
+                this.background.displayHeight = 600;
 
-                this.home = this.add.sprite(w / 18, h - w / 18, 'home').setInteractive();
+                this.home = this.add.sprite(35, 566 , 'home').setInteractive();
                 this.home.key = -1;
                 this.home.on('pointerdown', () => this.clickMenu());
+		this.home.setScale(0.75)
 
 
                 // Inicializar
