@@ -5,7 +5,7 @@ class Load extends Phaser.Scene{
 
     preload (){
 
-        //this.load.plugin('PhaserDebugGameScalePlugin', 'https://cdn.jsdelivr.net/npm/phaser-plugin-debug-game-scale@1.0.2', true)
+        this.load.plugin('PhaserDebugGameScalePlugin', 'https://cdn.jsdelivr.net/npm/phaser-plugin-debug-game-scale@1.0.2', true)
 
         //Backgrounds
         this.load.image('background', 'img_menu/background_1.png');
