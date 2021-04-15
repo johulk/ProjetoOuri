@@ -7,7 +7,7 @@ class Pvp extends Phaser.Scene{
 	create() {
 		var w = config.width;
         var h = config.height;
-
+		this.scale.lockOrientation('landscape')
         // User Interface
         this.background = this.add.sprite(w/2, h/2, "background_2");
         this.background.setScale(0.8);

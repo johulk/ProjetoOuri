@@ -6,14 +6,60 @@ class Menu extends Phaser.Scene{
 	create() {
         let w = config.width 
         let h = config.height
-
+        //Background--
+        this.scale.lockOrientation('landscape')
+        //Background
         this.background = this.add.sprite(w/2, h/2, "background");
         //this.background.setOrigin(0,0);
-       
+        this.background.displayWidth = 1024;
+        this.background.displayHeight = 600;
+        this.background.depth = 0
 
+        //Titulo
         this.ouri = this.add.sprite(w/2, h/12, 'ouri');
         this.ouri.setScale(.55)
+        this.ouri.depth = 1
+        //Pintainho 3
 
+        this.pinto3 = this.add.sprite(165,535,'pinto_3')
+        this.pinto3.setScale(0.5)
+        this.pinto3.depth = 2
+
+        //Pintainho 2
+        this.pinto2 = this.add.sprite(80,520,'pinto_2')
+        this.pinto2.setScale(0.5)
+        this.pinto2.flipX = true
+        this.pinto2.depth = 1
+
+        //Pintainho 1
+        this.pinto1 = this.add.sprite(950, 487,'pinto_1')
+        this.pinto1.setScale(0.5)
+        this.pinto1.depth = 1
+
+
+
+        //Ovos
+        this.ovo1 = this.add.sprite(739,540,'ovo')
+        this.ovo1.setScale(0.5)
+        this.ovo1.depth = 3
+        this.ovo1.angle = 4.0
+
+
+        this.ovo2 = this.add.sprite(730,555,'ovo')
+        this.ovo2.setScale(0.5)
+        this.ovo2.depth = 1
+
+        this.ovo3 = this.add.sprite(748,555,'ovo')
+        this.ovo3.setScale(0.5)
+        this.ovo3.depth = 2
+
+        this.ovo4 = this.add.sprite(782,557,'ovo')
+        this.ovo4.setScale(0.5)
+        this.ovo4.depth = 2
+        this.ovo4.angle = 85
+
+
+        //--
         // Buttons
         
         //2 Jogadores
@@ -82,7 +128,9 @@ class Menu extends Phaser.Scene{
         console.log('Troféu');
     }
     counterInfo(contador){
-        if(contador > 0){
+        if(0 < contador < 7){
+        
+        
         this.informacoes=this.add.sprite(config.width/2,config.height/2+config.height/12,"info"+contador);
         this.informacoes.setScale(.7);  
         //Forwards

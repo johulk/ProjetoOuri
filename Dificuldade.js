@@ -6,7 +6,7 @@ class Dificuldade extends Phaser.Scene{
 	create() {
         var w = config.width 
         var h = config.height
-
+        this.scale.lockOrientation('landscape')
         this.background = this.add.sprite(w/2, h/2, "background");
         //this.background.setOrigin(0,0);
        

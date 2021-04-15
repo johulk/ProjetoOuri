@@ -9,6 +9,14 @@ class Load extends Phaser.Scene{
         this.load.image('background', 'img_menu/background_1.png');
         this.load.image('background_2', 'img_menu/background_2.png');
 
+        this.load.image('pinto_1','img_menu/pinto01.png');
+        this.load.image('pinto_2','img_menu/pinto02.png');
+        this.load.image('pinto_3','img_menu/pinto03.png');
+        this.load.image('pinto_4','img_menu/pinto04.png');
+        this.load.image('ovo','img_menu/ovo.png');
+        
+
+
         //Infos
 
         for(var j = 1; j <= 6; j++){

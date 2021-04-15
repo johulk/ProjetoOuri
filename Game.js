@@ -3,8 +3,13 @@ var config = {
     width: 1024,
     height: 600,
     backgroundColor: 0x000000,
-    scene: [Load, Menu, Pvp, Pvc, Dificuldade]
-
+    scene: [Load, Menu, Pvp, Pvc, Dificuldade],
+    scale: {
+        //mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: 1024,
+        height: 600
+    }
 };
 
 
