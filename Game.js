@@ -1,8 +1,10 @@
+let DEFAULT_WIDTH = 1024
+let DEFAULT_HEIGHT = 600
+
 var config = {
     type: Phaser.CANVAS,
     width: 1024,
     height: 600,
-    zoom: 0.99999999999999999999999999,
     resolution: window.devicePixelRatio,
     backgroundColor: 0x000000,
     
@@ -11,18 +13,9 @@ var config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
         width: 1024,
-        height: 600,
-        min: {
-            width: 1024,
-            height: 600
-        },
-        max: {
-            width: 1024,
-            height: 600
-        }
+        height: 600
     }
-};
-
+}
 
 var game = new Phaser.Game(config);
 
