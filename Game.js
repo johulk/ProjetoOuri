@@ -7,7 +7,8 @@ var config = {
     height: 600,
     resolution: window.devicePixelRatio,
     backgroundColor: 0x000000,
-    
+    pixelArt: false,
+    antialias: true,
     scene: [Load, Menu, Pvp, Pvc, Dificuldade],
     scale: {
         mode: Phaser.Scale.FIT,
@@ -15,6 +16,7 @@ var config = {
         width: 1024,
         height: 600
     }
+    
 }
 
 var game = new Phaser.Game(config);
