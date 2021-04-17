@@ -67,11 +67,12 @@ class Pvc extends Phaser.Scene {
                 
                 
                 let scorePlayer = localStorage.getItem('jogador');
-                
+        
                 let scoreComputador = localStorage.getItem('computador');
+
                 if(scoreComputador  != null || scorePlayer != null){
-                let scorePlayerInt = parseInt(scorePlayer);
-                let scoreComputadorInt = parseInt(scoreComputador)
+                scorePlayerInt = parseInt(scorePlayer);
+                scoreComputadorInt = parseInt(scoreComputador)
                 }
 
 
