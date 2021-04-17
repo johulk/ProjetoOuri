@@ -36,10 +36,10 @@ class Pvp extends Phaser.Scene{
                 this.pinto4.depth = 1
 
                 //Scores
-                this.playerScore = this.add.sprite(950,20,"jogador1Score")
-                this.playerScore.setScale(0.3)
-                this.computadorScore = this.add.sprite(950,80,"computadorScore")
-                this.computadorScore.setScale(0.3)
+                this.playerScore = this.add.sprite(950,40,"jogador1Score")
+                this.playerScore.setScale(0.25)
+                this.computadorScore = this.add.sprite(950,100,"computadorScore")
+                this.computadorScore.setScale(0.25)
 
         // Inicializar
         player = 1;
