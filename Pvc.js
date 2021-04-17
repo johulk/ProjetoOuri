@@ -66,16 +66,24 @@ class Pvc extends Phaser.Scene {
                 state = [4,4, 4,4, 4, 4, 4, 4, 4, 4, 4, 4];
                 
                 
-                let scorePlayer = localStorage.getItem('jogador');
+                textP = localStorage.getItem('jogador');
         
-                let scoreComputador = localStorage.getItem('computador');
+                textC = localStorage.getItem('computador');
 
-                if(scoreComputador  != null || scorePlayer != null){
+                if(textC  != null || textP != null){
                 scorePlayerInt = parseInt(scorePlayer);
                 scoreComputadorInt = parseInt(scoreComputador)
+                textP1 = this.add.text(950*2,-175*2, scorePlayerInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000' });
+		textP2 = this.add.text(950*2,-115*2,scoreComputadorInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000'});
+                }
+                else{
+                        scoreComputadorInt = 0;
+                        scorePlayerInt = 0;
+                        textP1 = this.add.text(950*2,-175*2, scorePlayerInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000' });
+		textP2 = this.add.text(950*2,-115*2,scoreComputadorInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000'});
                 }
 
-
+                
 
                 this.atualizaTabuleiro(w, h);
 
@@ -175,11 +183,35 @@ class Pvc extends Phaser.Scene {
                         }
                         
                         //Atualiza indicadores de score
-                        this.add.text(950,40,scorePlayer)
-                        this.add.text(950,100,scoreComputador)
+                        textP.text(scorePlayer)
+                        textC.text(scoreComputador)
 
+                        //Apresentar desforra
+                        
+                        
+                        this.desforraQuadro = this.add.sprite((config.width/2)*2,(config.height/2+config.height/12)*2,"infoVazio");
+                        switch(vencedor){
+                                case 1:
+                                        this.texto =  this.add.text((config.width/2)*2,(config.height/2+config.height/12)*2,[ "O jogador ganhou!","Deseja a desforra?"],{ fontFamily: 'Arial', fontSize: 64, color: '#000000' });
+
+                                case 2:
+                                        this.texto = this.add.text((config.width/2)*2,(config.height/2+config.height/12)*2,["O computador ganhou!", "Deseja a desforra?"],{ fontFamily: 'Arial', fontSize: 64, color: '#000000' });
+                        }
+
+                        //Fechar
+                        this.close = this.add.sprite(config.width/4 + config.width/24 +config.width/150, config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98,'close').setInteractive();
+                        this.close.on('pointerdown', ()=>this.scene.start("menu"));
+                        this.close.setScale(0.62*2)
+                        this.close.depth = 4
+                        
+                        //Forwards
+                        this.forward = this.add.sprite((config.width-config.width/4 - config.width/24 - config.width/150)*2, (config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98)*2, 'forward').setInteractive();
+                        this.forward.on('pointerdown', () => this.scene.start("pvc"));
+                        this.forward.setScale(0.62*2)
+                        this.forward.depth = 4  
                         
                 }
+
         }
 
         popularOponente(estado,pos,jogador) {

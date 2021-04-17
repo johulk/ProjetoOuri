@@ -30,12 +30,18 @@ var check = 0;
 casasPC = [6,7,8,9,10,11]
 casasJogador = [0,1,2,3,4,5]
 
+//PVP
 let scorePlayer1 = 1;
 let scorePlayer2 = 1;
+let textP1;
+let textP2;
 
-let scorePlayerInt = 0;
-                
-let scoreComputadorInt =0;
+//PVC
+let scorePlayer = 0;
+let scoreComputador = 0;
+
+let textP;
+let textC;
 
 
 //Variaveis Globais Pvc

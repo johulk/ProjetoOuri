@@ -24,6 +24,8 @@ class Load extends Phaser.Scene{
         for(var j = 1; j <= 6; j++){
             this.load.image('info'+j, 'img_menu/info'+j+'.png')
         }
+
+        this.load.image('infoVazio','img_menu/quadro.png')
         
         //Score
         this.load.image('jogador1Score','img_menu/player1.png')
