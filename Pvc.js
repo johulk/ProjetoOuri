@@ -75,14 +75,14 @@ class Pvc extends Phaser.Scene {
                 if(textC  != null || textP != null){
                 scorePlayerInt = parseInt(scorePlayer);
                 scoreComputadorInt = parseInt(scoreComputador)
-                textP = this.add.text(950*2,-175*2, scorePlayerInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000' });
-		textC = this.add.text(950*2,-115*2,scoreComputadorInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000'});
+                textP = this.add.text(950*2,45, scorePlayerInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000' });
+		textC = this.add.text(950*2,165,scoreComputadorInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000'});
                 }
                 else{
                         scoreComputadorInt = 0;
                         scorePlayerInt = 0;
-                textP = this.add.text(950*2,-175*2, scorePlayerInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000' });
-		textC = this.add.text(950*2,-115*2,scoreComputadorInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000'});
+                textP = this.add.text(950*2,45, scorePlayerInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000' });
+		textC = this.add.text(950*2,165,scoreComputadorInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000'});
                 }
 
                 
@@ -195,18 +195,18 @@ class Pvc extends Phaser.Scene {
                         this.desforraQuadro.setScale(1.4)
                         switch(vencedor){
                                 case 1:
-				        this.texto1 =  this.add.text(370*2,100*2,"O jogador 1 ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
-                                        this.texto2 = this.add.text(370*2,140*2,"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
+				        this.texto1 =  this.add.text(370*2,250*2,"O jogador 1 ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
+                                        this.texto2 = this.add.text(370*2,300*2,"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
                                         break;
 
 				case 2:
-				        this.texto3 =  this.add.text((config.width/2)*2,100*2,"O computador ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
-                                        this.texto4 = this.add.text(((config.width/2)*2,100*2),"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
+				        this.texto3 =  this.add.text((config.width/2)*2,250*2,"O computador ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
+                                        this.texto4 = this.add.text(((config.width/2)*2,300*2),"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
                                         break;
                         }
 
                         //Fechar
-		        this.close = this.add.sprite((config.width-config.width/4 - config.width/30 )*2,2*(config.height/2 -config.height/12 - config.height/24 - config.height/48 - config.height/64),'close').setInteractive();
+		        this.close = this.add.sprite(2*(config.width/4 + config.width/24 +config.width/150), 2*(config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98),'close').setInteractive();
 		        this.close.on('pointerdown', ()=>{scorePlayer1 = 0; scorePlayer2 = 0;this.scene.start("menu")});
 		        this.close.setScale(0.62*2)
 		        this.close.key = -1

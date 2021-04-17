@@ -40,13 +40,13 @@ class Pvp extends Phaser.Scene{
                 this.pinto4.depth = 1
 
                 //Scores
-                this.player1Score = this.add.sprite(950*2,40*2,"jogador1Score")
+                this.player1Score = this.add.sprite(950*2,30*2,"jogador1Score")
                    this.player1Score.setScale(0.5)
-                this.player2Score = this.add.sprite(950*2,100*2,"jogador2Score")
+                this.player2Score = this.add.sprite(950*2,90*2,"jogador2Score")
                    this.player2Score.setScale(0.5)
 
-        textP1 = this.add.text(950*2,80, scorePlayer1,{ fontFamily: 'Arial', fontSize: 64, color: '#000000' });
-		textP2 = this.add.text(950*2,200,scorePlayer2,{ fontFamily: 'Arial', fontSize: 64, color: '#000000'});
+        textP1 = this.add.text(950*2,45, scorePlayer1,{ fontFamily: 'Arial', fontSize: 64, color: '#000000' });
+		textP2 = this.add.text(950*2,165,scorePlayer2,{ fontFamily: 'Arial', fontSize: 64, color: '#000000'});
 
         // Inicializar
         player = 1;
@@ -130,18 +130,18 @@ class Pvp extends Phaser.Scene{
 		this.desforraQuadro.setScale(1.4)
 		switch(vencedor){
 			case 1:
-				this.texto1 =  this.add.text(370*2,100*2,"O jogador 1 ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
-				this.texto2 = this.add.text(370*2,140*2,"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
+				this.texto1 =  this.add.text(370*2,250*2,"O jogador 1 ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
+				this.texto2 = this.add.text(370*2,300*2,"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
 				break;
 
 			case 2:
-				this.texto3 =  this.add.text((config.width/2)*2,100*2,"O jogador 2 ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
-				this.texto4 = this.add.text(((config.width/2)*2,100*2),"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
+				this.texto3 =  this.add.text((config.width/2)*2,250*2,"O jogador 2 ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
+				this.texto4 = this.add.text(((config.width/2)*2,300*2),"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
 				break;
 			}
 
 		//Fechar
-		this.close = this.add.sprite((config.width-config.width/4 - config.width/30 )*2,2*(config.height/2 -config.height/12 - config.height/24 - config.height/48 - config.height/64),'close').setInteractive();
+		this.close = this.add.sprite(2*(config.width/4 + config.width/24 +config.width/150), 2*(config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98),'close').setInteractive();
 		this.close.on('pointerdown', ()=>{scorePlayer1 = 0; scorePlayer2 = 0;this.scene.start("menu")});
 		this.close.setScale(0.62*2)
 		this.close.key = -1
