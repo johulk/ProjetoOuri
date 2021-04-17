@@ -115,6 +115,7 @@ class Pvp extends Phaser.Scene{
 			}
 		}
 		//Atualiza indicadores de score
+		console.log(scorePlayer1)
 		this.add.text(950, 20, toString(scorePlayer1),{ fontFamily: 'Arial', fontSize: 64, color: '#00ff00' });
 		this.add.text(950,100,toString(scorePlayer2),{ fontFamily: 'Arial', fontSize: 64, color: '#00ff00' })
 	}
