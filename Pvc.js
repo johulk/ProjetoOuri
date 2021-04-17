@@ -59,8 +59,8 @@ class Pvc extends Phaser.Scene {
 
                 // Inicializar
                 player = 1;
-                dep1 =0;
-                dep2 = 0;
+                dep1 =6;
+                dep2 = 24;
                 check = 0;
                 state = [4,4, 4,4, 4, 4, 4, 4, 4, 4, 4, 4];
                 
@@ -326,11 +326,15 @@ class Pvc extends Phaser.Scene {
                 
 
                 var procuraJogada;
+                var melhoresJogadas;
                 for (procuraJogada = 0; procuraJogada < arvore.descendants.length; procuraJogada++) {
                         if (arvore.descendants[procuraJogada].valor == melhorValorFinal) {
-                                return arvore.descendants[procuraJogada].root;
+                                melhoresJogadas.push(arvore.descendants[procuraJogada].root)
                         }
                 }
+                var jogadaFinal = melhoresJogadas[Math.floor(Math.random() * melhoresJogadas.length)];
+
+                return jogadaFinal
         }
         
 
@@ -450,7 +454,6 @@ class Pvc extends Phaser.Scene {
 
         dificil() {
                 let copiaestado = [...state];
-                //
 
                 let arvore = this.construirArvore(copiaestado,8);
  
@@ -460,12 +463,15 @@ class Pvc extends Phaser.Scene {
                 
 
                 var procuraJogada;
+                var melhoresJogadas;
                 for (procuraJogada = 0; procuraJogada < arvore.descendants.length; procuraJogada++) {
                         if (arvore.descendants[procuraJogada].valor == melhorValorFinal) {
-                                return arvore.descendants[procuraJogada].root;
+                                melhoresJogadas.push(arvore.descendants[procuraJogada].root)
                         }
                 }
+                var jogadaFinal = melhoresJogadas[Math.floor(Math.random() * melhoresJogadas.length)];
 
+                return jogadaFinal
         };
 
 
