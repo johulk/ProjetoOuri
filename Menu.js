@@ -37,6 +37,8 @@ class Menu extends Phaser.Scene{
         this.pinto1.setScale(0.5)
         this.pinto1.depth = 1
 
+        
+
 
 
         //Ovos

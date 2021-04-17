@@ -34,6 +34,22 @@ class Pvc extends Phaser.Scene {
                 this.home.on('pointerdown', () => this.clickMenu());
 		this.home.setScale(0.75)
 
+                this.ouri = this.add.sprite(50, 50, 'ouri');
+                this.ouri.setScale(.5)
+                this.ouri.depth = 2
+
+                //Pintainho 1
+                this.pinto1 = this.add.sprite(950, 300,'pinto_1')
+                this.pinto1.setScale(0.5)
+                this.pinto1.depth = 1
+
+
+                //Pintainho 4
+                this.pinto4 = this.add.sprite(50,300,'pinto_4')
+                this.pinto4.setScale(0.5)
+                this.pinto4.flipX = true
+                this.pinto4.depth = 1
+
 
                 // Inicializar
                 player = 1;
@@ -490,6 +506,7 @@ class Pvc extends Phaser.Scene {
         atualizaTabuleiro(w, h) {
                 // Adiciona o Tabuleiro
                 this.tabuleiro = this.add.sprite(w / 2, h / 2, 'tabuleiro');
+                this.tabuleiro.setScale(1.03)
 
                 // Coordenadas das imagens dos ovos
                 let coords = [w / 2 - 173, 2 * h / 3 - 46, w / 2 - 107, 2 * h / 3 - 12, w / 2 - 35, 2 * h / 3, w / 2 + 35, 2 * h / 3, w / 2 + 107, 2 * h / 3 - 12,
