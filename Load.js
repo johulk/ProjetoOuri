@@ -25,8 +25,10 @@ class Load extends Phaser.Scene{
             this.load.image('info'+j, 'img_menu/info'+j+'.png')
         }
         
-
-
+        //Score
+        this.load.image('jogador1Score','img_menu/player1.png')
+        this.load.image('jogador2Score','img_menu/player2.png')
+        this.load.image('computadorScore','img_menu/computerpl.png')
 
         //Buttons
         this.load.image('players', 'img_menu/button_2players.png');

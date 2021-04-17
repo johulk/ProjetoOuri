@@ -51,6 +51,9 @@ class Pvc extends Phaser.Scene {
                 this.pinto4.flipX = true
                 this.pinto4.depth = 1
 
+                //Scores
+                this.playerScore = this.add.sprite(1000,20,"jogador1Score")
+                this.computadorScore = this.add.sprite(1000,80,"computadorScore")
 
                 // Inicializar
                 player = 1;
@@ -59,6 +62,10 @@ class Pvc extends Phaser.Scene {
                 check = 0;
                 state = [28,28, 28,28, 28, 28, 28, 28, 28, 28, 28, 28];
                 
+
+
+
+
                 this.atualizaTabuleiro(w, h);
 
 

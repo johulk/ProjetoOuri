@@ -6,19 +6,38 @@ class Pvp extends Phaser.Scene{
 
 	create() {
 		var w = config.width;
-        var h = config.height;
-		this.scale.lockOrientation('landscape')
-        // User Interface
-        this.background = this.add.sprite(w/2, h/2, "background_2");
-        this.background.setScale(0.8);
-		this.background.displayWidth = 1024;
-        this.background.displayHeight = 600;
+                var h = config.height;
+                this.scale.lockOrientation('landscape')
+                // User Interface
+                this.background = this.add.sprite(w / 2, h / 2, "background_2");
+                this.background.displayWidth = 1024;
+                this.background.displayHeight = 600;
 
-        this.home = this.add.sprite(35, 566 , 'home').setInteractive();
-        this.home.key = -1;
-        this.home.on('pointerdown', () => this.clickMenu());
+                this.home = this.add.sprite(35, 566 , 'home').setInteractive();
+                this.home.key = -1;
+                this.home.on('pointerdown', () => this.clickMenu());
 		this.home.setScale(0.75)
 
+                this.ouri = this.add.sprite(150, 55, 'ouri');
+                this.ouri.displayHeight = 88
+                this.ouri.displayWidth = 257
+                this.ouri.depth = 2
+
+                //Pintainho 1
+                this.pinto1 = this.add.sprite(910, 290,'pinto_1')
+                this.pinto1.setScale(0.5)
+                this.pinto1.depth = 1
+
+
+                //Pintainho 4
+                this.pinto4 = this.add.sprite(110,290,'pinto_4')
+                this.pinto4.setScale(0.5)
+                this.pinto4.flipX = true
+                this.pinto4.depth = 1
+
+                //Scores
+                this.player1Score = this.add.sprite(1000,20,"jogador1Score")
+                this.player2Score = this.add.sprite(1000,80,"jogador2Score")
 
         // Inicializar
         player = 1;
@@ -242,20 +261,21 @@ class Pvp extends Phaser.Scene{
 	
 		
 	//Atualiza as imagens dos tabuleiros
-	atualizaTabuleiro(w,h){
+	atualizaTabuleiro(w, h) {
 		// Adiciona o Tabuleiro
-		this.tabuleiro = this.add.sprite(w/2, h/2 , 'tabuleiro');
+		this.tabuleiro = this.add.sprite(w / 2, h / 2, 'tabuleiro');
+		this.tabuleiro.setScale(1.03)
 
 		// Coordenadas das imagens dos ovos
-		let coords = [w / 2 - 173, 2 * h / 3 - 46, w / 2 - 107, 2 * h / 3 - 12, w / 2 - 35, 2 * h / 3, w / 2 + 35, 2 * h / 3, w / 2 + 107, 2 * h / 3 - 12,
-			w / 2 + 173, 2 * h / 3 - 46, w / 2 + 173, h / 3 + 48, w / 2 + 107, h / 3 + 17, w / 2 + 35, h / 3 + 5, w / 2 - 35, h / 3 + 5, w / 2 - 107, h / 3 + 17, w / 2 - 173, h / 3 + 48];
-		
+		let coords = [331, 356, 401, 388, 475, 400,548, 400,623,386,693, 356, 
+						693, 245, 623,213, 548,200, 475, 200, 401, 211, 331, 244];
+
 		// Adiciona as imagens dos ovos
-		for(var i = 0; i < 12; i++){
-			this.numero = this.add.sprite(coords[2*i]-2,coords[2*i+1]-2, 'i'+state[i]).setScale(0.25).setInteractive();
-			this.numero.key = i;
+		for (var i = 0; i < 12; i++) {
+				this.numero = this.add.sprite(coords[2 * i], coords[2 * i + 1], 'i' + state[i]).setScale(0.25).setInteractive();
+				this.numero.key = i;
 		}
-	}
+}
 
 	clickMenu(){
         console.log('Menu');
