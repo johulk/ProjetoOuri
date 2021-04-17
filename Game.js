@@ -5,16 +5,15 @@ var config = {
     type: Phaser.CANVAS,
     width: 1024,
     height: 600,
-    resolution: window.devicePixelRatio,
-    backgroundColor: 0x000000,
+    dom: {
+        createContainer: true
+    },
     pixelArt: false,
     antialias: true,
     scene: [Load, Menu, Pvp, Pvc, Dificuldade],
     scale: {
         mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: 1024,
-        height: 600
+        autoCenter: Phaser.Scale.CENTER_BOTH
     }
     
 }
