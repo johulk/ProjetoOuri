@@ -3,9 +3,8 @@ let DEFAULT_HEIGHT = 600
 
 var config = {
     type: Phaser.CANVAS,
-    width: 1024,
-    height: 600,
-    resolution: window.devicePixelRatio,
+    width: DEFAULT_WIDTH,
+    height: DEFAULT_HEIGHT,
     backgroundColor: 0x000000,
     pixelArt: false,
     antialias: true,
@@ -13,8 +12,8 @@ var config = {
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: 1024,
-        height: 600
+        width: DEFAULT_HEIGHT*2,
+        height: DEFAULT_HEIGHT*2
     }
     
 }
