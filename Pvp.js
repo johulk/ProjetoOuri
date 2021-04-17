@@ -118,7 +118,7 @@ class Pvp extends Phaser.Scene{
 			}
 			
 			//Atualiza indicadores de score
-			let textoJogador1 =this.add.text(950,40,ASDASDASDASDASD,{ fontFamily: 'Arial', fontSize: 64, color: '#00ff00' })
+			let textoJogador1 =this.add.text(950,40,"ASDASDASDASDASD",{ fontFamily: 'Arial', fontSize: 64, color: '#00ff00' })
 			textoJogador1.depth = 4
 			let textoJogador2 =this.add.text(950,100,toString(scorePlayer2),{ fontFamily: 'Arial', fontSize: 64, color: '#00ff00' })
 			textoJogador2.depth = 4
