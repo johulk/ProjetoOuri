@@ -34,18 +34,18 @@ class Pvc extends Phaser.Scene {
                 this.home.on('pointerdown', () => this.clickMenu());
 		this.home.setScale(0.75)
 
-                this.ouri = this.add.sprite(123, 55, 'ouri');
+                this.ouri = this.add.sprite(150, 55, 'ouri');
                 this.ouri.setScale(.5)
                 this.ouri.depth = 2
 
                 //Pintainho 1
-                this.pinto1 = this.add.sprite(910, 310,'pinto_1')
+                this.pinto1 = this.add.sprite(910, 290,'pinto_1')
                 this.pinto1.setScale(0.5)
                 this.pinto1.depth = 1
 
 
                 //Pintainho 4
-                this.pinto4 = this.add.sprite(110,310,'pinto_4')
+                this.pinto4 = this.add.sprite(110,290,'pinto_4')
                 this.pinto4.setScale(0.5)
                 this.pinto4.flipX = true
                 this.pinto4.depth = 1
