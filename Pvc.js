@@ -507,7 +507,7 @@ class Pvc extends Phaser.Scene {
         atualizaTabuleiro(w, h) {
                 // Adiciona o Tabuleiro
                 this.tabuleiro = this.add.sprite(w / 2, h / 2, 'tabuleiro');
-                this.tabuleiro.setScale(1.03)
+                this.tabuleiro.setScale(1.08)
 
                 // Coordenadas das imagens dos ovos
                 let coords = [331, 356, 401, 388, 475, 400,548, 400,623,386,693, 356, 
