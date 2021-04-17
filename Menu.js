@@ -17,7 +17,7 @@ class Menu extends Phaser.Scene{
 
         //Titulo
         this.ouri = this.add.sprite(w/2, h/12, 'ouri');
-        this.ouri.setScale(.5)
+        //this.ouri.setScale()
         this.ouri.depth = 2
 
         //Pintainho 3
