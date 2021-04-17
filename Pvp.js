@@ -127,6 +127,7 @@ class Pvp extends Phaser.Scene{
                         
                         
 		this.desforraQuadro = this.add.sprite((config.width/2)*2,(config.height/2+config.height/12)*2,"infoVazio");
+		this.desforraQuadro.setScale(1.4)
 		switch(vencedor){
 			case 1:
 				this.texto1 =  this.add.text(370*2,100*2,"O jogador 1 ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
@@ -140,7 +141,7 @@ class Pvp extends Phaser.Scene{
 			}
 
 		//Fechar
-		this.close = this.add.sprite(config.width/4 + config.width/24 +config.width/150, config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98,'close').setInteractive();
+		this.close = this.add.sprite((config.width-config.width/4 - config.width/30 )*2,2*(config.height/2 -config.height/12 - config.height/24 - config.height/48 - config.height/64),'close').setInteractive();
 		this.close.on('pointerdown', ()=>{scorePlayer1 = 0; scorePlayer2 = 0;this.scene.start("menu")});
 		this.close.setScale(0.62*2)
 		this.close.key = -1
