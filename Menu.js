@@ -117,15 +117,16 @@ class Menu extends Phaser.Scene{
         this.forward.setScale(0.62*2)
         this.forward.depth = 4  
         //Backwards
-        this.back = this.add.sprite(config.width/4 + config.width/24 +config.width/150, config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98, 'back').setInteractive();
+        this.back = this.add.sprite(2*(config.width/4 + config.width/24 +config.width/150), 2*(config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98), 'back').setInteractive();
         this.back.on('pointerdown', () => this.counterInfo(counter-1));
         this.back.setScale(0.62*2)
         this.back.depth = 4
         //Fechar
-        this.close = this.add.sprite(config.width-config.width/4 - config.width/24 - config.width/240 + config.width/64,config.height/2 -config.height/12 - config.height/24 - config.height/48 - config.height/64,'close').setInteractive();
+        this.close = this.add.sprite((config.width-config.width/4 - config.width/30 )*2,2*(config.height/2 -config.height/12 - config.height/24 - config.height/48 - config.height/64),'close').setInteractive();
         this.close.on('pointerdown', ()=>this.scene.start("menu"));
         this.close.setScale(0.62*2)
         this.close.depth = 4
+        
 
     }
     clickCreditos(){
@@ -143,16 +144,16 @@ class Menu extends Phaser.Scene{
         this.informacoes.depth = 1  
         //Forwards
         this.forward = this.add.sprite((config.width-config.width/4 - config.width/24 - config.width/150)*2, (config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98)*2, 'forward').setInteractive();
-        this.forward.on('pointerdown', () => this.counterInfo(counter+1));
+        this.forward.on('pointerdown', () => this.counterInfo(contador+1));
         this.forward.setScale(0.62*2)
         this.forward.depth = 4  
         //Backwards
-        this.back = this.add.sprite(config.width/4 + config.width/24 +config.width/150, config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98, 'back').setInteractive();
-        this.back.on('pointerdown', () => this.counterInfo(counter-1));
+        this.back = this.add.sprite(2*(config.width/4 + config.width/24 +config.width/150), 2*(config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98), 'back').setInteractive();
+        this.back.on('pointerdown', () => this.counterInfo(contador-1));
         this.back.setScale(0.62*2)
         this.back.depth = 4
-        //Fechar
-        this.close = this.add.sprite(config.width-config.width/4 - config.width/24 - config.width/240 + config.width/64,config.height/2 -config.height/12 - config.height/24 - config.height/48 - config.height/64,'close').setInteractive();
+         //Fechar
+        this.close = this.add.sprite((config.width-config.width/4 - config.width/30 )*2,2*(config.height/2 -config.height/12 - config.height/24 - config.height/48 - config.height/64),'close').setInteractive();
         this.close.on('pointerdown', ()=>this.scene.start("menu"));
         this.close.setScale(0.62*2)
         this.close.depth = 4

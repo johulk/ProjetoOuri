@@ -194,17 +194,22 @@ class Pvc extends Phaser.Scene {
                         this.desforraQuadro = this.add.sprite((config.width/2)*2,(config.height/2+config.height/12)*2,"infoVazio");
                         switch(vencedor){
                                 case 1:
-                                        this.texto =  this.add.text((config.width/2)*2,(config.height/2+config.height/12)*2,[ "O jogador ganhou!","Deseja a desforra?"],{ fontFamily: 'Arial', fontSize: 64, color: '#000000' });
+				        this.texto1 =  this.add.text(370*2,100*2,"O jogador 1 ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
+                                        this.texto2 = this.add.text(370*2,140*2,"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
+                                        break;
 
-                                case 2:
-                                        this.texto = this.add.text((config.width/2)*2,(config.height/2+config.height/12)*2,["O computador ganhou!", "Deseja a desforra?"],{ fontFamily: 'Arial', fontSize: 64, color: '#000000' });
+				case 2:
+				        this.texto3 =  this.add.text((config.width/2)*2,100*2,"O computador ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
+                                        this.texto4 = this.add.text(((config.width/2)*2,100*2),"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
+                                        break;
                         }
 
                         //Fechar
-                        this.close = this.add.sprite(config.width/4 + config.width/24 +config.width/150, config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98,'close').setInteractive();
-                        this.close.on('pointerdown', ()=>this.scene.start("menu"));
-                        this.close.setScale(0.62*2)
-                        this.close.depth = 4
+		        this.close = this.add.sprite(config.width/4 + config.width/24 +config.width/150, config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98,'close').setInteractive();
+		        this.close.on('pointerdown', ()=>{scorePlayer1 = 0; scorePlayer2 = 0;this.scene.start("menu")});
+		        this.close.setScale(0.62*2)
+		        this.close.key = -1
+		        this.close.depth = 4
                         
                         //Forwards
                         this.forward = this.add.sprite((config.width-config.width/4 - config.width/24 - config.width/150)*2, (config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98)*2, 'forward').setInteractive();
