@@ -40,7 +40,7 @@ class Pvc extends Phaser.Scene {
                 dep1 =0;
                 dep2 = 0;
                 check = 0;
-                state = [0, 1, 2,3, 4, 5, 6, 7, 8, 9, 10, 11];
+                state = [0, 1, 2,3, 4, 5, 6, 7, 8, 9, 10, 28];
                 
                 this.atualizaTabuleiro(w, h);
 
@@ -497,7 +497,7 @@ class Pvc extends Phaser.Scene {
 
                 // Adiciona as imagens dos ovos
                 for (var i = 0; i < 12; i++) {
-                        this.numero = this.add.sprite(coords[2 * i], coords[2 * i + 1], 'i' + state[i]).setScale(0.2).setInteractive();
+                        this.numero = this.add.sprite(coords[2 * i], coords[2 * i + 1], 'i' + state[i]).setScale(0.25).setInteractive();
                         this.numero.key = i;
                 }
         }
