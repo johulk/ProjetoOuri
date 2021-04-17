@@ -35,9 +35,8 @@ class Pvc extends Phaser.Scene {
 		this.home.setScale(0.75)
 
                 this.ouri = this.add.sprite(150, 55, 'ouri');
-                //this.ouri.setScale(.5)
                 this.ouri.displayHeight = 88
-                this.ouri.displayWidth = 258
+                this.ouri.displayWidth = 257
                 this.ouri.depth = 2
 
                 //Pintainho 1
