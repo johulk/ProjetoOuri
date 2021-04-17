@@ -40,7 +40,7 @@ class Pvc extends Phaser.Scene {
                 dep1 =0;
                 dep2 = 0;
                 check = 0;
-                state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
+                state = [0, 1, 2,3, 4, 5, 6, 7, 8, 9, 10, 11];
                 
                 this.atualizaTabuleiro(w, h);
 
