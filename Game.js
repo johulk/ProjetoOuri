@@ -12,7 +12,7 @@ var config = {
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: DEFAULT_HEIGHT*2,
+        width: DEFAULT_WIDTH*2,
         height: DEFAULT_HEIGHT*2
     }
     
