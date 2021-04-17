@@ -11,7 +11,7 @@ var config = {
     scene: [Load, Menu, Pvp, Pvc, Dificuldade],
     scale: {
         mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH,
+        //autoCenter: Phaser.Scale.CENTER_BOTH,
         width: DEFAULT_WIDTH*2,
         height: DEFAULT_HEIGHT*2
     }
