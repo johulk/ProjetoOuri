@@ -252,7 +252,7 @@ class Pvp extends Phaser.Scene{
 		
 		// Adiciona as imagens dos ovos
 		for(var i = 0; i < 12; i++){
-			this.numero = this.add.sprite(coords[2*i],coords[2*i+1], 'i'+state[i]).setScale(0.25).setInteractive();
+			this.numero = this.add.sprite(coords[2*i]-2,coords[2*i+1]-2, 'i'+state[i]).setScale(0.25).setInteractive();
 			this.numero.key = i;
 		}
 	}
