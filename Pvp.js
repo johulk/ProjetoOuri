@@ -108,7 +108,19 @@ class Pvp extends Phaser.Scene{
 
 		if (check == 1) {
 				var vencedor = this.terminar()
-				console.log("player " + vencedor + " wins")
+				if (vencedor == 1){
+					scorePlayer1 += 1;
+			}
+			if (vencedor == 2){
+					scoreComputador2 += 1;
+					
+					
+			}
+			
+			//Atualiza indicadores de score
+			this.add.text(950,40,toString(scorePlayer1))
+			this.add.text(950,100,toString(scorePlayer2))
+
 		}
 	}
 
