@@ -497,7 +497,7 @@ class Pvc extends Phaser.Scene {
 
                 // Adiciona as imagens dos ovos
                 for (var i = 0; i < 12; i++) {
-                        this.numero = this.add.sprite(coords[2 * i], coords[2 * i + 1], 'i' + state[i]).setScale(0.3).setInteractive();
+                        this.numero = this.add.sprite(coords[2 * i], coords[2 * i + 1], 'i' + state[i]).setScale(0.2).setInteractive();
                         this.numero.key = i;
                 }
         }
