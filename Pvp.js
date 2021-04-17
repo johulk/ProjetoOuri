@@ -113,15 +113,15 @@ class Pvp extends Phaser.Scene{
 		if (check == 1) {
 				var vencedor = this.terminar()
 				if (vencedor == 1){
-					scorePlayer1 += 1;
+					scorePlayer1 = scorePlayer1 + 1;
 			}
 			if (vencedor == 2){
-					scorePlayer2 += 1;
+					scorePlayer2 = scorePlayer2 + 1;
 					
 					
 			}
-			textP1.text(scorePlayer1);
-		textP2.text(scorePlayer2);
+		textP1.text =scorePlayer1;
+		textP2.text = scorePlayer2;
 
 		//Apresentar desforra
                         
@@ -139,12 +139,14 @@ class Pvp extends Phaser.Scene{
 		this.close = this.add.sprite(config.width/4 + config.width/24 +config.width/150, config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98,'close').setInteractive();
 		this.close.on('pointerdown', ()=>this.scene.start("menu"));
 		this.close.setScale(0.62*2)
+		this.close.key = -1
 		this.close.depth = 4
 		
 		//Forwards
 		this.forward = this.add.sprite((config.width-config.width/4 - config.width/24 - config.width/150)*2, (config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98)*2, 'forward').setInteractive();
 		this.forward.on('pointerdown', () => this.scene.start("pvp"));
 		this.forward.setScale(0.62*2)
+        this.forward.key = -1
 		this.forward.depth = 4  
 		}
 		//Atualiza indicadores de score
