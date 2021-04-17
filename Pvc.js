@@ -511,7 +511,7 @@ class Pvc extends Phaser.Scene {
 
                 // Coordenadas das imagens dos ovos
                 let coords = [330, 356, 400, 386, 475, 400,560, 400,620,386,690, 356, 
-                                690, 250, 620,213, 550,200, 475, 200, 400, 213, 330, 250];
+                                690, 245, 620,213, 550,200, 475, 200, 400, 213, 330, 245];
 
                 // Adiciona as imagens dos ovos
                 for (var i = 0; i < 12; i++) {
