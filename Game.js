@@ -37,8 +37,8 @@ let scorePlayer2 = 1;
 
 
 //PVC
-let scorePlayer = 0;
-let scoreComputador = 0;
+let scorePlayerInt = 0;
+let scoreComputadorInt = 0;
 
 
 
