@@ -21,6 +21,7 @@ class Pvc extends Phaser.Scene {
         }
 
         create() {
+
                 var w = config.width;
                 var h = config.height;
                 this.scale.lockOrientation('landscape')
@@ -59,12 +60,19 @@ class Pvc extends Phaser.Scene {
 
                 // Inicializar
                 player = 1;
-                dep1 =6;
-                dep2 = 24;
+                dep1 =0;
+                dep2 = 0;
                 check = 0;
                 state = [4,4, 4,4, 4, 4, 4, 4, 4, 4, 4, 4];
                 
-
+                
+                let scorePlayer = localStorage.getItem('jogador');
+                
+                let scoreComputador = localStorage.getItem('computador');
+                if(scoreComputador  != null || scorePlayer != null){
+                let scorePlayerInt = parseInt(scorePlayer);
+                let scoreComputadorInt = parseInt(scoreComputador)
+                }
 
 
 
@@ -153,7 +161,23 @@ class Pvc extends Phaser.Scene {
                 
                 if (check == 1) {
                         var vencedor = this.terminar()
-                        console.log("player " + vencedor + " wins")
+                        //console.log("player " + vencedor + " wins")
+                        if (vencedor == 1){
+                                scorePlayerInt += 1;
+                                scorePlayer = toString(scorePlayerInt)
+                                localStorage.setItem('jogador',scorePlayer)
+                        }
+                        if (vencedor == 2){
+                                scoreComputadorInt += 1;
+                                scoreComputador = toString(scoreComputadorInt)
+                                localStorage.setItem('computador',scoreComputador)
+                        }
+                        
+                        //Atualiza indicadores de score
+                        this.add.text(950,40,scorePlayer)
+                        this.add.text(950,100,scoreComputador)
+
+                        
                 }
         }
 

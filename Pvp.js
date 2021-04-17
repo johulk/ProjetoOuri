@@ -48,6 +48,11 @@ class Pvp extends Phaser.Scene{
         check = 0;       
 		state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
 	    this.atualizaTabuleiro(w,h);
+
+		let scorePlayer1 = 0;
+		let scorePlayer2 = 0;
+		
+
 	    
 	    this.input.on('gameobjectdown', this.jogada,this);
 
