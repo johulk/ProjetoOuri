@@ -1,3 +1,7 @@
+let textP1;
+let textP2;
+
+
 class Pvp extends Phaser.Scene{
 	constructor(){
 		super("pvp");

@@ -12,6 +12,8 @@ function TreeNode() {
 
 }
 
+let textP;
+let textC;
 
 
 
@@ -73,14 +75,14 @@ class Pvc extends Phaser.Scene {
                 if(textC  != null || textP != null){
                 scorePlayerInt = parseInt(scorePlayer);
                 scoreComputadorInt = parseInt(scoreComputador)
-                textP1 = this.add.text(950*2,-175*2, scorePlayerInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000' });
-		textP2 = this.add.text(950*2,-115*2,scoreComputadorInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000'});
+                textP = this.add.text(950*2,-175*2, scorePlayerInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000' });
+		textC = this.add.text(950*2,-115*2,scoreComputadorInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000'});
                 }
                 else{
                         scoreComputadorInt = 0;
                         scorePlayerInt = 0;
-                        textP1 = this.add.text(950*2,-175*2, scorePlayerInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000' });
-		textP2 = this.add.text(950*2,-115*2,scoreComputadorInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000'});
+                textP = this.add.text(950*2,-175*2, scorePlayerInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000' });
+		textC = this.add.text(950*2,-115*2,scoreComputadorInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000'});
                 }
 
                 
