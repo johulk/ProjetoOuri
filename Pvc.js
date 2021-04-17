@@ -175,12 +175,12 @@ class Pvc extends Phaser.Scene {
                         //console.log("player " + vencedor + " wins")
                         if (vencedor == 1){
                                 scorePlayerInt += 1;
-                                scorePlayer = toString(scorePlayerInt)
+                                scorePlayer = (""+scorePlayerInt)
                                 localStorage.setItem('jogador',scorePlayer)
                         }
                         if (vencedor == 2){
                                 scoreComputadorInt += 1;
-                                scoreComputador = toString(scoreComputadorInt)
+                                scoreComputador = (""+scoreComputadorInt)
                                 localStorage.setItem('computador',scoreComputador)
                         }
                         
