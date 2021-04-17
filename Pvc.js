@@ -53,9 +53,9 @@ class Pvc extends Phaser.Scene {
 
                 //Scores
                 this.playerScore = this.add.sprite(950,20,"jogador1Score")
-                this.playerScore.scale(0.2)
+                this.playerScore.setScale(0.2)
                 this.computadorScore = this.add.sprite(950,80,"computadorScore")
-                this.computadorScore.scale(0.2)
+                this.computadorScore.setScale(0.2)
 
                 // Inicializar
                 player = 1;
