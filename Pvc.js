@@ -22,41 +22,41 @@ class Pvc extends Phaser.Scene {
 
         create() {
 
-                var w = config.width;
                 var h = config.height;
+                var w = config.width
                 this.scale.lockOrientation('landscape')
                 // User Interface
-                this.background = this.add.sprite(w / 2, h / 2, "background_2");
-                this.background.displayWidth = 1024;
-                this.background.displayHeight = 600;
+                this.background = this.add.sprite(w, h, "background_2");
+                this.background.displayWidth = 1024*2;
+                this.background.displayHeight = 600*2;
 
-                this.home = this.add.sprite(35, 566 , 'home').setInteractive();
+                this.home = this.add.sprite(35*2, 566*2 , 'home').setInteractive();
                 this.home.key = -1;
                 this.home.on('pointerdown', () => this.clickMenu());
-		this.home.setScale(0.75)
+		        //this.home.setScale(0.75)
 
-                this.ouri = this.add.sprite(150, 55, 'ouri');
-                this.ouri.displayHeight = 88
-                this.ouri.displayWidth = 257
+                this.ouri = this.add.sprite(150*2, 55*2, 'ouri');
+               // this.ouri.displayHeight = 
+                //this.ouri.displayWidth = 
                 this.ouri.depth = 2
 
                 //Pintainho 1
-                this.pinto1 = this.add.sprite(910, 290,'pinto_1')
-                this.pinto1.setScale(0.5)
+                this.pinto1 = this.add.sprite(910*2, 290*2,'pinto_1')
+                //this.pinto1.setScale(0.5)
                 this.pinto1.depth = 1
 
 
                 //Pintainho 4
-                this.pinto4 = this.add.sprite(110,290,'pinto_4')
-                this.pinto4.setScale(0.5)
+                this.pinto4 = this.add.sprite(110*2,290*2,'pinto_4')
+                //this.pinto4.setScale(0.5)
                 this.pinto4.flipX = true
                 this.pinto4.depth = 1
 
                 //Scores
-                this.playerScore = this.add.sprite(950,40,"jogador1Score")
-                this.playerScore.setScale(0.25)
-                this.computadorScore = this.add.sprite(950,100,"computadorScore")
-                this.computadorScore.setScale(0.25)
+                this.playerScore = this.add.sprite(950*2,40*2,"jogador1Score")
+                this.playerScore.setScale(0.50)
+                this.computadorScore = this.add.sprite(950*2,100*2,"computadorScore")
+                this.computadorScore.setScale(0.50)
 
                 // Inicializar
                 player = 1;
@@ -544,25 +544,25 @@ class Pvc extends Phaser.Scene {
 
 
         //Atualiza as imagens dos tabuleiros
-        atualizaTabuleiro(w, h) {
-                // Adiciona o Tabuleiro
-                this.tabuleiro = this.add.sprite(w / 2, h / 2, 'tabuleiro');
-                this.tabuleiro.setScale(1.03)
+	atualizaTabuleiro(w, h) {
+		// Adiciona o Tabuleiro
+		this.tabuleiro = this.add.sprite(w, h, 'tabuleiro');
+		this.tabuleiro.setScale(2)
 
-                // Coordenadas das imagens dos ovos
-                let coords = [331, 356, 401, 388, 475, 400,548, 400,623,386,693, 356, 
-                                693, 245, 623,213, 548,200, 475, 200, 401, 211, 331, 244];
+		// Coordenadas das imagens dos ovos
+		let coords = [331, 356, 401, 388, 475, 400,548, 400,623,386,693, 356, 
+						693, 245, 623,213, 548,200, 475, 200, 401, 211, 331, 244];
 
-                // Adiciona as imagens dos ovos
-                for (var i = 0; i < 12; i++) {
-                        this.numero = this.add.sprite(coords[2 * i], coords[2 * i + 1], 'i' + state[i]).setScale(0.25).setInteractive();
-                        this.numero.key = i;
-                }
-
-                //Adiciona os ovos aos depositos
-                this.numeroDep1 = this.add.sprite(240,300,'i'+dep1).setScale(0.3)
-                this.numeroDep2 = this.add.sprite(790,300,'i'+dep2).setScale(0.3)
-        }
+		// Adiciona as imagens dos ovos
+		for (var i = 0; i < 12; i++) {
+				this.numero = this.add.sprite(coords[2 * i]*2, coords[2 * i + 1]*2, 'i' + state[i]).setScale(0.5).setInteractive();
+				this.numero.key = i;
+		}
+		
+            //Adiciona os ovos aos depositos
+            this.numeroDep1 = this.add.sprite(240*2,300*2,'i'+dep1).setScale(0.6)
+            this.numeroDep2 = this.add.sprite(790*2,300*2,'i'+dep2).setScale(0.6)
+}
 
         clickMenu() {
                 console.log('Menu');

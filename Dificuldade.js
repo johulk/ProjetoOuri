@@ -7,7 +7,9 @@ class Dificuldade extends Phaser.Scene{
         var w = config.width 
         var h = config.height
         this.scale.lockOrientation('landscape')
-        this.background = this.add.sprite(w/2, h/2, "background");
+        this.background = this.add.sprite(w, h, "background");
+        this.background.displayWidth = w*2
+        this.background.displayHeight = h*2
         //this.background.setOrigin(0,0);
        
 
@@ -16,21 +18,23 @@ class Dificuldade extends Phaser.Scene{
         // Buttons
         
         
-        this.computer = this.add.sprite(w/2, h/2 -200, 'easy').setInteractive();
-        this.computer.on('pointerdown', () => this.clickEasy());
+        this.easy = this.add.sprite(w, h -400, 'easy').setInteractive();
+        this.easy.on('pointerdown', () => this.clickEasy());
+        this.easy.setScale(2)
 
 
-        this.players = this.add.sprite(w/2, h/2+h/6 - 200 , 'medium').setInteractive();
-        this.players.on('pointerdown', () => this.clickMedium());
+        this.medium = this.add.sprite(w, h+h/3 - 400 , 'medium').setInteractive();
+        this.medium.on('pointerdown', () => this.clickMedium());
+        this.medium.setScale(2)
 
+        this.hard = this.add.sprite(w, h*2-200 -400, 'hard').setInteractive();
+        this.hard.on('pointerdown', () => this.clickHard());
+        this.hard.setScale(2)
 
-        this.info = this.add.sprite(w/2, h-100 -200, 'hard').setInteractive();
-        this.info.on('pointerdown', () => this.clickHard());
-
-
-        this.home = this.add.sprite(w / 18, h - w / 18, 'home').setInteractive();
+        this.home = this.add.sprite((w / 18)*2, (h - w / 18)*2, 'home').setInteractive();
                 this.home.key = -1;
                 this.home.on('pointerdown', () => this.clickMenu());
+        this.home.setScale(2)
         
     }
 
