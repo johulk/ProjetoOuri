@@ -282,12 +282,12 @@ class Pvp extends Phaser.Scene{
 		this.tabuleiro.setScale(2)
 
 		// Coordenadas das imagens dos ovos
-		let coords = [331, 356, 401, 388, 475, 400,548, 400,623,386,693, 356, 
-						693, 245, 623,213, 548,200, 475, 200, 401, 211, 331, 244];
+		let coords = [337, 355, 405, 385, 476, 398,548, 398,620,386,689, 356, 
+			689, 246, 620,215, 548,205, 476, 205, 405, 215, 337, 246];
 
 		// Adiciona as imagens dos ovos
 		for (var i = 0; i < 12; i++) {
-				this.numero = this.add.sprite(coords[2 * i]*2, coords[2 * i + 1]*2, 'i' + state[i]).setScale(0.5).setInteractive();
+				this.numero = this.add.sprite(coords[2 * i]*2, coords[2 * i + 1]*2, 'i' + state[i]).setScale(0.45).setInteractive();
 				this.numero.key = i;
 		}
 		
