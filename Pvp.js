@@ -118,8 +118,10 @@ class Pvp extends Phaser.Scene{
 			}
 			
 			//Atualiza indicadores de score
-			this.add.text(950,40,toString(scorePlayer1))
-			this.add.text(950,100,toString(scorePlayer2))
+			let textoJogador1 =this.add.text(950,40,toString(scorePlayer1))
+			textoJogador1.depth = 4
+			let textoJogador2 =this.add.text(950,100,toString(scorePlayer2))
+			textoJogador2.depth = 4
 
 		}
 	}
