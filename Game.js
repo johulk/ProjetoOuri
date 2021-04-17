@@ -2,11 +2,12 @@ let DEFAULT_WIDTH = 1024
 let DEFAULT_HEIGHT = 600
 
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 1024,
     height: 600,
     resolution: window.devicePixelRatio,
     backgroundColor: 0x000000,
+    pixelArt: false,
     antialias: true,
     scene: [Load, Menu, Pvp, Pvc, Dificuldade],
     scale: {
@@ -17,9 +18,7 @@ var config = {
     }
     
 }
-var canvas = document.getElementsByTagName('canvas')[0];
-canvas.width  = 1024;
-canvas.height = 600;
+
 var game = new Phaser.Game(config);
 
 // Variaveis Globais Pvp
