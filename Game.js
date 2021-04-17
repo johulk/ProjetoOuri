@@ -7,8 +7,7 @@ var config = {
     height: 600,
     resolution: window.devicePixelRatio,
     backgroundColor: 0x000000,
-    pixelArt: false,
-    antialias: false,
+    antialias: true,
     scene: [Load, Menu, Pvp, Pvc, Dificuldade],
     scale: {
         mode: Phaser.Scale.FIT,
