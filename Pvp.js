@@ -36,10 +36,10 @@ class Pvp extends Phaser.Scene{
                 this.pinto4.depth = 1
 
                 //Scores
-                this.playerScore = this.add.sprite(950,40,"jogador1Score")
-                this.playerScore.setScale(0.25)
-                this.computadorScore = this.add.sprite(950,100,"computadorScore")
-                this.computadorScore.setScale(0.25)
+                this.player1Score = this.add.sprite(950,40,"jogador1Score")
+                this.player1Score.setScale(0.25)
+                this.player2Score = this.add.sprite(950,100,"jogador2Score")
+                this.player2Score.setScale(0.25)
 
         // Inicializar
         player = 1;
@@ -277,6 +277,10 @@ class Pvp extends Phaser.Scene{
 				this.numero = this.add.sprite(coords[2 * i], coords[2 * i + 1], 'i' + state[i]).setScale(0.25).setInteractive();
 				this.numero.key = i;
 		}
+		
+            //Adiciona os ovos aos depositos
+            this.numeroDep1 = this.add.sprite(240,300,'i'+dep1).setScale(0.3)
+            this.numeroDep2 = this.add.sprite(790,300,'i'+dep2).setScale(0.3)
 }
 
 	clickMenu(){

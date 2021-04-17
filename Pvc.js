@@ -62,7 +62,7 @@ class Pvc extends Phaser.Scene {
                 dep1 =0;
                 dep2 = 0;
                 check = 0;
-                state = [28,28, 28,28, 28, 28, 28, 28, 28, 28, 28, 28];
+                state = [4,4, 4,4, 4, 4, 4, 4, 4, 4, 4, 4];
                 
 
 
@@ -527,6 +527,10 @@ class Pvc extends Phaser.Scene {
                         this.numero = this.add.sprite(coords[2 * i], coords[2 * i + 1], 'i' + state[i]).setScale(0.25).setInteractive();
                         this.numero.key = i;
                 }
+
+                //Adiciona os ovos aos depositos
+                this.numeroDep1 = this.add.sprite(240,300,'i'+dep1).setScale(0.3)
+                this.numeroDep2 = this.add.sprite(790,300,'i'+dep2).setScale(0.3)
         }
 
         clickMenu() {
