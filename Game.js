@@ -2,7 +2,7 @@ let DEFAULT_WIDTH = 1024
 let DEFAULT_HEIGHT = 600
 
 var config = {
-    type: Phaser.AUTO,
+    type: Phaser.CANVAS,
     width: 1024,
     height: 600,
     resolution: window.devicePixelRatio,
