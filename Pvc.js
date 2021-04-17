@@ -510,12 +510,12 @@ class Pvc extends Phaser.Scene {
                 this.tabuleiro.setScale(1.03)
 
                 // Coordenadas das imagens dos ovos
-                let coords = [w / 2 - 173, 2 * h / 3 - 46, w / 2 - 107, 2 * h / 3 - 12, w / 2 - 35, 2 * h / 3, w / 2 + 35, 2 * h / 3, w / 2 + 107, 2 * h / 3 - 12,
-                w / 2 + 173, 2 * h / 3 - 46, w / 2 + 173, h / 3 + 48, w / 2 + 107, h / 3 + 17, w / 2 + 35, h / 3 + 5, w / 2 - 35, h / 3 + 5, w / 2 - 107, h / 3 + 17, w / 2 - 173, h / 3 + 48];
+                let coords = [330, 356, 400, 386, 475, 400,560, 400,620,386,690, 356, 
+                                690, 240, 620,213, 560,200, 475, 200, 400, 213, 330, 240];
 
                 // Adiciona as imagens dos ovos
                 for (var i = 0; i < 12; i++) {
-                        this.numero = this.add.sprite(coords[2 * i]-2, coords[2 * i + 1]-2, 'i' + state[i]).setScale(0.25).setInteractive();
+                        this.numero = this.add.sprite(coords[2 * i], coords[2 * i + 1], 'i' + state[i]).setScale(0.25).setInteractive();
                         this.numero.key = i;
                 }
         }
