@@ -116,12 +116,10 @@ class Pvp extends Phaser.Scene{
 					
 					
 			}
-			
-			//Atualiza indicadores de score
-			this.add.text(600, 100, 'Phasjjer',{ fontFamily: 'Arial', fontSize: 64, color: '#00ff00' });
-			this.add.text(950,100,toString(scorePlayer2),{ fontFamily: 'Arial', fontSize: 64, color: '#00ff00' })
-
 		}
+		//Atualiza indicadores de score
+		this.add.text(600, 100, 'Phasjjer',{ fontFamily: 'Arial', fontSize: 64, color: '#00ff00' });
+		this.add.text(950,100,toString(scorePlayer2),{ fontFamily: 'Arial', fontSize: 64, color: '#00ff00' })
 	}
 
 	popularOponente(pos){
