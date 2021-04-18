@@ -81,14 +81,14 @@ class Menu extends Phaser.Scene{
         this.info.setScale(0.8*2)
 
         //Créditos
-        this.stats = this.add.sprite((w - w/18 + w/60)*2, (h/2)*2 , 'stats').setInteractive();
+        this.creditos = this.add.sprite((w - w/18 + w/60)*2, (h/2)*2 , 'creditos').setInteractive();
+        this.creditos.on('pointerdown', () => this.clickCreditos());
+        this.creditos.setScale(0.8*2)
+
+        //Stats
+        this.stats = this.add.sprite((w - w/18 + w/60)*2, (h/2 + h/12 + h/24)*2 , 'stats').setInteractive();
         this.stats.on('pointerdown', () => this.clickStats());
         this.stats.setScale(0.8*2)
-
-        //Troféu
-        this.trofeu = this.add.sprite((w - w/18 + w/60)*2, (h/2 + h/12 + h/24)*2 , 'trofeu').setInteractive();
-        this.trofeu.on('pointerdown', () => this.clickTrofeu());
-        this.trofeu.setScale(0.8*2)
 
     }
 
@@ -129,11 +129,11 @@ class Menu extends Phaser.Scene{
         
 
     }
-    clickStats(){
-        console.log('Estatisticas');
+    clickCreditos(){
+        console.log('Créditos');
     }
-    clickTrofeu(){
-        console.log('Troféu');
+    clickStats(){
+        console.log('Stats');
     }
     counterInfo(contador){
         if((contador > 0) &&( contador < 11)){
