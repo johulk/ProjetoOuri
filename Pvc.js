@@ -32,10 +32,10 @@ class Pvc extends Phaser.Scene {
                 this.background.displayWidth = 1024*2;
                 this.background.displayHeight = 600*2;
 
-                this.home = this.add.sprite(35*2, 566*2 , 'home').setInteractive();
+                this.home = this.add.sprite(41*2, 561*2 , 'home').setInteractive();
                 this.home.key = -1;
                 this.home.on('pointerdown', () => this.clickMenu());
-		        //this.home.setScale(0.75)
+		        this.home.setScale(1.3)
 
                 this.ouri = this.add.sprite(150*2, 55*2, 'ouri');
                // this.ouri.displayHeight = 
@@ -200,8 +200,8 @@ class Pvc extends Phaser.Scene {
                                         break;
 
 				case 2:
-				        this.texto3 =  this.add.text((config.width/2)*2,250*2,"O computador ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
-                                        this.texto4 = this.add.text(((config.width/2)*2,300*2),"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
+				        this.texto3 =  this.add.text(370*2,250*2,"O computador ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
+                                        this.texto4 = this.add.text(370*2,300*2,"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
                                         break;
                         }
 
@@ -602,6 +602,27 @@ class Pvc extends Phaser.Scene {
             //Adiciona os ovos aos depositos
             this.numeroDep1 = this.add.sprite(240*2,300*2,'i'+dep1).setScale(0.6)
             this.numeroDep2 = this.add.sprite(790*2,300*2,'i'+dep2).setScale(0.6)
+
+
+            // Adiciona setas correspondentes a quem irá jogar
+
+		this.setaP1 = this.add.sprite(0,0,'setaP1')
+		this.setaP1.visible = false
+		this.setaP2 = this.add.sprite(100,100,'setaP2')
+		this.setaP2.visible = false
+		this.setaCounterP1 = this.add.sprite(600*2,400*2,'setaCounter')
+		this.setaCounterP1.visible = false
+		this.setaCounterP2 = this.add.sprite(600*2,500*2,'setaCounter')
+		this.setaCounterP2.visible = false
+
+		if(player == 1){
+			this.setaP1.visible = true;
+			this.setaCounterP1 = true;
+		}
+		else if(player == 2){
+			this.setaP2.visible = true;
+			this.setaCounterP2 = true;
+		}
 }
 
         clickMenu() {
