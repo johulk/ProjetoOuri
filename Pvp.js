@@ -45,8 +45,8 @@ class Pvp extends Phaser.Scene{
                 this.player2Score = this.add.sprite(915*2,160*2,"jogador2Score")
                    this.player2Score.setScale(0.75)
 
-        textP1 = this.add.text(915*2,72*2, scorePlayer1,{ fontFamily: 'Arial', fontSize: 70, color: '#000000' });
-		textP2 = this.add.text(915*2,160*2,scorePlayer2,{ fontFamily: 'Arial', fontSize: 70, color: '#000000'});
+        textP1 = this.add.text(915*2,52*2, scorePlayer1,{ fontFamily: 'Arial', fontSize: 70, color: '#000000' });
+		textP2 = this.add.text(915*2,140*2,scorePlayer2,{ fontFamily: 'Arial', fontSize: 70, color: '#000000'});
 
         // Inicializar
         player = 1;

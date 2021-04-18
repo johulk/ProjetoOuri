@@ -74,14 +74,14 @@ class Pvc extends Phaser.Scene {
                 if(textC  != null || textP != null){
                 scorePlayerInt = parseInt(scorePlayer);
                 scoreComputadorInt = parseInt(scoreComputador)
-                textP1 = this.add.text(915*2,72*2, scorePlayer1,{ fontFamily: 'Arial', fontSize: 70, color: '#000000' });
-                        textC = this.add.text(915*2,160*2,scoreComputador,{ fontFamily: 'Arial', fontSize: 70, color: '#000000'});
+                textP1 = this.add.text(915*2,52*2, scorePlayer1,{ fontFamily: 'Arial', fontSize: 70, color: '#000000' });
+                        textC = this.add.text(915*2,140*2,scoreComputador,{ fontFamily: 'Arial', fontSize: 70, color: '#000000'});
                 }
                 else{
                         scoreComputadorInt = 0;
                         scorePlayerInt = 0;
-                        textP1 = this.add.text(915*2,72*2, scorePlayer1,{ fontFamily: 'Arial', fontSize: 70, color: '#000000' });
-                        textC = this.add.text(915*2,160*2,scoreComputador,{ fontFamily: 'Arial', fontSize: 70, color: '#000000'});
+                        textP1 = this.add.text(915*2,52*2, scorePlayer1,{ fontFamily: 'Arial', fontSize: 70, color: '#000000' });
+                        textC = this.add.text(915*2,140*2,scoreComputador,{ fontFamily: 'Arial', fontSize: 70, color: '#000000'});
                 }
 
                 
@@ -618,6 +618,7 @@ class Pvc extends Phaser.Scene {
 		this.setaCounterP2.visible = false
                 this.setaCounterP2.setScale(0.7)
 
+                console.log(player)
 		if(player == 1){
 			this.setaP1.visible = true;
 			this.setaCounterP1.visible = true;
