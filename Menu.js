@@ -81,9 +81,9 @@ class Menu extends Phaser.Scene{
         this.info.setScale(0.8*2)
 
         //Créditos
-        this.creditos = this.add.sprite((w - w/18 + w/60)*2, (h/2)*2 , 'creditos').setInteractive();
-        this.creditos.on('pointerdown', () => this.clickCreditos());
-        this.creditos.setScale(0.8*2)
+        this.stats = this.add.sprite((w - w/18 + w/60)*2, (h/2)*2 , 'stats').setInteractive();
+        this.stats.on('pointerdown', () => this.clickStats());
+        this.stats.setScale(0.8*2)
 
         //Troféu
         this.trofeu = this.add.sprite((w - w/18 + w/60)*2, (h/2 + h/12 + h/24)*2 , 'trofeu').setInteractive();
@@ -129,8 +129,8 @@ class Menu extends Phaser.Scene{
         
 
     }
-    clickCreditos(){
-        console.log('Créditos');
+    clickStats(){
+        console.log('Estatisticas');
     }
     clickTrofeu(){
         console.log('Troféu');

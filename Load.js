@@ -40,7 +40,7 @@ class Load extends Phaser.Scene{
         this.load.image('back', 'img_menu/backward.png');
         this.load.image('close', 'img_menu/closeBT.png')
 
-        this.load.image('trofeu', 'img_menu/bt_trofeus.png');
+        this.load.image('stats', 'img_menu/bt_stats.png');
         this.load.image('info', 'img_menu/bt_info.png');
         this.load.image('creditos', 'img_menu/bt_creditos.png');
         this.load.image('home', 'img_menu/bt_home.png')
