@@ -55,11 +55,10 @@ class Pvc extends Phaser.Scene {
                 this.pinto4.depth = 1
 
                 //Scores
-                this.playerScore = this.add.sprite(950*2,40*2,"jogador1Score")
-                this.playerScore.setScale(0.50)
-                this.computadorScore = this.add.sprite(950*2,100*2,"computadorScore")
-                this.computadorScore.setScale(0.50)
-
+                this.playerScore = this.add.sprite(915*2,72*2,"jogador1Score")
+                this.playerScore.setScale(0.75)
+                this.computadorScore = this.add.sprite(915*2,160*2,"computadorScore")
+                this.computadorScore.setScale(0.75)
                 // Inicializar
                 player = 1;
                 dep1 =0;
@@ -75,14 +74,14 @@ class Pvc extends Phaser.Scene {
                 if(textC  != null || textP != null){
                 scorePlayerInt = parseInt(scorePlayer);
                 scoreComputadorInt = parseInt(scoreComputador)
-                textP = this.add.text(950*2,45, scorePlayerInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000' });
-		textC = this.add.text(950*2,165,scoreComputadorInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000'});
+                textP1 = this.add.text(915*2,72*2, scorePlayer1,{ fontFamily: 'Arial', fontSize: 70, color: '#000000' });
+                        textC = this.add.text(915*2,160*2,scoreComputador,{ fontFamily: 'Arial', fontSize: 70, color: '#000000'});
                 }
                 else{
                         scoreComputadorInt = 0;
                         scorePlayerInt = 0;
-                textP = this.add.text(950*2,45, scorePlayerInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000' });
-		textC = this.add.text(950*2,165,scoreComputadorInt,{ fontFamily: 'Arial', fontSize: 64, color: '#000000'});
+                        textP1 = this.add.text(915*2,72*2, scorePlayer1,{ fontFamily: 'Arial', fontSize: 70, color: '#000000' });
+                        textC = this.add.text(915*2,160*2,scoreComputador,{ fontFamily: 'Arial', fontSize: 70, color: '#000000'});
                 }
 
                 
@@ -606,14 +605,18 @@ class Pvc extends Phaser.Scene {
 
             // Adiciona setas correspondentes a quem irá jogar
 
-		this.setaP1 = this.add.sprite(0,0,'setaP1')
+                this.setaP1 = this.add.sprite(1024,936,'setaP1')
 		this.setaP1.visible = false
-		this.setaP2 = this.add.sprite(100,100,'setaP2')
+                this.setaP1.setScale(0.7)
+		this.setaP2 = this.add.sprite(1024,100,'setaP2')
 		this.setaP2.visible = false
-		this.setaCounterP1 = this.add.sprite(600*2,400*2,'setaCounter')
-		this.setaCounterP1.visible = false
-		this.setaCounterP2 = this.add.sprite(600*2,500*2,'setaCounter')
+                this.setaP2.setScale(0.7)
+                this.setaCounterP1 = this.add.sprite(810*2,72*2,'setaCounter')
+                this.setaCounterP1.visible = false
+                this.setaCounterP1.setScale(0.7)
+		this.setaCounterP2 = this.add.sprite(810*2,160*2,'setaCounter')
 		this.setaCounterP2.visible = false
+                this.setaCounterP2.setScale(0.7)
 
 		if(player == 1){
 			this.setaP1.visible = true;
