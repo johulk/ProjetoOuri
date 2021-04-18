@@ -348,11 +348,11 @@ class Pvp extends Phaser.Scene{
 
 		if(player == 1){
 			this.setaP1.visible = true;
-			this.setaCounterP1 = true;
+			this.setaCounterP1.visible = true;
 		}
 		else if(player == 2){
 			this.setaP2.visible = true;
-			this.setaCounterP2 = true;
+			this.setaCounterP2.visible = true;
 		}
 
 
