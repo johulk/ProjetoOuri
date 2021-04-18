@@ -59,7 +59,7 @@ class Load extends Phaser.Scene{
         //Setas
         this.load.image('setaP1','img_menu/assinalaPlayer1.png')
         this.load.image('setaP2','img_menu/assinalaPlayer2.png')
-        this.load.image('setaCounter','img_menu/assinalaPlayer3.png')
+        this.load.image('setaCounter','img_menu/assinala3.png')
 
 
         for(var i = 0; i<31; i++){
