@@ -136,7 +136,7 @@ class Menu extends Phaser.Scene{
         console.log('Troféu');
     }
     counterInfo(contador){
-        if((contador > 0) &&( contador < 6)){
+        if((contador > 0) &&( contador < 11)){
         
         
         this.informacoes=this.add.sprite((config.width/2)*2,(config.height/2+config.height/12)*2,"info"+contador);
