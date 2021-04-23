@@ -168,7 +168,7 @@ class Pvp extends Phaser.Scene{
 					
 			}
 			}
-		textP1.text =scorePlayer1;
+		textP1.text = scorePlayer1;
 		textP2.text = scorePlayer2;
 
 		//Apresentar desforra

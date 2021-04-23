@@ -14,7 +14,8 @@ function TreeNode() {
 
 let textP;
 let textC;
-
+let scorePInt;
+let scoreCInt;
 
 
 class Pvc extends Phaser.Scene {
@@ -64,33 +65,36 @@ class Pvc extends Phaser.Scene {
                 dep1 =0;
                 dep2 = 0;
                 check = 0;
-                state = [4,4, 4,4, 4, 4, 4, 4, 4, 4, 4, 4];
+                state = [4 ,4 ,4 ,4, 4, 4, 4, 4, 4, 4, 4, 4];
                 
                 
-                textP = localStorage.getItem('jogador');
+                
+                scorePlayer = localStorage.getItem('jogador');
+                
         
-                textC = localStorage.getItem('computador');
+                scoreComputador = localStorage.getItem('computador');
+                
 
-                if(textC  != null || textP != null){
-                scorePlayerInt = parseInt(scorePlayer);
-                scoreComputadorInt = parseInt(scoreComputador)
-                textP1 = this.add.text(915*2,52*2, scorePlayer1,{ fontFamily: 'Arial', fontSize: 70, color: '#000000' });
-                        textC = this.add.text(915*2,140*2,scoreComputador,{ fontFamily: 'Arial', fontSize: 70, color: '#000000'});
+                if(scorePlayer == null || scoreComputador == null){
+                        scorePInt = 0;
+                        scoreCInt = 0;
+                        textP = this.add.text(915*2,52*2, scorePInt,{ fontFamily: 'Arial', fontSize: 70, color: '#000000' });
+                        textC = this.add.text(915*2,140*2,scoreCInt,{ fontFamily: 'Arial', fontSize: 70, color: '#000000'});
                 }
                 else{
-                        scoreComputadorInt = 0;
-                        scorePlayerInt = 0;
-                        textP1 = this.add.text(915*2,52*2, scorePlayerInt,{ fontFamily: 'Arial', fontSize: 70, color: '#000000' });
-                        textC = this.add.text(915*2,140*2,scoreComputadorInt,{ fontFamily: 'Arial', fontSize: 70, color: '#000000'});
+                       scoreCInt = parseInt(scoreComputador,10);
+                       scorePInt = parseInt(scorePlayer,10);
+                       textP = this.add.text(915*2,52*2, scorePlayer,{ fontFamily: 'Arial', fontSize: 70, color: '#000000' });
+                       textC = this.add.text(915*2,140*2,scoreComputador,{ fontFamily: 'Arial', fontSize: 70, color: '#000000'});
                 }
 
                 this.setaP1 = this.add.sprite(1024,936,'setaP1').setScale(0.7).setVisible(false)
-        this.setaP2 = this.add.sprite(1024,250,'setaP2').setScale(0.7).setVisible(false)
-        this.setaCounterP1 = this.add.sprite(810*2,72*2,'setaCounter').setScale(0.7).setVisible(false)
-        this.setaCounterP2 = this.add.sprite(810*2,160*2,'setaCounter').setScale(0.7).setVisible(false)
+                this.setaP2 = this.add.sprite(1024,250,'setaP2').setScale(0.7).setVisible(false)
+                this.setaCounterP1 = this.add.sprite(810*2,72*2,'setaCounter').setScale(0.7).setVisible(false)
+                this.setaCounterP2 = this.add.sprite(810*2,160*2,'setaCounter').setScale(0.7).setVisible(false)
                
                 this.atualizaTabuleiro(w, h);
-                 this.atualizaSetas();
+                this.atualizaSetas();
 
                 this.input.on('gameobjectdown', this.jogada, this);
 
@@ -101,7 +105,7 @@ class Pvc extends Phaser.Scene {
 		
 	atualizaSetas(){
 
-		this.setaP1 = this.setaP1 || this.add.sprite(1024,936,'setaP1').setScale(0.7).setVisible(false)
+        this.setaP1 = this.setaP1 || this.add.sprite(1024,936,'setaP1').setScale(0.7).setVisible(false)
         this.setaP2 = this.setaP2 || this.add.sprite(1024,100,'setaP2').setScale(0.7).setVisible(false)
         this.setaCounterP1 = this.setaCounterP1 || this.add.sprite(810*2,72*2,'setaCounter').setScale(0.7).setVisible(false)
         this.setaCounterP2 = this.setaCounterP2 || this.add.sprite(810*2,160*2,'setaCounter').setScale(0.7).setVisible(false)
@@ -219,20 +223,20 @@ class Pvc extends Phaser.Scene {
                         var vencedor = this.terminar()
                         //console.log("player " + vencedor + " wins")
                         if (vencedor === 1){
-                                scorePlayerInt += 1;
-                                scorePlayer = (String(ScorePlayerInt))
+                                scorePInt += 1;
+                                scorePlayer = toString(scorePInt);
                                 localStorage.setItem('jogador',scorePlayer)
                         }
                         if (vencedor === 2){
-                                scoreComputadorInt += 1;
-                                scoreComputador = (String(scoreComputadorInt))
+                                scoreCInt += 1;
+                                scoreComputador = toString(scoreCInt);
                                 localStorage.setItem('computador',scoreComputador)
                         }
                 }
                         
                         //Atualiza indicadores de score
-                        textP.text(scorePlayer)
-                        textC.text(scoreComputador)
+                        textP.text = scorePlayer;
+                        textC.text = scoreComputador;
 
                         //Apresentar desforra
                         
