@@ -201,8 +201,21 @@ class Pvc extends Phaser.Scene {
 
                 if(anyJog.length === 0){check === 1}; //verifica se ha jogadas possiveis para os dois jogadores
                 if (dep1 > 24 || dep2 > 24 || dep1 ===24 && dep2 === 24) { check = 1 } //Verifica pelos depositos
-                
+                if ((dep1 + dep2) === 46){
+                        for(i = 0; i < 6; i++){
+                                if (state[i] === 1){
+                                        if(state[i+6] === 1){
+                                                check = 1
+                                        }
+                                }
+                        }
+                }
+
                 if (check === 1) {
+                        if(dep1 === dep2){
+                                var vencedor = 3;
+                        }
+                        else{
                         var vencedor = this.terminar()
                         //console.log("player " + vencedor + " wins")
                         if (vencedor === 1){
@@ -215,6 +228,7 @@ class Pvc extends Phaser.Scene {
                                 scoreComputador = (String(scoreComputadorInt))
                                 localStorage.setItem('computador',scoreComputador)
                         }
+                }
                         
                         //Atualiza indicadores de score
                         textP.text(scorePlayer)
@@ -238,6 +252,9 @@ class Pvc extends Phaser.Scene {
 				        //this.texto3 =  this.add.text(370*2,250*2,"O computador ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
                                         //this.texto4 = this.add.text(370*2,300*2,"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
                                         break;
+                                 case 3:
+                                        this.quadroEmpate= this.add.sprite((config.width/2)*2,(config.height/2+config.height/12)*2,"ganhouP2").setScale(0.5);
+                                        break; 
                         }
 
                         //Fechar

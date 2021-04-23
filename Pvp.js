@@ -55,10 +55,10 @@ class Pvp extends Phaser.Scene{
 
         // Inicializar
         player = 1;
-        dep1 = 0;
-        dep2 = 0;
+        dep1 = 19;
+        dep2 = 23;
         check = 0;       
-		state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
+		state = [0, 0,1 , 0, 0, 2,1, 1, 1, 0,0, 0];
 		
 		
 	    this.atualizaTabuleiro(w,h);
@@ -123,8 +123,16 @@ class Pvp extends Phaser.Scene{
 	}
 
 	afterplay(){
-		if (dep1 > 24) { check = 1 }
-		if (dep2 > 24) { check = 1 }
+		if (dep1 > 24 || dep2 > 24 || dep1 ===24 && dep2 === 24) { check = 1 }
+        if ((dep1 + dep2) === 46){
+        	for(i = 0; i < 6; i++){
+        		if (state[i] === 1){
+        			if(state[i+6] === 1){
+        				check = 1
+        			}
+        		}
+        	}
+        }
 		var y = 0;
 		var i = 0;
 
@@ -145,14 +153,20 @@ class Pvp extends Phaser.Scene{
 		}
 
 		if (check === 1) {
+            if(dep1 === dep2){
+            	//console.log("Bruh")
+            	var vencedor = 3;
+            }
+			else{
 				var vencedor = this.terminar()
 				if (vencedor === 1){
 					scorePlayer1 = scorePlayer1 + 1;
 			}
-			if (vencedor === 2){
+			    if (vencedor === 2){
 					scorePlayer2 = scorePlayer2 + 1;
 					
 					
+			}
 			}
 		textP1.text =scorePlayer1;
 		textP2.text = scorePlayer2;
@@ -174,6 +188,10 @@ class Pvp extends Phaser.Scene{
 				//this.texto3 =  this.add.text(370*2,250*2,"O jogador 2 ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
 				//this.texto4 = this.add.text(370*2,300*2,"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
 				break;
+            case 3:
+                this.quadroEmpate= this.add.sprite((config.width/2)*2,(config.height/2+config.height/12)*2,"ganhouP2").setScale(0.5);
+                break;   
+        
 			}
 
 		//Fechar
