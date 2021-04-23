@@ -34,5 +34,16 @@ casasJogador = [0,1,2,3,4,5]
 let scorePlayer1 = 0;
 let scorePlayer2 = 0;
 
+
+
+//PVC
+let scorePInt = 0;
+let scoreCInt = 0;
+let scorePlayer;
+let scoreComputador;
+
+
+
+
 //Variaveis Globais Pvc
 var dif ; 
