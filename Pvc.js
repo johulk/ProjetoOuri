@@ -103,19 +103,20 @@ class Pvc extends Phaser.Scene {
 		this.setaCounterP1.visible = false
 		this.setaCounterP2 = this.add.sprite(810*2,160*2,'setaCounter').setScale(0.7)
 		this.setaCounterP2.visible = false
-                
+
 		if(player == 1){
 			this.setaP2.visible = false;
 			this.setaCounterP2.visible = false;
 			this.setaP1.visible = true;
 			this.setaCounterP1.visible = true;
+                        break;
 		}
 		else if(player == 2){
 			this.setaP1.visible = false;
 			this.setaCounterP1.visible = false;
 			this.setaP2.visible = true;
 			this.setaCounterP2.visible = true;
-			
+                        break;
 		}
 	}
 
