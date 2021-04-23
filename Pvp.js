@@ -108,7 +108,7 @@ class Pvp extends Phaser.Scene{
 			this.setaP1.setVisible(false)
 			this.setaCounterP1.setVisible(false)
 			this.setaP2.visible.setVisible(true)
-			this.setaCounterP2.visible.setVisible(true)
+			this.setaCounterP2.setVisible(true)
 		}
 	}
 
