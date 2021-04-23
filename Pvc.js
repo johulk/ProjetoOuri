@@ -95,10 +95,15 @@ class Pvc extends Phaser.Scene {
 
         atualizaSetas(){
 
-		this.setaP1 = this.add.sprite(1024,936,'setaP1').setScale(0.7).visible = false
-		this.setaP2 = this.add.sprite(1024,100,'setaP2').setScale(0.7).visible = false
-        this.setaCounterP1 = this.add.sprite(810*2,72*2,'setaCounter').setScale(0.7).visible = false
-		this.setaCounterP2 = this.add.sprite(810*2,160*2,'setaCounter').setScale(0.7).visible = false
+                this.setaP1 = this.add.sprite(1024,936,'setaP1').setScale(0.7)
+		this.setaP1.visible = false
+		this.setaP2 = this.add.sprite(1024,100,'setaP2').setScale(0.7)
+		this.setaP2.visible = false
+                this.setaCounterP1 = this.add.sprite(810*2,72*2,'setaCounter').setScale(0.7)
+		this.setaCounterP1.visible = false
+		this.setaCounterP2 = this.add.sprite(810*2,160*2,'setaCounter').setScale(0.7)
+		this.setaCounterP2.visible = false
+                
 		if(player == 1){
 			this.setaP2.visible = false;
 			this.setaCounterP2.visible = false;
@@ -623,32 +628,6 @@ class Pvc extends Phaser.Scene {
             //Adiciona os ovos aos depositos
             this.numeroDep1 = this.add.sprite(240*2,300*2,'i'+dep1).setScale(0.6)
             this.numeroDep2 = this.add.sprite(790*2,300*2,'i'+dep2).setScale(0.6)
-
-
-            // Adiciona setas correspondentes a quem irá jogar
-
-                this.setaP1 = this.add.sprite(1024,936,'setaP1')
-		this.setaP1.visible = false
-                this.setaP1.setScale(0.7)
-		this.setaP2 = this.add.sprite(1024,100,'setaP2')
-		this.setaP2.visible = false
-                this.setaP2.setScale(0.7)
-                this.setaCounterP1 = this.add.sprite(810*2,72*2,'setaCounter')
-                this.setaCounterP1.visible = false
-                this.setaCounterP1.setScale(0.7)
-		this.setaCounterP2 = this.add.sprite(810*2,160*2,'setaCounter')
-		this.setaCounterP2.visible = false
-                this.setaCounterP2.setScale(0.7)
-
-                console.log(player)
-		if(player == 1){
-			this.setaP1.visible = true;
-			this.setaCounterP1.visible = true;
-		}
-		else if(player == 2){
-			this.setaP2.visible = true;
-			this.setaCounterP2.visible = true;
-		}
 }
 
         clickMenu() {
