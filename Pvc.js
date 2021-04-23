@@ -73,12 +73,20 @@ class Pvc extends Phaser.Scene {
         
                 scoreComputador = localStorage.getItem('computador');
                 
-                scorePInt = 0;
-                scoreCInt = 0;
-                if(scorePlayer == null && scoreComputador == null){
-                        
+                //scorePInt = 0;
+                //scoreCInt = 0;
+                if(scorePlayer === null || scoreComputador === null){
+                        if(scorePlayer === null){
+                                scorePInt = 0
+                        }
+                        else{
+                                if(scoreComputador === null){
+                                        scoreCInt = 0;
+                                }
+                        }
                         textP = this.add.text(915*2,52*2, scorePInt,{ fontFamily: 'Arial', fontSize: 70, color: '#000000' });
                         textC = this.add.text(915*2,140*2,scoreCInt,{ fontFamily: 'Arial', fontSize: 70, color: '#000000'});
+                        
                 }
                 else{
                        scoreCInt = parseInt(scoreComputador,10);
