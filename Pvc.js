@@ -109,14 +109,12 @@ class Pvc extends Phaser.Scene {
 			this.setaCounterP2.visible = false;
 			this.setaP1.visible = true;
 			this.setaCounterP1.visible = true;
-                        break;
 		}
-		else if(player == 2){
+		if(player == 2){
 			this.setaP1.visible = false;
 			this.setaCounterP1.visible = false;
 			this.setaP2.visible = true;
 			this.setaCounterP2.visible = true;
-                        break;
 		}
 	}
 
