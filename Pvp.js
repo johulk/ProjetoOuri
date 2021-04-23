@@ -96,7 +96,7 @@ class Pvp extends Phaser.Scene {
 		this.atualizaSetas();
 
 		this.afterplay();
-		this.atualizaTabuleiro(config.width, config.height);
+		
 	}
 
 	atualizaSetas() {
@@ -281,7 +281,8 @@ class Pvp extends Phaser.Scene {
 
 		if (dep2 > dep1) { player = 1 }
 		else { res = 2 }
-
+		this.numerodep2 = this.add.sprite(240 * 2, 300 * 2, 'i' + dep2).setScale(0.6)
+        this.numerodep1 = this.add.sprite(790 * 2, 300 * 2, 'i' + dep1).setScale(0.6)
 		return res
 	}
 

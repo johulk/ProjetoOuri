@@ -172,7 +172,7 @@ class Pvc extends Phaser.Scene {
 
                 //verifica se o jogo terminou
                 this.afterplay();
-                this.atualizaTabuleiro(config.width, config.height);
+               
                 if (check === 1) { return; }
                 //console.log(dif)
                 setTimeout(() => {
@@ -184,6 +184,7 @@ class Pvc extends Phaser.Scene {
                                 this.nextPlayer();
                                 this.atualizaSetas();
                                 this.afterplay();
+                                
                         }
                 }, 1000)
 
@@ -351,7 +352,8 @@ class Pvc extends Phaser.Scene {
 
                 if (dep2 > dep1) { res = 1 }
                 else { res = 2 }
-
+                this.numerodep2 = this.add.sprite(240 * 2, 300 * 2, 'i' + dep2).setScale(0.6)
+                this.numerodep1 = this.add.sprite(790 * 2, 300 * 2, 'i' + dep1).setScale(0.6)
                 return res
         }
 
