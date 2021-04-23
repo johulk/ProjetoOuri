@@ -47,6 +47,10 @@ class Pvp extends Phaser.Scene{
 
         textP1 = this.add.text(915*2,52*2, scorePlayer1,{ fontFamily: 'Arial', fontSize: 70, color: '#000000' });
 		textP2 = this.add.text(915*2,140*2,scorePlayer2,{ fontFamily: 'Arial', fontSize: 70, color: '#000000'});
+		this.setaP1 = this.add.sprite(1024,936,'setaP1').setScale(0.7).setVisible(false)
+        this.setaP2 = this.add.sprite(1024,250,'setaP2').setScale(0.7).setVisible(false)
+        this.setaCounterP1 = this.add.sprite(810*2,72*2,'setaCounter').setScale(0.7).setVisible(false)
+        this.setaCounterP2 = this.add.sprite(810*2,160*2,'setaCounter').setScale(0.7).setVisible(false)
 
         // Inicializar
         player = 1;
@@ -92,11 +96,10 @@ class Pvp extends Phaser.Scene{
 	
 	atualizaSetas(){
 
-		
-		this.setaP1 = this.add.sprite(1024,936,'setaP1').setScale(0.7).setVisible(false)
-        this.setaP2 = this.add.sprite(1024,150,'setaP2').setScale(0.7).setVisible(false)
-        this.setaCounterP1 = this.add.sprite(810*2,72*2,'setaCounter').setScale(0.7).setVisible(false)
-        this.setaCounterP2 = this.add.sprite(810*2,160*2,'setaCounter').setScale(0.7).setVisible(false)
+		this.setaP1 = this.setaP1 || this.add.sprite(1024,936,'setaP1').setScale(0.7).setVisible(false)
+        this.setaP2 = this.setaP2 || this.add.sprite(1024,100,'setaP2').setScale(0.7).setVisible(false)
+        this.setaCounterP1 = this.setaCounterP1 || this.add.sprite(810*2,72*2,'setaCounter').setScale(0.7).setVisible(false)
+        this.setaCounterP2 = this.setaCounterP2 || this.add.sprite(810*2,160*2,'setaCounter').setScale(0.7).setVisible(false)
 
 		switch(player){
 			

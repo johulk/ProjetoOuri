@@ -42,5 +42,6 @@ let scoreComputadorInt = 0;
 
 
 
+
 //Variaveis Globais Pvc
 var dif ; 

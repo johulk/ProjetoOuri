@@ -84,7 +84,10 @@ class Pvc extends Phaser.Scene {
                         textC = this.add.text(915*2,140*2,scoreComputadorInt,{ fontFamily: 'Arial', fontSize: 70, color: '#000000'});
                 }
 
-                
+                this.setaP1 = this.add.sprite(1024,936,'setaP1').setScale(0.7).setVisible(false)
+                this.setaP2 = this.add.sprite(1024,250,'setaP2').setScale(0.7).setVisible(false)
+                this.setaCounterP1 = this.add.sprite(810*2,72*2,'setaCounter').setScale(0.7).setVisible(false)
+                this.setaCounterP2 = this.add.sprite(810*2,160*2,'setaCounter').setScale(0.7).setVisible(false)
                 this.atualizaSetas();
                 this.atualizaTabuleiro(w, h);
 
