@@ -52,11 +52,13 @@ class Pvp extends Phaser.Scene{
         this.setaP2 = this.add.sprite(1024,250,'setaP2').setScale(0.7).setVisible(false)
         this.setaCounterP1 = this.add.sprite(810*2,72*2,'setaCounter').setScale(0.7).setVisible(false)
         this.setaCounterP2 = this.add.sprite(810*2,160*2,'setaCounter').setScale(0.7).setVisible(false)
+		this.setaJog1 = this.setaJog1 || this.add.sprite(810*2,936,'setaP1').setScale(0.7).setVisible(false)
+        this.setaJog2 = this.setaJog1 || this.add.sprite(810,936,'setaP1').setScale(0.7).setVisible(false)
 
         // Inicializar
         player = 1;
-        dep1 = 0;
         dep2 = 0;
+        dep1 = 0;
         check = 0;
         state = [4 ,4 ,4 ,4,4, 4, 4, 4, 4, 4, 4, 4];
 		
@@ -102,6 +104,8 @@ class Pvp extends Phaser.Scene{
         this.setaP2 = this.setaP2 || this.add.sprite(1024,100,'setaP2').setScale(0.7).setVisible(false)
         this.setaCounterP1 = this.setaCounterP1 || this.add.sprite(810*2,72*2,'setaCounter').setScale(0.7).setVisible(false)
         this.setaCounterP2 = this.setaCounterP2 || this.add.sprite(810*2,160*2,'setaCounter').setScale(0.7).setVisible(false)
+		this.setaJog1 = this.add.sprite(810*2,936,'setaP1').setScale(0.7).setVisible(false)
+        this.setaJog2 = this.add.sprite(810,936,'setaP1').setScale(0.7).setVisible(false)
 
 		switch(player){
 			
@@ -110,6 +114,8 @@ class Pvp extends Phaser.Scene{
 			this.setaCounterP2.setVisible(false)
 			this.setaP1.setVisible(true)
 			this.setaCounterP1.setVisible(true)
+			this.setaJog1.setVisible(true)
+            this.setaJog2.setVisible(false)
 			break;
 
 			case 2:
@@ -118,13 +124,15 @@ class Pvp extends Phaser.Scene{
 			this.setaCounterP1.setVisible(false)
 			this.setaP2.setVisible(true)
 			this.setaCounterP2.setVisible(true)
+			this.setaJog1.setVisible(false)
+            this.setaJog2.setVisible(true)
 			break
 		}
 	}
 
 	afterplay(){
-		if (dep1 > 24 || dep2 > 24 || dep1 ===24 && dep2 === 24) { check = 1 }
-        if ((dep1 + dep2) === 46){
+		if (dep2 > 24 || dep1 > 24 || dep2 ===24 && dep1 === 24) { check = 1 }
+        if ((dep2 + dep1) === 46){
         	for(i = 0; i < 6; i++){
         		if (state[i] === 1){
         			if(state[i+6] === 1){
@@ -153,7 +161,7 @@ class Pvp extends Phaser.Scene{
 		}
 
 		if (check === 1) {
-            if(dep1 === dep2){
+            if(dep2 === dep1){
             	//console.log("Bruh")
             	var vencedor = 3;
             }
@@ -259,14 +267,14 @@ class Pvp extends Phaser.Scene{
 		var i;
 
 		for(i = 0; i < 6; i++){
-		    dep1 = dep1 + state[i]
-		}
-
-		for(i = 5; i < 12; i++){
 		    dep2 = dep2 + state[i]
 		}
 
-		if(dep1 > dep2){ player = 1 }
+		for(i = 5; i < 12; i++){
+		    dep1 = dep1 + state[i]
+		}
+
+		if(dep2 > dep1){ player = 1 }
 		else { res = 2 }
 
 		return res
@@ -324,7 +332,7 @@ class Pvp extends Phaser.Scene{
 
         if (player === 1){
 	        while((state[posfinal] === 2 || state[posfinal] === 3) && posfinal>5 && posfinal<12){
-	            dep1 = dep1 + state[posfinal]
+	            dep2 = dep2 + state[posfinal]
 	            state[posfinal] = 0;
 	            posfinal = posfinal - 1;
 	        }       
@@ -333,7 +341,7 @@ class Pvp extends Phaser.Scene{
 	    //Recolher as pedras para o player 2
 	    if (player === 2){
 	        while((state[posfinal] === 2 || state[posfinal] === 3) && posfinal>=0 && posfinal<6){
-	            dep2 = dep2 + state[posfinal]
+	            dep1 = dep1 + state[posfinal]
 	            state[posfinal] = 0;
 	            posfinal = posfinal - 1;
 	            
@@ -386,8 +394,8 @@ class Pvp extends Phaser.Scene{
 		}
 		
             //Adiciona os ovos aos depositos
-            this.numeroDep1 = this.add.sprite(240*2,300*2,'i'+dep1).setScale(0.6)
-            this.numeroDep2 = this.add.sprite(790*2,300*2,'i'+dep2).setScale(0.6)
+            this.numerodep2 = this.add.sprite(240*2,300*2,'i'+dep2).setScale(0.6)
+            this.numerodep1 = this.add.sprite(790*2,300*2,'i'+dep1).setScale(0.6)
 
 }	
 

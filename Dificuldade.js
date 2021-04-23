@@ -10,10 +10,28 @@ class Dificuldade extends Phaser.Scene{
         this.background = this.add.sprite(w, h, "background");
         this.background.displayWidth = w*2
         this.background.displayHeight = h*2
-        //this.background.setOrigin(0,0);
+
        
 
-        //this.ouri = this.add.sprite(w/2, h/6, 'ouri');
+        this.ouri = this.add.sprite(150*2, 55*2, 'ouri');
+        this.ouri.depth = 2
+        
+        //Pintainho 3
+
+        this.pinto3 = this.add.sprite((165)*2,(535)*2,'pinto_3')
+        //this.pinto3.setScale(0.5)
+        this.pinto3.depth = 2
+
+        //Pintainho 2
+        this.pinto2 = this.add.sprite((80)*2,(520)*2,'pinto_2')
+        //this.pinto2.setScale(0.5)
+        this.pinto2.flipX = true
+        this.pinto2.depth = 1
+
+        //Pintainho 1
+        this.pinto1 = this.add.sprite((950)*2, (487)*2,'pinto_1')
+        //this.pinto1.setScale(0.5)
+        this.pinto1.depth = 1
 
         // Buttons
         
@@ -23,11 +41,11 @@ class Dificuldade extends Phaser.Scene{
         this.easy.setScale(2)
 
 
-        this.medium = this.add.sprite(w, h+h/3 - 400 , 'medium').setInteractive();
+        this.medium = this.add.sprite(w, h - 400 +h/3, 'medium').setInteractive();
         this.medium.on('pointerdown', () => this.clickMedium());
         this.medium.setScale(2)
 
-        this.hard = this.add.sprite(w, h*2-200 -400, 'hard').setInteractive();
+        this.hard = this.add.sprite(w, h - 400 +h/3 + h/3, 'hard').setInteractive();
         this.hard.on('pointerdown', () => this.clickHard());
         this.hard.setScale(2)
 
