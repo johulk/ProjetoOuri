@@ -65,18 +65,18 @@ class Pvp extends Phaser.Scene{
 
 	jogada(pointer,gameObject){
 		// Impedir jogada quando se clica no home
-		if (gameObject.key == -1){return;}
+		if (gameObject.key === -1){return;}
 
 		var pos = gameObject.key;
 
 		// Impedir que um jogador jogue no campo errado
-		if ((player == 1 && pos > 5) || (player == 2 && pos < 6)){return;}
+		if ((player === 1 && pos > 5) || (player === 2 && pos < 6)){return;}
 
 		
 		// Verifica as regras do jogo
-		if(this.one(pos) == -1){return;}
+		if(this.one(pos) === -1){return;}
 
-		if(this.popularOponente(pos) == -1){return;}
+		if(this.popularOponente(pos) === -1){return;}
 		
 		console.log('update')
 
@@ -123,28 +123,28 @@ class Pvp extends Phaser.Scene{
 		var y = 0;
 		var i = 0;
 
-		if (player == 1) {
+		if (player === 1) {
 				for (i = 0; i < 6; i++) {
 						y = y + this.popularOponente(i)
 				}
 		}
 
-		if (player == 2) {
+		if (player === 2) {
 				for (i = 5; i < 12; i++) {
 						y = y + this.popularOponente(i)
 				}
 		}
 
-		if (y == -6) {
+		if (y === -6) {
 			check = 1
 		}
 
-		if (check == 1) {
+		if (check === 1) {
 				var vencedor = this.terminar()
-				if (vencedor == 1){
+				if (vencedor === 1){
 					scorePlayer1 = scorePlayer1 + 1;
 			}
-			if (vencedor == 2){
+			if (vencedor === 2){
 					scorePlayer2 = scorePlayer2 + 1;
 					
 					
@@ -195,7 +195,7 @@ class Pvp extends Phaser.Scene{
 		var i = 0;
 		var y = 0;
 
-		if (player == 1){
+		if (player === 1){
 	        for(i = 5; i < 12; i++){
 	            soma = soma + state[i]
 	        }
@@ -206,11 +206,11 @@ class Pvp extends Phaser.Scene{
 	        }
 	    }
 	    
-	    if(soma == 0){
+	    if(soma === 0){
 	    	y = -1;
             for(i = 0; i <= state[pos]; i++){
 	            finalpos = (pos + i) % 12
-	            if(player == 1){
+	            if(player === 1){
 	            // verifico que alguma pedra cai em territorio adversario
 	                if (finalpos > 5 && finalpos< 12){
 	                    y = 0;
@@ -262,18 +262,18 @@ class Pvp extends Phaser.Scene{
         }
 
         // Se o player 1 tiver o tabuleiro vazio, joga o player 2
-        if (totalP1 == 0){
+        if (totalP1 === 0){
             player = 2
         }
 
         // Se o player 2 tiver o tabuleiro vazio, joga o player 1
-        else if ( totalP2 == 0){
+        else if ( totalP2 === 0){
             player = 1
         }
 
         // Se nenhum tiver o tabuleiro vazio alterna-se as jogadas
         else {
-            if (player == 1){player = 2} else {player = 1}
+            if (player === 1){player = 2} else {player = 1}
         }
 	
 	}
@@ -297,8 +297,8 @@ class Pvp extends Phaser.Scene{
         // Recolher as pedras
         var posfinal = (pos + i - 1) % 12
 
-        if (player == 1){
-	        while((state[posfinal] == 2 || state[posfinal] == 3) && posfinal>5 && posfinal<12){
+        if (player === 1){
+	        while((state[posfinal] === 2 || state[posfinal] === 3) && posfinal>5 && posfinal<12){
 	            dep1 = dep1 + state[posfinal]
 	            state[posfinal] = 0;
 	            posfinal = posfinal - 1;
@@ -306,8 +306,8 @@ class Pvp extends Phaser.Scene{
 	    }
 
 	    //Recolher as pedras para o player 2
-	    if (player == 2){
-	        while((state[posfinal] == 2 || state[posfinal] == 3) && posfinal>=0 && posfinal<6){
+	    if (player === 2){
+	        while((state[posfinal] === 2 || state[posfinal] === 3) && posfinal>=0 && posfinal<6){
 	            dep2 = dep2 + state[posfinal]
 	            state[posfinal] = 0;
 	            posfinal = posfinal - 1;
@@ -317,12 +317,12 @@ class Pvp extends Phaser.Scene{
 	}
 
 	one(pos){
-		if(state[pos] == 0){
+		if(state[pos] === 0){
 			return -1;
 		}
 
 		var i;
-		if(state[pos] == 1){
+		if(state[pos] === 1){
 			if (pos < 6){
 				for(i = 0; i < 6; i++){
 					if (state[i] > 1){

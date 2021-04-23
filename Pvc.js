@@ -122,18 +122,18 @@ class Pvc extends Phaser.Scene {
 
         jogada(pointer, gameObject) {
                 // Impedir jogada quando se clica no home
-                if ((gameObject.key == -1) || (gameObject.key > 5)){ return; }
+                if ((gameObject.key === -1) || (gameObject.key > 5)){ return; }
 
                 var pos = gameObject.key;
 
                 // Impedir que um jogador jogue no campo errado
-                if ((player == 1 && pos > 5) || (player == 2 && pos < 6)) { return; }
+                if ((player === 1 && pos > 5) || (player === 2 && pos < 6)) { return; }
 
                 // Verifica as regras do jogo
-                if (this.one(state,pos) == false) { return; }
+                if (this.one(state,pos) === false) { return; }
 
                 // Verifica se é necessario popular o oponente
-                if (this.popularOponente(state,pos,1) == -1) { return; } 
+                if (this.popularOponente(state,pos,1) === -1) { return; } 
 
                 console.log('update')
 
@@ -152,7 +152,7 @@ class Pvc extends Phaser.Scene {
 
                 console.log(dif)
                 setTimeout(() => {
-                        if (player == 2) {
+                        if (player === 2) {
 
                                 pos = this.dificuldade();
                                 this.atualizarState(pos);
@@ -194,18 +194,18 @@ class Pvc extends Phaser.Scene {
                 var anyJog = [];
                 anyJog.push(this.verificaJogadas(state,player),this.verificaJogadas(state,(player%2)+1)); 
 
-                if(anyJog.length == 0){check == 1}; //verifica se ha jogadas possiveis para os dois jogadores
-                if (dep1 > 24 || dep2 > 24 || dep1 ==24 && dep2 == 24) { check = 1 } //Verifica pelos depositos
+                if(anyJog.length === 0){check === 1}; //verifica se ha jogadas possiveis para os dois jogadores
+                if (dep1 > 24 || dep2 > 24 || dep1 ===24 && dep2 === 24) { check = 1 } //Verifica pelos depositos
                 
-                if (check == 1) {
+                if (check === 1) {
                         var vencedor = this.terminar()
                         //console.log("player " + vencedor + " wins")
-                        if (vencedor == 1){
+                        if (vencedor === 1){
                                 scorePlayerInt += 1;
                                 scorePlayer = (""+scorePlayerInt)
                                 localStorage.setItem('jogador',scorePlayer)
                         }
-                        if (vencedor == 2){
+                        if (vencedor === 2){
                                 scoreComputadorInt += 1;
                                 scoreComputador = (""+scoreComputadorInt)
                                 localStorage.setItem('computador',scoreComputador)
@@ -255,7 +255,7 @@ class Pvc extends Phaser.Scene {
                 var i;
                 var y = true;
 
-                if (jogador == 1) {
+                if (jogador === 1) {
                         for (i = 5; i < 12; i++) {
                                 soma = soma + estado[i]
                         }
@@ -266,11 +266,11 @@ class Pvc extends Phaser.Scene {
                         }
                 }
 
-                if (soma == 0) {
+                if (soma === 0) {
                         y = false;
                         for (i = 0; i <= estado[pos]; i++) {
                                 finalpos = (pos + i) % 12
-                                if (jogador == 1) {
+                                if (jogador === 1) {
                                         // verifico que alguma pedra cai em territorio adversario
                                         if (finalpos > 5 && finalpos < 12) {
                                                 y = true;
@@ -320,18 +320,18 @@ class Pvc extends Phaser.Scene {
                 }
 
                 // Se o player 1 tiver o tabuleiro vazio, joga o player 2
-                if (totalP1 == 0) {
+                if (totalP1 === 0) {
                         player = 2
                 }
 
                 // Se o player 2 tiver o tabuleiro vazio, joga o player 1
-                else if (totalP2 == 0) {
+                else if (totalP2 === 0) {
                         player = 1
                 }
 
                 // Se nenhum tiver o tabuleiro vazio alterna-se as jogadas
                 else {
-                        if (player == 1) { player = 2 } else { player = 1 }
+                        if (player === 1) { player = 2 } else { player = 1 }
                 }
 
         }
@@ -356,8 +356,8 @@ class Pvc extends Phaser.Scene {
                 // Recolher as pedras
                 var posfinal = (pos + i - 1) % 12
 
-                if (player == 1) {
-                        while ((state[posfinal] == 2 || state[posfinal] == 3) && posfinal > 5 && posfinal < 12) {
+                if (player === 1) {
+                        while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal > 5 && posfinal < 12) {
                                 dep1 = dep1 + state[posfinal]
                                 state[posfinal] = 0;
                                 posfinal = posfinal - 1;
@@ -365,8 +365,8 @@ class Pvc extends Phaser.Scene {
                 }
 
                 //Recolher as pedras para o player 2
-                if (player == 2) {
-                        while ((state[posfinal] == 2 || state[posfinal] == 3) && posfinal >= 0 && posfinal < 6) {
+                if (player === 2) {
+                        while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal >= 0 && posfinal < 6) {
                                 dep2 = dep2 + state[posfinal]
                                 state[posfinal] = 0;
                                 posfinal = posfinal - 1;
@@ -380,12 +380,12 @@ class Pvc extends Phaser.Scene {
                 
         one(estado,pos) {
 
-                if (estado[pos] == 0) {
+                if (estado[pos] === 0) {
                         return false;
                 }
 
                 var i;
-                if (estado[pos] == 1) {
+                if (estado[pos] === 1) {
                         if (pos < 6) {
                                 for (i = 0; i < 6; i++) {
                                         if (estado[i] > 1) {
@@ -420,7 +420,7 @@ class Pvc extends Phaser.Scene {
                 var procuraJogada;
                 var melhoresJogadas;
                 for (procuraJogada = 0; procuraJogada < arvore.descendants.length; procuraJogada++) {
-                        if (arvore.descendants[procuraJogada].valor == melhorValorFinal) {
+                        if (arvore.descendants[procuraJogada].valor === melhorValorFinal) {
                                 melhoresJogadas.push(arvore.descendants[procuraJogada].root)
                         }
                 }
@@ -465,7 +465,7 @@ class Pvc extends Phaser.Scene {
                 //console.log("DEPTH " + depth)
                 nodo.estadoSimulado = this.simulaJogada(copiaestado, jogada, jogador, dep1copy, dep2copy);
 
-                if (depth == 0) {
+                if (depth === 0) {
                         return nodo;
                 }
                 //EstadoSimulado já tem a jogada feita e os deps calculados, e o jogador ANTIGO
@@ -518,9 +518,9 @@ class Pvc extends Phaser.Scene {
                         estadoArraySimulado[(jogada + casasPercorridas) % 12] = estadoArraySimulado[(jogada + casasPercorridas) % 12] + 1; //espalha as sementes todas
                 }
                 ///////  RECEBE O JOGADOR NESTE MOMENTO
-                if (estadoArraySimulado[ultimacasa] == (2 | 3)) {
-                        if (jogador == 1) { //Em caso de ser o jogador a jogar
-                                while (estadoArraySimulado[ultimacasa] == (2 | 3) && (ultimacasa >= 6 && ultimacasa < 12)) {
+                if (estadoArraySimulado[ultimacasa] === (2 | 3)) {
+                        if (jogador === 1) { //Em caso de ser o jogador a jogar
+                                while (estadoArraySimulado[ultimacasa] === (2 | 3) && (ultimacasa >= 6 && ultimacasa < 12)) {
                                         dep1Sim += estadoArraySimulado[ultimacasa];
                                         estadoArraySimulado[ultimacasa] = 0;
                                         ultimacasa--;
@@ -528,7 +528,7 @@ class Pvc extends Phaser.Scene {
                                 }
                         }
                         else { //Em caso de ser o computador a jogar
-                                while (estadoArraySimulado[ultimacasa] == (2 | 3) && (ultimacasa >= 0 && ultimacasa < 6)) {
+                                while (estadoArraySimulado[ultimacasa] === (2 | 3) && (ultimacasa >= 0 && ultimacasa < 6)) {
                                         dep2Sim += estadoArraySimulado[ultimacasa];
                                         estadoArraySimulado[ultimacasa] = 0;
                                         ultimacasa--;
@@ -557,7 +557,7 @@ class Pvc extends Phaser.Scene {
                 var procuraJogada;
                 var melhoresJogadas = [];
                 for (procuraJogada = 0; procuraJogada < arvore.descendants.length; procuraJogada++) {
-                        if (arvore.descendants[procuraJogada].valor == melhorValorFinal) {
+                        if (arvore.descendants[procuraJogada].valor === melhorValorFinal) {
                                 melhoresJogadas.push(arvore.descendants[procuraJogada].root)
                         }
                 }
@@ -570,11 +570,11 @@ class Pvc extends Phaser.Scene {
 
 
         minimax(node, depth, alpha, beta, maximizingPlayer) {
-                if ((depth == 0) || (node.estadoSimulado.dep1 == 25) || (node.estadoSimulado.dep2 == 25) || (node.estadoSimulado.dep1 == 24 && node.estadoSimulado.dep2 == 24)) {
+                if ((depth === 0) || (node.estadoSimulado.dep1 === 25) || (node.estadoSimulado.dep2 === 25) || (node.estadoSimulado.dep1 === 24 && node.estadoSimulado.dep2 === 24)) {
                         return node.estadoSimulado.dep2 - node.estadoSimulado.dep1;
                 }
 
-                if (maximizingPlayer == true) {
+                if (maximizingPlayer === true) {
 
                         let maxEval = -Infinity;
                         for (var i = 0; i < node.descendants.length; i++) {
