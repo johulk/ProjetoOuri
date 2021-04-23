@@ -67,7 +67,6 @@ class Pvc extends Phaser.Scene {
                 state = [0 ,0 ,0 ,0, 0, 3, 2, 2, 2, 4, 4, 4];
                 
                 
-                
                 scorePlayer = localStorage.getItem('jogador');
                 
         
