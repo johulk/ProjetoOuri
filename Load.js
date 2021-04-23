@@ -21,7 +21,7 @@ class Load extends Phaser.Scene{
 
         //Infos
 
-        for(var j = 1; j <= 10; j++){
+        for(var j = 1; j <= 16; j++){
             this.load.image('info'+j, 'img_menu/info'+j+'.png')
         }
 

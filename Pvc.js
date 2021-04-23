@@ -85,7 +85,7 @@ class Pvc extends Phaser.Scene {
                 }
 
                 
-
+                this.atualizaSetas();
                 this.atualizaTabuleiro(w, h);
 
 
@@ -93,6 +93,26 @@ class Pvc extends Phaser.Scene {
 
         }
 
+        atualizaSetas(){
+
+		this.setaP1 = this.add.sprite(1024,936,'setaP1').setScale(0.7).visible = false
+		this.setaP2 = this.add.sprite(1024,100,'setaP2').setScale(0.7).visible = false
+        this.setaCounterP1 = this.add.sprite(810*2,72*2,'setaCounter').setScale(0.7).visible = false
+		this.setaCounterP2 = this.add.sprite(810*2,160*2,'setaCounter').setScale(0.7).visible = false
+		if(player == 1){
+			this.setaP2.visible = false;
+			this.setaCounterP2.visible = false;
+			this.setaP1.visible = true;
+			this.setaCounterP1.visible = true;
+		}
+		else if(player == 2){
+			this.setaP1.visible = false;
+			this.setaCounterP1.visible = false;
+			this.setaP2.visible = true;
+			this.setaCounterP2.visible = true;
+			
+		}
+	}
 
         jogada(pointer, gameObject) {
                 // Impedir jogada quando se clica no home
@@ -119,6 +139,7 @@ class Pvc extends Phaser.Scene {
 
                 //Ve qual o proximo player a jogar
                 this.nextPlayer();
+                this.atualizaSetas();
 
                 //verifica se o jogo terminou
                 this.afterplay();
@@ -131,6 +152,7 @@ class Pvc extends Phaser.Scene {
                                 this.atualizarState(pos);
                                 this.atualizaTabuleiro(config.width, config.height);
                                 this.nextPlayer();
+                                this.atualizaSetas();
                                 this.afterplay();
                         }
                 }, 1000)

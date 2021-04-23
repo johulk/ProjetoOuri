@@ -136,7 +136,7 @@ class Menu extends Phaser.Scene{
         console.log('Stats');
     }
     counterInfo(contador){
-        if((contador > 0) &&( contador < 11)){
+        if((contador > 0) &&( contador < 17)){
         
         
         this.informacoes=this.add.sprite((config.width/2)*2,(config.height/2+config.height/12)*2,"info"+contador);
