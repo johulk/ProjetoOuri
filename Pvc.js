@@ -14,8 +14,7 @@ function TreeNode() {
 
 let textP;
 let textC;
-let scorePInt;
-let scoreCInt;
+
 
 
 class Pvc extends Phaser.Scene {
