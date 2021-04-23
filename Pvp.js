@@ -96,6 +96,7 @@ class Pvp extends Phaser.Scene {
 		this.atualizaSetas();
 
 		this.afterplay();
+		this.atualizaTabuleiro(config.width, config.height);
 	}
 
 	atualizaSetas() {

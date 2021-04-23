@@ -36,17 +36,17 @@ class Dificuldade extends Phaser.Scene {
         // Buttons
 
 
-        this.easy = this.add.sprite(w, 400, 'easy').setInteractive();
+        this.easy = this.add.sprite(w, 300, 'easy').setInteractive();
         this.easy.on('pointerdown', () => this.clickEasy());
-        this.easy.setScale(2)
+        this.easy.setScale(1.5)
 
-        this.medium = this.add.sprite(w, 400 + 250, 'medium').setInteractive();
+        this.medium = this.add.sprite(w, 300 + 250, 'medium').setInteractive();
         this.medium.on('pointerdown', () => this.clickMedium());
-        this.medium.setScale(2)
+        this.medium.setScale(1.5)
 
-        this.hard = this.add.sprite(w, 400 + 500, 'hard').setInteractive();
+        this.hard = this.add.sprite(w, 300 + 500, 'hard').setInteractive();
         this.hard.on('pointerdown', () => this.clickHard());
-        this.hard.setScale(2)
+        this.hard.setScale(1.5)
 
         this.home = this.add.sprite((w / 18) * 2, (h - w / 18) * 2, 'home').setInteractive();
         this.home.key = -1;

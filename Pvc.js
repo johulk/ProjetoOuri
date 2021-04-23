@@ -172,6 +172,7 @@ class Pvc extends Phaser.Scene {
 
                 //verifica se o jogo terminou
                 this.afterplay();
+                this.atualizaTabuleiro(config.width, config.height);
                 if (check === 1) { return; }
                 //console.log(dif)
                 setTimeout(() => {
