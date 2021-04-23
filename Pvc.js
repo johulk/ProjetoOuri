@@ -218,6 +218,7 @@ class Pvc extends Phaser.Scene {
                         //Apresentar desforra
                         
                         
+                        
                         //this.desforraQuadro = this.add.sprite((config.width/2)*2,(config.height/2+config.height/12)*2,"infoVazio");
                         //this.desforraQuadro.setScale(1.4)
                         switch(vencedor){
