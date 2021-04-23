@@ -96,10 +96,10 @@ class Pvc extends Phaser.Scene {
         atualizaSetas(){
 
 		
-	this.setaP1 =  this.add.sprite(1024,936,'setaP1').setScale(0.7).setVisible(false)
-        this.setaP2 =  this.add.sprite(1024,100,'setaP2').setScale(0.7).setVisible(false)
-        this.setaCounterP1 =  this.add.sprite(810*2,72*2,'setaCounter').setScale(0.7).setVisible(false)
-        this.setaCounterP2 =  this.add.sprite(810*2,160*2,'setaCounter').setScale(0.7).setVisible(false)
+	this.setaP1 = this.setaP1 || this.add.sprite(1024,936,'setaP1').setScale(0.7).setVisible(false)
+        this.setaP2 = this.setaP2 || this.add.sprite(1024,100,'setaP2').setScale(0.7).setVisible(false)
+        this.setaCounterP1 = this.setaCounterP1 || this.add.sprite(810*2,72*2,'setaCounter').setScale(0.7).setVisible(false)
+        this.setaCounterP2 = this.setaCounterP2 || this.add.sprite(810*2,160*2,'setaCounter').setScale(0.7).setVisible(false)
 
 		switch(player){
 			
