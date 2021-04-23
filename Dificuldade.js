@@ -33,6 +33,26 @@ class Dificuldade extends Phaser.Scene {
         //this.pinto1.setScale(0.5)
         this.pinto1.depth = 1
 
+        //Ovos
+        this.ovo1 = this.add.sprite(739 * 2, 540 * 2, 'ovo')
+        //his.ovo1.setScale(0.5)
+        this.ovo1.depth = 3
+        this.ovo1.angle = 4.0
+
+
+        this.ovo2 = this.add.sprite(730 * 2, 555 * 2, 'ovo')
+        //this.ovo2.setScale(0.5)
+        this.ovo2.depth = 1
+
+        this.ovo3 = this.add.sprite(748 * 2, 555 * 2, 'ovo')
+        //this.ovo3.setScale(0.5)
+        this.ovo3.depth = 2
+
+        this.ovo4 = this.add.sprite(782 * 2, 557 * 2, 'ovo')
+        //this.ovo4.setScale(0.5)
+        this.ovo4.depth = 2
+        this.ovo4.angle = 85
+
         // Buttons
 
 
@@ -52,6 +72,8 @@ class Dificuldade extends Phaser.Scene {
         this.home.key = -1;
         this.home.on('pointerdown', () => this.clickMenu());
         this.home.setScale(2)
+
+        
 
     }
 
