@@ -220,7 +220,7 @@ class Pvc extends Phaser.Scene {
                 if (anyJog.length === 0) { check = 1 }; //verifica se ha jogadas possiveis para os dois jogadores
                 if ((dep2 > 24) || (dep1 > 24) || (dep2 === 24 && dep1 === 24)) { check = 1 } //Verifica pelos depositos
                 if ((dep2 + dep1) === 46) {
-                        for (i = 0; i < 6; i++) {
+                        for (var i = 0; i < 6; i++) {
                                 if (state[i] === 1) {
                                         if (state[i + 6] === 1) {
                                                 check = 1
@@ -230,11 +230,11 @@ class Pvc extends Phaser.Scene {
                 }
 
                 if (check === 1) {
+                        var vencedor = this.terminar()
                         if (dep2 === dep1) {
-                                var vencedor = 3;
+                                vencedor = 3;
                         }
                         else {
-                                var vencedor = this.terminar()
                                 //console.log("player " + vencedor + " wins")
                                 if (vencedor === 1) {
                                         scorePInt += 1;

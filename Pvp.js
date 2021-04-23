@@ -133,7 +133,7 @@ class Pvp extends Phaser.Scene {
 	afterplay() {
 		if ((dep2 > 24) || (dep1 > 24) || (dep2 === 24 && dep1 === 24)) { check = 1 } //Verifica pelos depositos		
 		if ((dep2 + dep1) === 46) {
-			for (i = 0; i < 6; i++) {
+			for (var i = 0; i < 6; i++) {
 				if (state[i] === 1) {
 					if (state[i + 6] === 1) {
 						check = 1
@@ -162,12 +162,15 @@ class Pvp extends Phaser.Scene {
 		}
 
 		if (check === 1) {
+			var vencedor = this.terminar()
 			if (dep2 === dep1) {
-				//console.log("Bruh")
-				var vencedor = 3;
+				
+				//console.log(" Bruh")
+				vencedor = 3
+
 			}
 			else {
-				var vencedor = this.terminar()
+				
 				if (vencedor === 1) {
 					scorePlayer1 = scorePlayer1 + 1;
 				}
