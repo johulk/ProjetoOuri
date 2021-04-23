@@ -61,10 +61,10 @@ class Pvc extends Phaser.Scene {
                 this.computadorScore.setScale(0.75)
                 // Inicializar
                 player = 1;
-                dep1 =0;
+                dep1 =24;
                 dep2 = 0;
                 check = 0;
-                state = [4 ,4 ,4 ,4, 4, 4, 4, 4, 4, 4, 4, 4];
+                state = [0 ,0 ,0 ,0, 0, 3, 2, 2, 2, 4, 4, 4];
                 
                 
                 
@@ -73,10 +73,10 @@ class Pvc extends Phaser.Scene {
         
                 scoreComputador = localStorage.getItem('computador');
                 
-
-                if(scorePlayer == null || scoreComputador == null){
-                        scorePInt = 0;
-                        scoreCInt = 0;
+                scorePInt = 0;
+                scoreCInt = 0;
+                if(scorePlayer == null && scoreComputador == null){
+                        
                         textP = this.add.text(915*2,52*2, scorePInt,{ fontFamily: 'Arial', fontSize: 70, color: '#000000' });
                         textC = this.add.text(915*2,140*2,scoreCInt,{ fontFamily: 'Arial', fontSize: 70, color: '#000000'});
                 }
@@ -157,7 +157,7 @@ class Pvc extends Phaser.Scene {
 
                 //verifica se o jogo terminou
                 this.afterplay();
-
+                
                 //console.log(dif)
                 setTimeout(() => {
                         if (player === 2) {
@@ -202,7 +202,7 @@ class Pvc extends Phaser.Scene {
                 var anyJog = [];
                 anyJog.push(this.verificaJogadas(state,player),this.verificaJogadas(state,(player%2)+1)); 
 
-                if(anyJog.length === 0){check === 1}; //verifica se ha jogadas possiveis para os dois jogadores
+                if(anyJog.length === 0){check = 1}; //verifica se ha jogadas possiveis para os dois jogadores
                 if (dep1 > 24 || dep2 > 24 || dep1 ===24 && dep2 === 24) { check = 1 } //Verifica pelos depositos
                 if ((dep1 + dep2) === 46){
                         for(i = 0; i < 6; i++){
@@ -223,17 +223,19 @@ class Pvc extends Phaser.Scene {
                         //console.log("player " + vencedor + " wins")
                         if (vencedor === 1){
                                 scorePInt += 1;
-                                scorePlayer = toString(scorePInt);
+                                //console.log(String(scorePInt))
+                                scorePlayer = String(scorePInt);
                                 localStorage.setItem('jogador',scorePlayer)
                         }
                         if (vencedor === 2){
                                 scoreCInt += 1;
-                                scoreComputador = toString(scoreCInt);
+                                scoreComputador = String(scoreCInt);
                                 localStorage.setItem('computador',scoreComputador)
                         }
                 }
                         
                         //Atualiza indicadores de score
+                        
                         textP.text = scorePlayer;
                         textC.text = scoreComputador;
 
@@ -271,6 +273,7 @@ class Pvc extends Phaser.Scene {
                         this.forward = this.add.sprite((config.width-config.width/4 - config.width/24 - config.width/150)*2, (config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98)*2, 'forward').setInteractive();
                         this.forward.on('pointerdown', () => this.scene.start("pvc"));
                         this.forward.setScale(0.62*2)
+                        this.forward.key = -1
                         this.forward.depth = 4  
                         
                 }
