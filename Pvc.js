@@ -29,78 +29,78 @@ class Pvc extends Phaser.Scene {
                 this.scale.lockOrientation('landscape')
                 // User Interface
                 this.background = this.add.sprite(w, h, "background_2");
-                this.background.displayWidth = 1024*2;
-                this.background.displayHeight = 600*2;
+                this.background.displayWidth = 1024 * 2;
+                this.background.displayHeight = 600 * 2;
 
-                this.home = this.add.sprite(41*2, 561*2 , 'home').setInteractive();
+                this.home = this.add.sprite(41 * 2, 561 * 2, 'home').setInteractive();
                 this.home.key = -1;
                 this.home.on('pointerdown', () => this.clickMenu());
-		        this.home.setScale(1.3)
+                this.home.setScale(1.3)
 
-                this.ouri = this.add.sprite(150*2, 55*2, 'ouri');
-               // this.ouri.displayHeight = 
+                this.ouri = this.add.sprite(150 * 2, 55 * 2, 'ouri');
+                // this.ouri.displayHeight = 
                 //this.ouri.displayWidth = 
                 this.ouri.depth = 2
 
                 //Pintainho 1
-                this.pinto1 = this.add.sprite(910*2, 290*2,'pinto_1')
+                this.pinto1 = this.add.sprite(910 * 2, 290 * 2, 'pinto_1')
                 //this.pinto1.setScale(0.5)
                 this.pinto1.depth = 1
 
 
                 //Pintainho 4
-                this.pinto4 = this.add.sprite(110*2,290*2,'pinto_4')
+                this.pinto4 = this.add.sprite(110 * 2, 290 * 2, 'pinto_4')
                 //this.pinto4.setScale(0.5)
                 this.pinto4.flipX = true
                 this.pinto4.depth = 1
 
                 //Scores
-                this.playerScore = this.add.sprite(915*2,72*2,"jogador1Score")
+                this.playerScore = this.add.sprite(915 * 2, 72 * 2, "jogador1Score")
                 this.playerScore.setScale(0.75)
-                this.computadorScore = this.add.sprite(915*2,160*2,"computadorScore")
+                this.computadorScore = this.add.sprite(915 * 2, 160 * 2, "computadorScore")
                 this.computadorScore.setScale(0.75)
                 // Inicializar
                 player = 1;
                 dep2 = 0;
                 dep1 = 0;
                 check = 0;
-                state = [4 ,4 ,4 ,4 ,4, 4, 4, 4, 4, 4, 4, 4];
-                
-                
+                state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
+
+
                 scorePlayer = localStorage.getItem('jogador');
-                
-        
+
+
                 scoreComputador = localStorage.getItem('computador');
-                
+
                 //scorePInt = 0;
                 //scoreCInt = 0;
-                if(scorePlayer === null || scoreComputador === null){
-                        if(scorePlayer === null){
+                if (scorePlayer === null || scoreComputador === null) {
+                        if (scorePlayer === null) {
                                 scorePInt = 0
                         }
-                        else{
-                                if(scoreComputador === null){
+                        else {
+                                if (scoreComputador === null) {
                                         scoreCInt = 0;
                                 }
                         }
-                        textP = this.add.text(915*2,52*2, scorePInt,{ fontFamily: 'Arial', fontSize: 70, color: '#000000' });
-                        textC = this.add.text(915*2,140*2,scoreCInt,{ fontFamily: 'Arial', fontSize: 70, color: '#000000'});
-                        
+                        textP = this.add.text(915 * 2, 52 * 2, scorePInt, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
+                        textC = this.add.text(915 * 2, 140 * 2, scoreCInt, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
+
                 }
-                else{
-                       scoreCInt = parseInt(scoreComputador,10);
-                       scorePInt = parseInt(scorePlayer,10);
-                       textP = this.add.text(915*2,52*2, scorePlayer,{ fontFamily: 'Arial', fontSize: 70, color: '#000000' });
-                       textC = this.add.text(915*2,140*2,scoreComputador,{ fontFamily: 'Arial', fontSize: 70, color: '#000000'});
+                else {
+                        scoreCInt = parseInt(scoreComputador, 10);
+                        scorePInt = parseInt(scorePlayer, 10);
+                        textP = this.add.text(915 * 2, 52 * 2, scorePlayer, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
+                        textC = this.add.text(915 * 2, 140 * 2, scoreComputador, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
                 }
 
-                this.setaP1 = this.add.sprite(1024,936,'setaP1').setScale(0.7).setVisible(false)
-                this.setaP2 = this.add.sprite(1024,250,'setaP2').setScale(0.7).setVisible(false)
-                this.setaCounterP1 = this.add.sprite(810*2,72*2,'setaCounter').setScale(0.7).setVisible(false)
-                this.setaCounterP2 = this.add.sprite(810*2,160*2,'setaCounter').setScale(0.7).setVisible(false)
-                this.setaJog1 = this.add.sprite(910*2,736,'setaP1').setScale(0.4).setVisible(false)
-                this.setaJog2 = this.add.sprite(225,736,'setaP1').setScale(0.4).setVisible(false)
-               
+                this.setaP1 = this.add.sprite(1024, 936, 'setaP1').setScale(0.7).setVisible(false)
+                this.setaP2 = this.add.sprite(1024, 250, 'setaP2').setScale(0.7).setVisible(false)
+                this.setaCounterP1 = this.add.sprite(810 * 2, 72 * 2, 'setaCounter').setScale(0.7).setVisible(false)
+                this.setaCounterP2 = this.add.sprite(810 * 2, 160 * 2, 'setaCounter').setScale(0.7).setVisible(false)
+                this.setaJog1 = this.add.sprite(910 * 2, 736, 'setaP1').setScale(0.4).setVisible(false)
+                this.setaJog2 = this.add.sprite(225, 736, 'setaP1').setScale(0.4).setVisible(false)
+
                 this.atualizaTabuleiro(w, h);
                 this.atualizaSetas();
 
@@ -108,44 +108,44 @@ class Pvc extends Phaser.Scene {
 
         }
 
-    
 
-		
-	atualizaSetas(){
 
-                this.setaP1 = this.setaP1 || this.add.sprite(1024,936,'setaP1').setScale(0.7).setVisible(false)
-                this.setaP2 = this.setaP2 || this.add.sprite(1024,100,'setaP2').setScale(0.7).setVisible(false)
-                this.setaCounterP1 = this.setaCounterP1 || this.add.sprite(810*2,72*2,'setaCounter').setScale(0.7).setVisible(false)
-                this.setaCounterP2 = this.setaCounterP2 || this.add.sprite(810*2,160*2,'setaCounter').setScale(0.7).setVisible(false)
-                this.setaJog1 = this.setaJog1 || this.add.sprite(910*2,736,'setaP1').setScale(0.4).setVisible(false)
-                this.setaJog2 = this.setaJog2 || this.add.sprite(225,736,'setaP1').setScale(0.4).setVisible(false)
 
-		switch(player){
-			
-			case 1 :
-			this.setaP2.setVisible(false)
-			this.setaCounterP2.setVisible(false)
-			this.setaP1.setVisible(true)
-			this.setaCounterP1.setVisible(true)
-                        this.setaJog1.setVisible(true)
-                        this.setaJog2.setVisible(false)
-			break;
+        atualizaSetas() {
 
-			case 2:
-				
-			this.setaP1.setVisible(false)
-			this.setaCounterP1.setVisible(false)
-			this.setaP2.setVisible(true)
-			this.setaCounterP2.setVisible(true)
-                        this.setaJog1.setVisible(false)
-                        this.setaJog2.setVisible(true)
-			break
-		}
-	}
+                this.setaP1 = this.setaP1 || this.add.sprite(1024, 936, 'setaP1').setScale(0.7).setVisible(false)
+                this.setaP2 = this.setaP2 || this.add.sprite(1024, 100, 'setaP2').setScale(0.7).setVisible(false)
+                this.setaCounterP1 = this.setaCounterP1 || this.add.sprite(810 * 2, 72 * 2, 'setaCounter').setScale(0.7).setVisible(false)
+                this.setaCounterP2 = this.setaCounterP2 || this.add.sprite(810 * 2, 160 * 2, 'setaCounter').setScale(0.7).setVisible(false)
+                this.setaJog1 = this.setaJog1 || this.add.sprite(910 * 2, 736, 'setaP1').setScale(0.4).setVisible(false)
+                this.setaJog2 = this.setaJog2 || this.add.sprite(225, 736, 'setaP1').setScale(0.4).setVisible(false)
+
+                switch (player) {
+
+                        case 1:
+                                this.setaP2.setVisible(false)
+                                this.setaCounterP2.setVisible(false)
+                                this.setaP1.setVisible(true)
+                                this.setaCounterP1.setVisible(true)
+                                this.setaJog1.setVisible(true)
+                                this.setaJog2.setVisible(false)
+                                break;
+
+                        case 2:
+
+                                this.setaP1.setVisible(false)
+                                this.setaCounterP1.setVisible(false)
+                                this.setaP2.setVisible(true)
+                                this.setaCounterP2.setVisible(true)
+                                this.setaJog1.setVisible(false)
+                                this.setaJog2.setVisible(true)
+                                break
+                }
+        }
 
         jogada(pointer, gameObject) {
                 // Impedir jogada quando se clica no home
-                if ((gameObject.key === -1) || (gameObject.key > 5)){ return; }
+                if ((gameObject.key === -1) || (gameObject.key > 5)) { return; }
 
                 var pos = gameObject.key;
 
@@ -153,10 +153,10 @@ class Pvc extends Phaser.Scene {
                 if ((player === 1 && pos > 5) || (player === 2 && pos < 6)) { return; }
 
                 // Verifica as regras do jogo
-                if (this.one(state,pos) === false) { return; }
+                if (this.one(state, pos) === false) { return; }
 
                 // Verifica se é necessario popular o oponente
-                if (this.popularOponente(state,pos,1) === -1) { return; } 
+                if (this.popularOponente(state, pos, 1) === -1) { return; }
 
                 console.log('update')
 
@@ -172,7 +172,7 @@ class Pvc extends Phaser.Scene {
 
                 //verifica se o jogo terminou
                 this.afterplay();
-                if (check === 1){return;}
+                if (check === 1) { return; }
                 //console.log(dif)
                 setTimeout(() => {
                         if (player === 2) {
@@ -190,7 +190,7 @@ class Pvc extends Phaser.Scene {
         }
 
         dificuldade() {
-                switch(dif){
+                switch (dif) {
                         case 0: return this.facil()
                         case 1: return this.medio()
                         case 2: return this.dificil()
@@ -201,28 +201,28 @@ class Pvc extends Phaser.Scene {
         // Da um numero random e verifica se e uma possivel jogada
         facil() {
                 var res = Math.floor(Math.random() * 6 + 6);
-                var jogPosFacil = this.verificaJogadas(state,player);
+                var jogPosFacil = this.verificaJogadas(state, player);
 
-                while(!(jogPosFacil.includes(res))){
+                while (!(jogPosFacil.includes(res))) {
                         res = Math.floor(Math.random() * 6 + 6);
                 }
 
                 return res;
-                
+
         };
 
-       
-        afterplay() { //Verifica se o jogo acabou
-                
-                var anyJog = [];
-                anyJog.push(this.verificaJogadas(state,player),this.verificaJogadas(state,(player%2)+1)); 
 
-                if(anyJog.length === 0){check = 1}; //verifica se ha jogadas possiveis para os dois jogadores
-                if (dep2 > 24 || dep1 > 24 || dep2 ===24 && dep1 === 24) { check = 1 } //Verifica pelos depositos
-                if ((dep2 + dep1) === 46){
-                        for(i = 0; i < 6; i++){
-                                if (state[i] === 1){
-                                        if(state[i+6] === 1){
+        afterplay() { //Verifica se o jogo acabou
+
+                var anyJog = [];
+                anyJog.push(this.verificaJogadas(state, player), this.verificaJogadas(state, (player % 2) + 1));
+
+                if (anyJog.length === 0) { check = 1 }; //verifica se ha jogadas possiveis para os dois jogadores
+                if ((dep2 > 24) || (dep1 > 24) || (dep2 === 24 && dep1 === 24)) { check = 1 } //Verifica pelos depositos
+                if ((dep2 + dep1) === 46) {
+                        for (i = 0; i < 6; i++) {
+                                if (state[i] === 1) {
+                                        if (state[i + 6] === 1) {
                                                 check = 1
                                         }
                                 }
@@ -230,76 +230,76 @@ class Pvc extends Phaser.Scene {
                 }
 
                 if (check === 1) {
-                        if(dep2 === dep1){
+                        if (dep2 === dep1) {
                                 var vencedor = 3;
                         }
-                        else{
-                        var vencedor = this.terminar()
-                        //console.log("player " + vencedor + " wins")
-                        if (vencedor === 1){
-                                scorePInt += 1;
-                                //console.log(String(scorePInt))
-                                scorePlayer = String(scorePInt);
-                                scoreComputador = String(scoreCInt);
-                                localStorage.setItem('jogador',scorePlayer)
-                                localStorage.setItem('computador',scoreComputador)
+                        else {
+                                var vencedor = this.terminar()
+                                //console.log("player " + vencedor + " wins")
+                                if (vencedor === 1) {
+                                        scorePInt += 1;
+                                        //console.log(String(scorePInt))
+                                        scorePlayer = String(scorePInt);
+                                        scoreComputador = String(scoreCInt);
+                                        localStorage.setItem('jogador', scorePlayer)
+                                        localStorage.setItem('computador', scoreComputador)
+                                }
+                                if (vencedor === 2) {
+                                        scoreCInt += 1;
+                                        scoreComputador = String(scoreCInt);
+                                        scorePlayer = String(scorePInt);
+                                        localStorage.setItem('jogador', scorePlayer)
+                                        localStorage.setItem('computador', scoreComputador)
+                                }
                         }
-                        if (vencedor === 2){
-                                scoreCInt += 1;
-                                scoreComputador = String(scoreCInt);
-                                scorePlayer = String(scorePInt);
-                                localStorage.setItem('jogador',scorePlayer)
-                                localStorage.setItem('computador',scoreComputador)
-                        }
-                }
-                        
+
                         //Atualiza indicadores de score
-                        
+
                         textP.text = scorePlayer;
                         textC.text = scoreComputador;
 
                         //Apresentar desforra
-                        
-                        
+
+
 
                         //this.desforraQuadro = this.add.sprite((config.width/2)*2,(config.height/2+config.height/12)*2,"infoVazio");
                         //this.desforraQuadro.setScale(1.4)
-                        switch(vencedor){
+                        switch (vencedor) {
                                 case 1:
-                                        this.quadroP1W = this.add.sprite((config.width/2)*2,(config.height/2+config.height/12)*2,"ganhouP1").setScale(1.4);
-				       // this.texto1 =  this.add.text(370*2,250*2,"O jogador 1 ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
+                                        this.quadroP1W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP1").setScale(1.4);
+                                        // this.texto1 =  this.add.text(370*2,250*2,"O jogador 1 ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
                                         //this.texto2 = this.add.text(370*2,300*2,"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
                                         break;
 
-				case 2:
-                                        this.quadroCW = this.add.sprite((config.width/2)*2,(config.height/2+config.height/12)*2,"ganhouC").setScale(1.4);
-				        //this.texto3 =  this.add.text(370*2,250*2,"O computador ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
+                                case 2:
+                                        this.quadroCW = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouC").setScale(1.4);
+                                        //this.texto3 =  this.add.text(370*2,250*2,"O computador ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
                                         //this.texto4 = this.add.text(370*2,300*2,"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
                                         break;
-                                 case 3:
-                                        this.quadroEmpate= this.add.sprite((config.width/2)*2,(config.height/2+config.height/12)*2,"empate").setScale(1.4);
-                                        break; 
+                                case 3:
+                                        this.quadroEmpate = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "empate").setScale(1.4);
+                                        break;
                         }
 
                         //Fechar
-		        this.close = this.add.sprite(2*(config.width/4 + config.width/24 +config.width/150), 2*(config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98),'close').setInteractive();
-		        this.close.on('pointerdown', ()=>{this.clickMenu()});
-		        this.close.setScale(0.62*2)
-		        this.close.key = -1
-		        this.close.depth = 4
-                        
+                        this.close = this.add.sprite(2 * (config.width / 4 + config.width / 24 + config.width / 150), 2 * (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98), 'close').setInteractive();
+                        this.close.on('pointerdown', () => { this.clickMenu() });
+                        this.close.setScale(0.62 * 2)
+                        this.close.key = -1
+                        this.close.depth = 4
+
                         //Forwards
-                        this.forward = this.add.sprite((config.width-config.width/4 - config.width/24 - config.width/150)*2, (config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98)*2, 'forward').setInteractive();
+                        this.forward = this.add.sprite((config.width - config.width / 4 - config.width / 24 - config.width / 150) * 2, (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98) * 2, 'forward').setInteractive();
                         this.forward.on('pointerdown', () => this.scene.start("pvc"));
-                        this.forward.setScale(0.62*2)
+                        this.forward.setScale(0.62 * 2)
                         this.forward.key = -1
-                        this.forward.depth = 4  
-                        
+                        this.forward.depth = 4
+
                 }
 
         }
 
-        popularOponente(estado,pos,jogador) {
+        popularOponente(estado, pos, jogador) {
                 var soma = 0;
                 var finalpos = 0;
                 var i;
@@ -427,8 +427,8 @@ class Pvc extends Phaser.Scene {
 
         // funcao que procura se existem numeros >1 na fila do jogador/pc
 
-                
-        one(estado,pos) {
+
+        one(estado, pos) {
 
                 if (estado[pos] === 0) {
                         return false;
@@ -456,16 +456,16 @@ class Pvc extends Phaser.Scene {
 
 
 
-        medio() {  
+        medio() {
                 var copiaestado = [...state];
                 //
 
-                let arvore = this.construirArvore(copiaestado,4);
+                let arvore = this.construirArvore(copiaestado, 4);
 
 
                 var melhorValorFinal = this.minimax(arvore, 4, -Infinity, +Infinity, true)
 
-                
+
 
                 var procuraJogada;
                 var melhoresJogadas = [];
@@ -478,30 +478,30 @@ class Pvc extends Phaser.Scene {
 
                 return jogadaFinal
         }
-        
+
 
         // Cria um array com as jogadas possiveis 
         verificaJogadas(estadoRecebido, jogador) {
                 //console.log(dif + " xDDDDDD")
                 //casasPC = [6,7,8,9,10,11]
                 //casasJogador = [0,1,2,3,4,5]
-                switch(jogador){
-                        
+                switch (jogador) {
+
                         case 1:
-                                var jogPos = casasJogador.filter((casa) =>  this.one(estadoRecebido,casa) && this.popularOponente(estadoRecebido,casa,jogador));
+                                var jogPos = casasJogador.filter((casa) => this.one(estadoRecebido, casa) && this.popularOponente(estadoRecebido, casa, jogador));
                                 break
 
                         case 2:
-                                var jogPos = casasPC.filter((casa) =>  this.one(estadoRecebido,casa) && this.popularOponente(estadoRecebido,casa,jogador));
-                               
-                      
-                }       
+                                var jogPos = casasPC.filter((casa) => this.one(estadoRecebido, casa) && this.popularOponente(estadoRecebido, casa, jogador));
+
+
+                }
                 return jogPos;
         };
 
 
         //Controi o resto dos nodos de acordo com os states simulados ao longo do jogo
-        construirDescendentes(staterecebido, jogador, jogada, depth,auxdep2,auxdep1) {
+        construirDescendentes(staterecebido, jogador, jogada, depth, auxdep2, auxdep1) {
 
                 //receber um estado + 1 jogada -- Fazer a jogada -- Procurar novas jogadas -- passar aos descedentes
                 var nodo = new TreeNode();
@@ -530,23 +530,23 @@ class Pvc extends Phaser.Scene {
 
 
         //Cria uma arvore de jogadas simuladas
-        construirArvore(estadoRaiz,profundidade) {
+        construirArvore(estadoRaiz, profundidade) {
                 var newProf = profundidade;
-                var jogPos = this.verificaJogadas(estadoRaiz,2);
+                var jogPos = this.verificaJogadas(estadoRaiz, 2);
 
                 var arvore = new TreeNode();
-                
+
                 // raiz
                 var estadoSim = new EstadoSimulado(estadoRaiz, dep2, dep1);
 
-                
+
                 //tudobem
                 arvore.estadoSimulado = estadoSim;
 
 
                 // constroi para o jogador seguinte
                 for (var jogposlen = 0; jogposlen < jogPos.length; jogposlen++) {
-                        arvore.descendants.push(this.construirDescendentes(estadoRaiz, 2, jogPos[jogposlen], newProf,dep2, dep1));
+                        arvore.descendants.push(this.construirDescendentes(estadoRaiz, 2, jogPos[jogposlen], newProf, dep2, dep1));
                 }
                 return arvore;
         }
@@ -597,12 +597,12 @@ class Pvc extends Phaser.Scene {
         dificil() {
                 let copiaestado = [...state];
 
-                let arvore = this.construirArvore(copiaestado,8);
- 
+                let arvore = this.construirArvore(copiaestado, 8);
+
 
                 var melhorValorFinal = this.minimax(arvore, 8, -Infinity, +Infinity, true)
                 console.log(melhorValorFinal)
-                
+
 
                 var procuraJogada;
                 var melhoresJogadas = [];
@@ -661,27 +661,27 @@ class Pvc extends Phaser.Scene {
 
 
         //Atualiza as imagens dos tabuleiros
-	atualizaTabuleiro(w, h) {
-		// Adiciona o Tabuleiro
-		this.tabuleiro = this.add.sprite(w, h, 'tabuleiro');
-		this.tabuleiro.setScale(2)
+        atualizaTabuleiro(w, h) {
+                // Adiciona o Tabuleiro
+                this.tabuleiro = this.add.sprite(w, h, 'tabuleiro');
+                this.tabuleiro.setScale(2)
 
-		// Coordenadas das imagens dos ovos
-		let coords = [337, 355, 405, 385, 476, 398,548, 398,620,386,689, 356, 
-                        689, 246, 620,215, 548,205, 476, 205, 405, 215, 337, 246];
+                // Coordenadas das imagens dos ovos
+                let coords = [337, 355, 405, 385, 476, 398, 548, 398, 620, 386, 689, 356,
+                        689, 246, 620, 215, 548, 205, 476, 205, 405, 215, 337, 246];
 
-		// Adiciona as imagens dos ovos
-		for (var i = 0; i < 12; i++) {
-				this.numero = this.add.sprite(coords[2 * i]*2, coords[2 * i + 1]*2, 'i' + state[i]).setScale(0.45).setInteractive();
-				this.numero.key = i;
-		}
-		
-            //Adiciona os ovos aos depositos
-            this.numerodep2 = this.add.sprite(240*2,300*2,'i'+dep2).setScale(0.6)
-            this.numerodep1 = this.add.sprite(790*2,300*2,'i'+dep1).setScale(0.6)
-}
+                // Adiciona as imagens dos ovos
+                for (var i = 0; i < 12; i++) {
+                        this.numero = this.add.sprite(coords[2 * i] * 2, coords[2 * i + 1] * 2, 'i' + state[i]).setScale(0.45).setInteractive();
+                        this.numero.key = i;
+                }
 
-        clickMenu(){
+                //Adiciona os ovos aos depositos
+                this.numerodep2 = this.add.sprite(240 * 2, 300 * 2, 'i' + dep2).setScale(0.6)
+                this.numerodep1 = this.add.sprite(790 * 2, 300 * 2, 'i' + dep1).setScale(0.6)
+        }
+
+        clickMenu() {
                 console.log('Menu');
                 scorePlayer1 = 0;
                 scorePlayer2 = 0;

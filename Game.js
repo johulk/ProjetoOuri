@@ -12,10 +12,10 @@ var config = {
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: DEFAULT_WIDTH*2,
-        height: DEFAULT_HEIGHT*2
+        width: DEFAULT_WIDTH * 2,
+        height: DEFAULT_HEIGHT * 2
     }
-    
+
 }
 
 var game = new Phaser.Game(config);
@@ -27,8 +27,8 @@ var player = 1;
 var dep1 = 0;
 var dep2 = 0;
 var check = 0;
-casasPC = [6,7,8,9,10,11]
-casasJogador = [0,1,2,3,4,5]
+casasPC = [6, 7, 8, 9, 10, 11]
+casasJogador = [0, 1, 2, 3, 4, 5]
 
 //PVP
 let scorePlayer1 = 0;
@@ -46,14 +46,14 @@ let scoreComputador;
 //Stats
 //Load stats.
 let stats = {
- totalGames : [0,0,0],
- totalWon : [0,0,0],
- winEasy : 0,
- winMedium : 0,
- winHard : 0
+    totalGames: [0, 0, 0],
+    totalWon: [0, 0, 0],
+    winEasy: 0,
+    winMedium: 0,
+    winHard: 0
 }
 
 //var stats = 
 
 //Variaveis Globais Pvc
-var dif ; 
+var dif;
