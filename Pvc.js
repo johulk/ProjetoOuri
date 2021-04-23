@@ -80,8 +80,8 @@ class Pvc extends Phaser.Scene {
                 else{
                         scoreComputadorInt = 0;
                         scorePlayerInt = 0;
-                        textP1 = this.add.text(915*2,52*2, scorePlayer1,{ fontFamily: 'Arial', fontSize: 70, color: '#000000' });
-                        textC = this.add.text(915*2,140*2,scoreComputador,{ fontFamily: 'Arial', fontSize: 70, color: '#000000'});
+                        textP1 = this.add.text(915*2,52*2, scorePlayerInt,{ fontFamily: 'Arial', fontSize: 70, color: '#000000' });
+                        textC = this.add.text(915*2,140*2,scoreComputadorInt,{ fontFamily: 'Arial', fontSize: 70, color: '#000000'});
                 }
 
                 
