@@ -150,7 +150,7 @@ class Pvc extends Phaser.Scene {
                 //verifica se o jogo terminou
                 this.afterplay();
 
-                console.log(dif)
+                //console.log(dif)
                 setTimeout(() => {
                         if (player === 2) {
 
@@ -202,12 +202,12 @@ class Pvc extends Phaser.Scene {
                         //console.log("player " + vencedor + " wins")
                         if (vencedor === 1){
                                 scorePlayerInt += 1;
-                                scorePlayer = (""+scorePlayerInt)
+                                scorePlayer = (String(ScorePlayerInt))
                                 localStorage.setItem('jogador',scorePlayer)
                         }
                         if (vencedor === 2){
                                 scoreComputadorInt += 1;
-                                scoreComputador = (""+scoreComputadorInt)
+                                scoreComputador = (String(scoreComputadorInt))
                                 localStorage.setItem('computador',scoreComputador)
                         }
                         
