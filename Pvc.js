@@ -98,8 +98,8 @@ class Pvc extends Phaser.Scene {
                 this.setaP2 = this.add.sprite(1024,250,'setaP2').setScale(0.7).setVisible(false)
                 this.setaCounterP1 = this.add.sprite(810*2,72*2,'setaCounter').setScale(0.7).setVisible(false)
                 this.setaCounterP2 = this.add.sprite(810*2,160*2,'setaCounter').setScale(0.7).setVisible(false)
-                this.setaJog1 = this.add.sprite(810*2,936,'setaP1').setScale(0.7).setVisible(false)
-                this.setaJog2 = this.add.sprite(810,936,'setaP1').setScale(0.7).setVisible(false)
+                this.setaJog1 = this.add.sprite(910*2,736,'setaP1').setScale(0.4).setVisible(false)
+                this.setaJog2 = this.add.sprite(225,736,'setaP1').setScale(0.4).setVisible(false)
                
                 this.atualizaTabuleiro(w, h);
                 this.atualizaSetas();
@@ -117,8 +117,8 @@ class Pvc extends Phaser.Scene {
                 this.setaP2 = this.setaP2 || this.add.sprite(1024,100,'setaP2').setScale(0.7).setVisible(false)
                 this.setaCounterP1 = this.setaCounterP1 || this.add.sprite(810*2,72*2,'setaCounter').setScale(0.7).setVisible(false)
                 this.setaCounterP2 = this.setaCounterP2 || this.add.sprite(810*2,160*2,'setaCounter').setScale(0.7).setVisible(false)
-                this.setaJog1 = this.setaJog1 || this.add.sprite(810*2,936,'setaP1').setScale(0.7).setVisible(false)
-                this.setaJog2 = this.setaJog1 || this.add.sprite(810,936,'setaP1').setScale(0.7).setVisible(false)
+                this.setaJog1 = this.setaJog1 || this.add.sprite(910*2,736,'setaP1').setScale(0.4).setVisible(false)
+                this.setaJog2 = this.setaJog2 || this.add.sprite(225,736,'setaP1').setScale(0.4).setVisible(false)
 
 		switch(player){
 			
