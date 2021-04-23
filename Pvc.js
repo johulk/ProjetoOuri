@@ -269,7 +269,7 @@ class Pvc extends Phaser.Scene {
                                         //this.texto4 = this.add.text(370*2,300*2,"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
                                         break;
                                  case 3:
-                                        this.quadroEmpate= this.add.sprite((config.width/2)*2,(config.height/2+config.height/12)*2,"ganhouP2").setScale(0.5);
+                                        this.quadroEmpate= this.add.sprite((config.width/2)*2,(config.height/2+config.height/12)*2,"empate").setScale(1.4);
                                         break; 
                         }
 
@@ -675,7 +675,7 @@ class Pvc extends Phaser.Scene {
 
         clickMenu(){
                 console.log('Menu');
-                        scorePlayer1 = 0;
+                scorePlayer1 = 0;
                 scorePlayer2 = 0;
                 this.scene.start('menu');
         }

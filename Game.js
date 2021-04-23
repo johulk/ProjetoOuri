@@ -43,7 +43,17 @@ let scorePlayer;
 let scoreComputador;
 
 
+//Stats
+//Load stats.
+let stats = {
+ totalGames : [0,0,0],
+ totalWon : [0,0,0],
+ winEasy : 0,
+ winMedium : 0,
+ winHard : 0
+}
 
+//var stats = 
 
 //Variaveis Globais Pvc
 var dif ; 

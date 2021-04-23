@@ -130,9 +130,21 @@ class Menu extends Phaser.Scene{
 
     }
     clickCreditos(){
+        this.creditosQuadro=this.add.sprite((config.width/2)*2,(config.height/2+config.height/12)*2,"creditosQuadro");
+        //Fechar
+        this.close = this.add.sprite((config.width-config.width/4 - config.width/30 )*2,2*(config.height/2 -config.height/12 - config.height/24 - config.height/48 - config.height/64),'close').setInteractive();
+        this.close.on('pointerdown', ()=>this.scene.start("menu"));
+        this.close.setScale(0.62*2)
+        this.close.depth = 4
         console.log('Créditos');
     }
     clickStats(){
+        this.statsQuadro=this.add.sprite((config.width/2)*2,(config.height/2+config.height/12)*2,"statsQuadro");
+        //Fechar
+        this.close = this.add.sprite((config.width-config.width/4 - config.width/30 )*2,2*(config.height/2 -config.height/12 - config.height/24 - config.height/48 - config.height/64),'close').setInteractive();
+        this.close.on('pointerdown', ()=>this.scene.start("menu"));
+        this.close.setScale(0.62*2)
+        this.close.depth = 4
         console.log('Stats');
     }
     counterInfo(contador){

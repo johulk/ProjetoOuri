@@ -26,7 +26,11 @@ class Load extends Phaser.Scene{
         }
 
         this.load.image('infoVazio','img_menu/quadro.png')
+        this.load.image('creditosQuadro','img_menu/creditos.png')
+        this.load.image('statsQuadro','img_menu/stats.png')
         
+
+
         //Score
         this.load.image('jogador1Score','img_menu/player1.png')
         this.load.image('jogador2Score','img_menu/player2.png')
@@ -66,6 +70,7 @@ class Load extends Phaser.Scene{
         this.load.image('ganhouP1','img_menu/parabens_1.png')
         this.load.image('ganhouP2','img_menu/parabens_2.png')
         this.load.image('ganhouC','img_menu/parabens_3.png')
+        this.load.image('empate','img_menu/empatado.png')
 
         for(var i = 0; i<31; i++){
         this.load.image('i'+i, 'img/'+i+'.png')
