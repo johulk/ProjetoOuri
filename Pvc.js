@@ -242,7 +242,7 @@ class Pvc extends Phaser.Scene {
 
                         //Fechar
 		        this.close = this.add.sprite(2*(config.width/4 + config.width/24 +config.width/150), 2*(config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98),'close').setInteractive();
-		        this.close.on('pointerdown', ()=>{scorePlayer1 = 0; scorePlayer2 = 0;this.scene.start("menu")});
+		        this.close.on('pointerdown', ()=>{this.clickMenu()});
 		        this.close.setScale(0.62*2)
 		        this.close.key = -1
 		        this.close.depth = 4
@@ -639,8 +639,10 @@ class Pvc extends Phaser.Scene {
             this.numeroDep2 = this.add.sprite(790*2,300*2,'i'+dep2).setScale(0.6)
 }
 
-        clickMenu() {
+        clickMenu(){
                 console.log('Menu');
+                        scorePlayer1 = 0;
+                scorePlayer2 = 0;
                 this.scene.start('menu');
         }
 

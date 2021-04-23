@@ -47,6 +47,7 @@ class Pvp extends Phaser.Scene{
 
         textP1 = this.add.text(915*2,52*2, scorePlayer1,{ fontFamily: 'Arial', fontSize: 70, color: '#000000' });
 		textP2 = this.add.text(915*2,140*2,scorePlayer2,{ fontFamily: 'Arial', fontSize: 70, color: '#000000'});
+
 		this.setaP1 = this.add.sprite(1024,936,'setaP1').setScale(0.7).setVisible(false)
         this.setaP2 = this.add.sprite(1024,250,'setaP2').setScale(0.7).setVisible(false)
         this.setaCounterP1 = this.add.sprite(810*2,72*2,'setaCounter').setScale(0.7).setVisible(false)
@@ -58,6 +59,7 @@ class Pvp extends Phaser.Scene{
         dep2 = 0;
         check = 0;       
 		state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
+		
 		
 	    this.atualizaTabuleiro(w,h);
 		this.atualizaSetas();
@@ -176,7 +178,7 @@ class Pvp extends Phaser.Scene{
 
 		//Fechar
 		this.close = this.add.sprite(2*(config.width/4 + config.width/24 +config.width/150), 2*(config.height/2 + config.height/6+config.height/6+config.height/24-config.height/98),'close').setInteractive();
-		this.close.on('pointerdown', ()=>{scorePlayer1 = 0; scorePlayer2 = 0;this.scene.start("menu")});
+		this.close.on('pointerdown', ()=>{this.clickMenu()});
 		this.close.setScale(0.62*2)
 		this.close.key = -1
 		this.close.depth = 4
@@ -373,6 +375,8 @@ class Pvp extends Phaser.Scene{
 
 	clickMenu(){
         console.log('Menu');
+		scorePlayer1 = 0;
+        scorePlayer2 = 0;
         this.scene.start('menu');
     }
     
