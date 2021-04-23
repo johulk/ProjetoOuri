@@ -424,7 +424,7 @@ class Pvc extends Phaser.Scene {
                 
 
                 var procuraJogada;
-                var melhoresJogadas;
+                var melhoresJogadas = [];
                 for (procuraJogada = 0; procuraJogada < arvore.descendants.length; procuraJogada++) {
                         if (arvore.descendants[procuraJogada].valor === melhorValorFinal) {
                                 melhoresJogadas.push(arvore.descendants[procuraJogada].root)
