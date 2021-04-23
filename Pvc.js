@@ -97,15 +97,15 @@ class Pvc extends Phaser.Scene {
 
                 this.setaP1 = this.add.sprite(1024,936,'setaP1').setScale(0.7)
 		this.setaP1.visible = false
-		this.setaP2 = this.add.sprite(1024,100,'setaP2').setScale(0.7)
-		this.setaP2.visible = false
+		//this.setaP2 = this.add.sprite(1024,100,'setaP2').setScale(0.7)
+		//this.setaP2.visible = false
                 this.setaCounterP1 = this.add.sprite(810*2,72*2,'setaCounter').setScale(0.7)
 		this.setaCounterP1.visible = false
 		this.setaCounterP2 = this.add.sprite(810*2,160*2,'setaCounter').setScale(0.7)
 		this.setaCounterP2.visible = false
 
 		if(player == 1){
-			this.setaP2.visible = false;
+			//this.setaP2.visible = false;
 			this.setaCounterP2.visible = false;
 			this.setaP1.visible = true;
 			this.setaCounterP1.visible = true;
@@ -113,7 +113,7 @@ class Pvc extends Phaser.Scene {
 		if(player == 2){
 			this.setaP1.visible = false;
 			this.setaCounterP1.visible = false;
-			this.setaP2.visible = true;
+			//this.setaP2.visible = true;
 			this.setaCounterP2.visible = true;
 		}
 	}
