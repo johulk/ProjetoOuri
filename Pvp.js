@@ -159,13 +159,13 @@ class Pvp extends Phaser.Scene{
 		//this.desforraQuadro.setScale(1.4)
 		switch(vencedor){
 			case 1:
-				this.quadroP1W = this.add.sprite((config.width/2)*2,(config.height/2+config.height/12)*2,"ganhouP1");
+				this.quadroP1W = this.add.sprite((config.width/2)*2,(config.height/2+config.height/12)*2,"ganhouP1").setScale(1.4);
 				//this.texto1 =  this.add.text(370*2,250*2,"O jogador 1 ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
 				//this.texto2 = this.add.text(370*2,300*2,"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
 				break;
 
 			case 2:
-				this.quadroP2W = this.add.sprite((config.width/2)*2,(config.height/2+config.height/12)*2,"ganhouP2");
+				this.quadroP2W = this.add.sprite((config.width/2)*2,(config.height/2+config.height/12)*2,"ganhouP2").setScale(1.4);
 				//this.texto3 =  this.add.text(370*2,250*2,"O jogador 2 ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
 				//this.texto4 = this.add.text(370*2,300*2,"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
 				break;
