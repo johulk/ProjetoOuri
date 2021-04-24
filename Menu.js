@@ -183,11 +183,25 @@ class Menu extends Phaser.Scene {
         //Calculos de %
 
         var totalJogos = stats.totalGames.reduce((a,b) => a+b,0)
-        var totalWins = ((stats.totalWon.reduce((a,b) => a+b,0)) / totalJogos )*100;
-        var totalWinsEasy = (stats.totalWon[0] / stats.totalGames[0])*100
-        var totalWinsMedium = (stats.totalWon[1] / stats.totalGames[1])*100
-        var totalWinsHard = (stats.totalWon[2] / stats.totalGames[2])*100
 
+        var totalWins; 
+        var totalWinsEasy;
+        var totalWinsMedium; 
+        var totalWinsHard;
+
+        if ((stats.totalWon.reduce((a,b) => a+b,0) ===0)){
+            totalWins = 0;
+            totalWinsEasy = 0;
+            totalWinsMedium = 0;
+            totalWinsHard = 0;          
+        }
+        else{
+
+            totalWins = ((stats.totalWon.reduce((a,b) => a+b,0)) / totalJogos )*100;
+            totalWinsEasy = (stats.totalWon[0] / stats.totalGames[0])*100
+            totalWinsMedium = (stats.totalWon[1] / stats.totalGames[1])*100
+            totalWinsHard = (stats.totalWon[2] / stats.totalGames[2])*100
+        }
         console.log(totalJogos)
         var textTotalGames = this.add.text(1224, 270 * 2, totalJogos , { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
         var textTotalWins  = this.add.text(1224 ,305 * 2, totalWins+"%", { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
@@ -195,7 +209,6 @@ class Menu extends Phaser.Scene {
         var textWinsMedium = this.add.text(1224 , 422 * 2, totalWinsMedium+ "%", { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
         var textWinsHard   = this.add.text(1224 , 457 * 2, totalWinsHard+ "%", { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
 
-        //textTotalGames.text = 666666
 
 
 
