@@ -188,6 +188,7 @@ class Menu extends Phaser.Scene {
         totalWinsMedium = (stats.totalWon[1] / stats.totalGames[1])*100
         totalWinsHard = (stats.totalWon[2] / stats.totalGames[2])*100
 
+        console.log(totalJogos)
         textTotalGames = this.add.text(915 * 2, 52 * 2, totalJogos , { fontFamily: 'Arial', fontSize: 25, color: '#FFFFFF' });
         textTotalWins  = this.add.text(915 * 2, 60 * 2, totalWins+"%", { fontFamily: 'Arial', fontSize: 25, color: '#FFFFFF' });
         textWinsEasy   = this.add.text(915 * 2, 68 * 2, totalWinsEasy+ "%", { fontFamily: 'Arial', fontSize: 25, color: '#FFFFFF' });
