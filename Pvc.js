@@ -1,7 +1,9 @@
-function EstadoSimulado(stateTabuleiro, deposito2, deposito1) {
+function EstadoSimulado(stateTabuleiro, deposito2, deposito1,isOver) {
         this.estado = stateTabuleiro;
         this.depJogador = deposito2;
         this.depComputador = deposito1;
+        this.over = isOver;
+
 }
 
 function TreeNode() {
@@ -74,7 +76,7 @@ class Pvc extends Phaser.Scene {
                 depJogador = 0;
                 depComputador = 0;
                 check = 0;
-                state = [4,4,4,4,4,4, 4,4,4,4,4,4];
+                state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
 
 
 
@@ -89,19 +91,18 @@ class Pvc extends Phaser.Scene {
                         scorePInt = 0
                         scoreCInt = 0;
                 }
-                else 
-                {
+                else {
                         scoreCInt = scoreComputador[dif]
                         scorePInt = scorePlayer[dif]
 
                 }
-                
+
                 textP = this.add.text(915 * 2, 52 * 2, scorePInt, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
                 textC = this.add.text(915 * 2, 140 * 2, scoreCInt, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
-                textdepComputador = this.add.text(1438, 585, depJogador , { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
-                textdepJogador = this.add.text(580, 585, depComputador , { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
+                textdepComputador = this.add.text(1438, 585, depJogador, { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
+                textdepJogador = this.add.text(580, 585, depComputador, { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
                 textdepComputador.setDepth(8888)
-                textdepJogador.setDepth(8888)  
+                textdepJogador.setDepth(8888)
 
                 this.setaP1 = this.add.sprite(1024, 936, 'setaP1').setScale(0.7).setVisible(false)
                 this.setaP2 = this.add.sprite(1024, 250, 'setaP2').setScale(0.7).setVisible(false)
@@ -159,7 +160,7 @@ class Pvc extends Phaser.Scene {
                 if ((gameObject.key === -1) || (gameObject.key > 5)) { return; }
 
                 var pos = gameObject.key;
-                
+
                 // Impedir que um jogador jogue no campo errado
                 if ((player === 1 && pos > 5) || (player === 2 && pos < 6)) { return; }
 
@@ -225,26 +226,33 @@ class Pvc extends Phaser.Scene {
         };
 
 
-        afterplay() { //Verifica se o jogo acabou
+        checkFinal(estado, jogador, depositoJogador, depositoComputador) {
 
                 var anyJog = [];
-                anyJog.push(this.verificaJogadas(state, player), this.verificaJogadas(state, (player % 2) + 1));
-               
-                if ((anyJog[0].length === 0 )&&(anyJog[1].length === 0))  { check = 1 }; //verifica se ha jogadas possiveis para os dois jogadores
-                if ((depJogador > 24) || (depComputador > 24) || (depJogador === 24 && depComputador === 24)) { check = 1 } //Verifica pelos depositos
-                if ((depJogador + depComputador) === 46) {
+                anyJog.push(this.verificaJogadas(estado, jogador), this.verificaJogadas(estado, (jogador % 2) + 1));
+
+                var isFinal = 0;
+                if ((anyJog[0].length === 0) && (anyJog[1].length === 0)) { isFinal = 1 }; //verifica se ha jogadas possiveis para os dois jogadores
+                if ((depositoJogador > 24) || (depositoComputador > 24) || (depositoJogador === 24 && depComputador === 24)) { isFinal = 1 } //Verifica pelos depositos
+                if ((depJogador + depositoComputador) === 46) {
                         for (var i = 0; i < 6; i++) {
-                                if (state[i] === 1) {
-                                        if (state[i + 6] === 1) {
-                                                check = 1
+                                if (estado[i] === 1) {
+                                        if (estado[i + 6] === 1) {
+                                                isFinal = 1
                                         }
                                 }
                         }
-                }
+                } return isFinal;
+        }
+
+
+        afterplay() { //Verifica se o jogo acabou
+
+                check = this.checkFinal();
 
                 if (check === 1) {
                         var vencedor = this.terminar()
-                   
+
                         if (depJogador === depComputador) {
                                 vencedor = 3;
                         }
@@ -253,18 +261,18 @@ class Pvc extends Phaser.Scene {
                                 if (vencedor === 1) {
                                         scorePInt += 1;
                                         scorePlayer[dif] = scorePInt;
-                                        scoreComputador[dif]=scoreCInt;
-                                        stats.totalGames[dif] +=1
-                                        stats.totalWon[dif] +=1
-                                        
-                                        
+                                        scoreComputador[dif] = scoreCInt;
+                                        stats.totalGames[dif] += 1
+                                        stats.totalWon[dif] += 1
+
+
                                 }
                                 if (vencedor === 2) {
                                         scoreCInt += 1;
                                         scorePlayer[dif] = scorePInt;
-                                        scoreComputador[dif]=scoreCInt;
-                                        stats.totalGames[dif] +=1
-                                        
+                                        scoreComputador[dif] = scoreCInt;
+                                        stats.totalGames[dif] += 1
+
                                 }
                         }
 
@@ -302,7 +310,7 @@ class Pvc extends Phaser.Scene {
                         this.close.setScale(0.62 * 2)
                         this.close.key = -1
                         this.close.depth = 8890
-                        
+
 
                         //Forwards
                         this.forward = this.add.sprite((config.width - config.width / 4 - config.width / 24 - config.width / 150) * 2, (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98) * 2, 'forward').setInteractive();
@@ -354,26 +362,26 @@ class Pvc extends Phaser.Scene {
 
 
 
-        
-	terminar() {
-		var res = 1
-		var i;
 
-		for (i = 0; i < 6; i++) {
-			depJogador = depJogador + state[i]
-		}
+        terminar() {
+                var res = 1
+                var i;
 
-		for (i = 5; i < 12; i++) {
-			depComputador = depComputador + state[i]
-		}
+                for (i = 0; i < 6; i++) {
+                        depJogador = depJogador + state[i]
+                }
 
-		if (depJogador > depComputador) { res = 1 }
-		else { res = 2 }
-		this.numerodepJogador = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador).setScale(0.6)
+                for (i = 5; i < 12; i++) {
+                        depComputador = depComputador + state[i]
+                }
+
+                if (depJogador > depComputador) { res = 1 }
+                else { res = 2 }
+                this.numerodepJogador = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador).setScale(0.6)
                 this.numerodepComputador = this.add.sprite(790 * 2, 300 * 2, 'i' + depComputador).setScale(0.6)
-		return res
-	       }
-        
+                return res
+        }
+
 
         // Funcao que decide qual é o proximo jogador a jogar
         nextPlayer() {
@@ -537,14 +545,17 @@ class Pvc extends Phaser.Scene {
                 //console.log("DEPTH " + depth)
                 nodo.estadoSimulado = this.simulaJogada(copiaestado, jogada, jogador, depJogadorcopy, depComputadorcopy);
 
-                if (depth === 0) {
+                if (depth === 0 || nodo.estadoSimulado.isOver === 1) {
                         return nodo;
                 }
+
                 //EstadoSimulado já tem a jogada feita e os deps calculados, e o jogador ANTIGO
 
 
                 var jogPosNew = this.verificaJogadas(nodo.estadoSimulado.estado, (jogador % 2) + 1);
+
                 for (var i = 0; i < jogPosNew.length; i++) {
+                        if(this.checkFinal()[i])
                         nodo.descendants.push(this.construirDescendentes(nodo.estadoSimulado.estado, (jogador % 2) + 1, jogPosNew[i], depth - 1, nodo.estadoSimulado.depJogador, nodo.estadoSimulado.depComputador));
                 }
                 return nodo;
@@ -585,6 +596,8 @@ class Pvc extends Phaser.Scene {
                 var depJogadorSim = depJogadorcopy
                 var depComputadorSim = depComputadorcopy
 
+                var isOver;
+
                 var casasPercorridas = 1
                 for (casasPercorridas = 1; casasPercorridas <= sementesAEspalhar; casasPercorridas++) {
                         estadoArraySimulado[(jogada + casasPercorridas) % 12] = estadoArraySimulado[(jogada + casasPercorridas) % 12] + 1; //espalha as sementes todas
@@ -609,7 +622,8 @@ class Pvc extends Phaser.Scene {
 
                         }
                 }
-                var estado = new EstadoSimulado(estadoArraySimulado, depJogadorSim, depComputadorSim)
+                isOver = this.checkFinal(estadoArraySimulado,jogador,depJogadorSim,depComputadorSim)
+                var estado = new EstadoSimulado(estadoArraySimulado, depJogadorSim, depComputadorSim,isOver)
                 //console.log(estado);
 
                 return estado;
@@ -625,7 +639,7 @@ class Pvc extends Phaser.Scene {
                 var melhorValorFinal = this.minimax(arvore, 8, -Infinity, +Infinity, true)
                 console.log(melhorValorFinal)
 
-
+                //30
                 var procuraJogada;
                 var melhoresJogadas = [];
                 for (procuraJogada = 0; procuraJogada < arvore.descendants.length; procuraJogada++) {
@@ -688,7 +702,7 @@ class Pvc extends Phaser.Scene {
                 // Adiciona o Tabuleiro
                 this.tabuleiro = this.add.sprite(w, h, 'tabuleiro');
                 this.tabuleiro.setScale(2)
-                
+
                 // Coordenadas das imagens dos ovos
                 let coords = [337, 355, 405, 385, 476, 398, 548, 398, 620, 386, 689, 356,
                         689, 246, 620, 215, 548, 205, 476, 205, 405, 215, 337, 246];
@@ -706,13 +720,13 @@ class Pvc extends Phaser.Scene {
                 textdepJogador.text = depComputador
                 textdepComputador.text = depJogador
         }
-        saveStats(){
-               
-        if(typeof(Storage) === "undefined") {
-                return;
-            }
-        let statsstring = JSON.stringify(stats);
-        localStorage.setItem("OuriStats",statsstring);
+        saveStats() {
+
+                if (typeof (Storage) === "undefined") {
+                        return;
+                }
+                let statsstring = JSON.stringify(stats);
+                localStorage.setItem("OuriStats", statsstring);
         }
         clickMenu() {
                 console.log('Menu');
