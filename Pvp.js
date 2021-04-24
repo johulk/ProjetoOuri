@@ -1,14 +1,14 @@
-let textP1;
-let textP2;
-let textodepJogador2;
-let textodepJogador1;
-let state = []
-let player = 1;
-let depJogador1 = 0;
-let depJogador2 = 0;
-let check = 0;
-let casasPC = [6, 7, 8, 9, 10, 11]
-let casasJogador = [0, 1, 2, 3, 4, 5]
+var textP1;
+var textP2;
+var textodepJogador2;
+var textodepJogador1;
+var state = []
+var player = 1;
+var depJogador1 = 0;
+var depJogador2 = 0;
+var check = 0;
+var casasPC = [6, 7, 8, 9, 10, 11]
+var casasJogador = [0, 1, 2, 3, 4, 5]
 
 
 class Pvp extends Phaser.Scene {

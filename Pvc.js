@@ -12,17 +12,17 @@ function TreeNode() {
 
 }
 
-let textP;
-let textC;
-let textdepComputador;
-let textdepJogador;
-let state = []
-let player = 1;
-let depJogador = 0;
-let depComputador = 0;
-let check = 0;
-let casasPC = [6, 7, 8, 9, 10, 11]
-let casasJogador = [0, 1, 2, 3, 4, 5]
+var textP;
+var textC;
+var textdepComputador;
+var textdepJogador;
+var state = []
+var player = 1;
+var depJogador = 0;
+var depComputador = 0;
+var check = 0;
+var casasPC = [6, 7, 8, 9, 10, 11]
+var casasJogador = [0, 1, 2, 3, 4, 5]
 
 
 
