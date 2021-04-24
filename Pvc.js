@@ -556,8 +556,8 @@ class Pvc extends Phaser.Scene {
 
                 for (var i = 0; i < jogPosNew.length; i++) {
                         nodo.descendants.push(this.construirDescendentes(nodo.estadoSimulado.estado, (jogador % 2) + 1, jogPosNew[i], depth - 1, nodo.estadoSimulado.depJogador, nodo.estadoSimulado.depComputador));
-                        this.treeSort(nodo)
                 }
+                this.treeSort(nodo)
                 return nodo;
         }
 
@@ -580,8 +580,9 @@ class Pvc extends Phaser.Scene {
                 // constroi para o jogador seguinte
                 for (var jogposlen = 0; jogposlen < jogPos.length; jogposlen++) {
                         arvore.descendants.push(this.construirDescendentes(estadoRaiz, 2, jogPos[jogposlen], newProf, depJogador, depComputador));
-                        this.treeSort(arvore)
+                        
                 }
+                this.treeSort(arvore)
                 return arvore;
         }
 
@@ -658,11 +659,7 @@ class Pvc extends Phaser.Scene {
         };
 
 
-        treeSort(root){
 
-                 root.descendants.sort((a,b)=> a.valor - b.valor)
-
-        }
 
         minimax(node, depth, alpha, beta, maximizingPlayer) {
                 if ((depth === 0) || (node.estadoSimulado.depJogador >= 25) || (node.estadoSimulado.depComputador >= 25) || (node.estadoSimulado.depJogador === 24 && node.estadoSimulado.depComputador === 24)) {
@@ -673,7 +670,7 @@ class Pvc extends Phaser.Scene {
 
                         let maxEval = -Infinity;
                         for (var i = 0; i < node.descendants.length; i++) {
-                                let evalu = this.minimax(node.descendants[i], depth - 1, alpha, beta, false);
+                                var evalu = this.minimax(node.descendants[i], depth - 1, alpha, beta, false);
                                 maxEval = Math.max(maxEval, evalu);
                                 alpha = Math.max(alpha, evalu);
                                 node.valor = alpha;
@@ -689,7 +686,7 @@ class Pvc extends Phaser.Scene {
 
                         let minEval = +Infinity;
                         for (var i = 0; i < node.descendants.length; i++) {
-                                let evalu = this.minimax(node.descendants[i], depth - 1, alpha, beta, true);
+                                var evalu = this.minimax(node.descendants[i], depth - 1, alpha, beta, true);
                                 minEval = Math.min(minEval, evalu);
                                 beta = Math.min(beta, evalu);
                                 node.valor = beta;
