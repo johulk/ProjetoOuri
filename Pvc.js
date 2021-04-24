@@ -248,7 +248,7 @@ class Pvc extends Phaser.Scene {
 
         afterplay() { //Verifica se o jogo acabou
 
-                check = this.checkFinal();
+                check = this.checkFinal(state,player,depJogador,depositoComputador);
 
                 if (check === 1) {
                         var vencedor = this.terminar()
@@ -622,6 +622,7 @@ class Pvc extends Phaser.Scene {
 
                         }
                 }
+                
                 isOver = this.checkFinal(estadoArraySimulado,jogador,depJogadorSim,depComputadorSim)
                 var estado = new EstadoSimulado(estadoArraySimulado, depJogadorSim, depComputadorSim,isOver)
                 //console.log(estado);
