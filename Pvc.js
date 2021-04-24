@@ -659,10 +659,10 @@ class Pvc extends Phaser.Scene {
 
 
         treeSort(root){
-                 root.descendants.sort((a.valor,b.valor))
-                 }
 
-        
+                 root.descendants.sort((a,b)=> a.valor - b.valor)
+
+        }
 
         minimax(node, depth, alpha, beta, maximizingPlayer) {
                 if ((depth === 0) || (node.estadoSimulado.depJogador >= 25) || (node.estadoSimulado.depComputador >= 25) || (node.estadoSimulado.depJogador === 24 && node.estadoSimulado.depComputador === 24)) {
