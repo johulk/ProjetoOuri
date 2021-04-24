@@ -634,6 +634,7 @@ class Pvc extends Phaser.Scene {
                         }
                 }
                 var jogadaFinal = melhoresJogadas[Math.floor(Math.random() * melhoresJogadas.length)];
+                console.log(melhoresJogadas)
                 arvore = null;
                 return jogadaFinal
         };
