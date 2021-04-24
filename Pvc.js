@@ -595,7 +595,7 @@ class Pvc extends Phaser.Scene {
                 var depJogadorSim = depJogadorcopy
                 var depComputadorSim = depComputadorcopy
 
-                var isOver ;
+                var isOver = 0 ;
 
                 var casasPercorridas = 1
                 for (casasPercorridas = 1; casasPercorridas <= sementesAEspalhar; casasPercorridas++) {
@@ -623,9 +623,7 @@ class Pvc extends Phaser.Scene {
                 }
                 
                 isOver = this.checkFinal(estadoArraySimulado,jogador,depJogadorSim,depComputadorSim)
-                if(isOver == undefined){
-                        isOver = 0
-                }
+                
                 var estado = new EstadoSimulado(estadoArraySimulado, depJogadorSim, depComputadorSim,isOver)
                 //console.log(estado);
 
