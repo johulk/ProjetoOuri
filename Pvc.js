@@ -364,13 +364,13 @@ class Pvc extends Phaser.Scene {
 		}
 
 		for (i = 5; i < 12; i++) {
-			depJogador = depComputador + state[i]
+			depComputador = depComputador + state[i]
 		}
 
 		if (depJogador > depComputador) { res = 1 }
 		else { res = 2 }
 		this.numerodepJogador = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador).setScale(0.6)
-        this.numerodepComputador = this.add.sprite(790 * 2, 300 * 2, 'i' + depComputador).setScale(0.6)
+                this.numerodepComputador = this.add.sprite(790 * 2, 300 * 2, 'i' + depComputador).setScale(0.6)
 		return res
 	       }
         
