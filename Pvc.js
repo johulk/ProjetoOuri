@@ -707,7 +707,7 @@ class Pvc extends Phaser.Scene {
                         var contaOvos = 0;
                         if ((nudgeSimState[ultimaCasa] + 1) === (2 || 3)) {
                                 contaOvos = nudgeSimState[ultimaCasa] + 1
-                                ultimcaCasa -= (ultimaCasa - 1) % 12
+                                ultimaCasa -= (ultimaCasa - 1) % 12
                                 ovos--
 
                                 while (ovos > 0) {
