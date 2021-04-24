@@ -662,7 +662,7 @@ class Pvc extends Phaser.Scene {
 
         treeSort(root){
 
-                 root.descendants.sort((a,b)=> a.valor - b.valor)
+                 root.descendants.sort(function (a,b){ return a.valor - b.valor})
 
         }
 
