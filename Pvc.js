@@ -555,7 +555,6 @@ class Pvc extends Phaser.Scene {
                 var jogPosNew = this.verificaJogadas(nodo.estadoSimulado.estado, (jogador % 2) + 1);
 
                 for (var i = 0; i < jogPosNew.length; i++) {
-                        if(this.checkFinal()[i])
                         nodo.descendants.push(this.construirDescendentes(nodo.estadoSimulado.estado, (jogador % 2) + 1, jogPosNew[i], depth - 1, nodo.estadoSimulado.depJogador, nodo.estadoSimulado.depComputador));
                 }
                 return nodo;
