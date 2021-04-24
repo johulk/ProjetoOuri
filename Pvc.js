@@ -623,6 +623,7 @@ class Pvc extends Phaser.Scene {
                 }
                 
                 isOver = this.checkFinal(estadoArraySimulado,jogador,depJogadorSim,depComputadorSim)
+                console.log(isOver + "ISOVER???")
                 var estado = new EstadoSimulado(estadoArraySimulado, depJogadorSim, depComputadorSim,isOver)
                 //console.log(estado);
 
