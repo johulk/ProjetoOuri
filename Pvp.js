@@ -280,7 +280,7 @@ class Pvp extends Phaser.Scene {
 			depJogador2 = depJogador2 + state[i]
 		}
 
-		if (depJogador1 > depJogador2) { player = 1 }
+		if (depJogador1 > depJogador2) { res = 1 }
 		else { res = 2 }
 		this.numerodepJogador1 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
         this.numerodepJogador2 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
