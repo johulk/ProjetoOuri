@@ -556,6 +556,7 @@ class Pvc extends Phaser.Scene {
 
                 for (var i = 0; i < jogPosNew.length; i++) {
                         nodo.descendants.push(this.construirDescendentes(nodo.estadoSimulado.estado, (jogador % 2) + 1, jogPosNew[i], depth - 1, nodo.estadoSimulado.depJogador, nodo.estadoSimulado.depComputador));
+                        
                 }
                 this.treeSort(nodo)
                 return nodo;
@@ -659,7 +660,11 @@ class Pvc extends Phaser.Scene {
         };
 
 
+        treeSort(root){
 
+                 root.descendants.sort((a,b)=> a.valor - b.valor)
+
+        }
 
         minimax(node, depth, alpha, beta, maximizingPlayer) {
                 if ((depth === 0) || (node.estadoSimulado.depJogador >= 25) || (node.estadoSimulado.depComputador >= 25) || (node.estadoSimulado.depJogador === 24 && node.estadoSimulado.depComputador === 24)) {
