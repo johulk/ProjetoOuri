@@ -45,8 +45,8 @@ class Pvp extends Phaser.Scene {
 
 		textP1 = this.add.text(915 * 2, 52 * 2, scorePlayer1, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
 		textP2 = this.add.text(915 * 2, 140 * 2, scorePlayer2, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
-		textodep2 = this.add.text(1438, 585, dep2 , { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
-        textodep1 = this.add.text(580, 585, dep1 , { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
+		textodep2 = this.add.text(1438, 585, dep1 , { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
+        textodep1 = this.add.text(580, 585, dep2 , { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
         textodep2.setDepth(8888)
         textodep1.setDepth(8888) 
 
