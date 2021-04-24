@@ -545,7 +545,7 @@ class Pvc extends Phaser.Scene {
                 //console.log("DEPTH " + depth)
                 nodo.estadoSimulado = this.simulaJogada(copiaestado, jogada, jogador, depJogadorcopy, depComputadorcopy);
 
-                if (depth === 0 ||(nodo.estadoSimulado.isOver === 1) || nodo.estadoSimulado.depComputador - nodo.estadoSimulado.depJogador <0 ) {
+                if (depth === 0 ||(nodo.estadoSimulado.isOver === 1) || nodo.estadoSimulado.depComputador - nodo.estadoSimulado.depJogador <-5 ) {
                         return nodo;
                 }
 
@@ -556,6 +556,7 @@ class Pvc extends Phaser.Scene {
 
                 for (var i = 0; i < jogPosNew.length; i++) {
                         nodo.descendants.push(this.construirDescendentes(nodo.estadoSimulado.estado, (jogador % 2) + 1, jogPosNew[i], depth - 1, nodo.estadoSimulado.depJogador, nodo.estadoSimulado.depComputador));
+                        this.treeSort(nodo)
                 }
                 return nodo;
         }
@@ -579,6 +580,7 @@ class Pvc extends Phaser.Scene {
                 // constroi para o jogador seguinte
                 for (var jogposlen = 0; jogposlen < jogPos.length; jogposlen++) {
                         arvore.descendants.push(this.construirDescendentes(estadoRaiz, 2, jogPos[jogposlen], newProf, depJogador, depComputador));
+                        this.treeSort(arvore)
                 }
                 return arvore;
         }
@@ -636,6 +638,7 @@ class Pvc extends Phaser.Scene {
 
                 let arvore = this.construirArvore(copiaestado, 8);
 
+                
                 console.log(arvore)
                 var melhorValorFinal = this.minimax(arvore, 8, -Infinity, +Infinity, true)
                 console.log(melhorValorFinal)
@@ -655,7 +658,18 @@ class Pvc extends Phaser.Scene {
         };
 
 
+        treeSort(root){
 
+                 root.descendants.sort((a,b)=> {
+                         if (a.valor >b.valor){
+                                 return 1;
+                         }
+                         if (b.valor >a.valor){
+                                 return -1;
+                         }
+                 })
+
+        }
 
         minimax(node, depth, alpha, beta, maximizingPlayer) {
                 if ((depth === 0) || (node.estadoSimulado.depJogador >= 25) || (node.estadoSimulado.depComputador >= 25) || (node.estadoSimulado.depJogador === 24 && node.estadoSimulado.depComputador === 24)) {
