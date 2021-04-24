@@ -108,10 +108,10 @@ class Menu extends Phaser.Scene {
 
     parseData(data){
         if(Array.isArray(data['totalGames']) && data['totalGames'].length === 3 && this.checkArrayInteger(data['totalGames'])){
-            totalGames = data['totalGames'].slice();
+            stats.totalGames = data['totalGames'].slice();
         }
         if(Array.isArray(data['totalWon']) && data['totalWon'].length === 3 && this.checkArrayInteger(data['totalWon'])){
-            totalWon = data['totalWon'].slice();
+            stats.totalWon = data['totalWon'].slice();
         }
 
     }
