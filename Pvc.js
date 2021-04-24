@@ -686,8 +686,8 @@ class Pvc extends Phaser.Scene {
                 this.numerodep2 = this.add.sprite(240 * 2, 300 * 2, 'i' + dep1).setScale(0.6)
                 this.numerodep1 = this.add.sprite(790 * 2, 300 * 2, 'i' + dep2).setScale(0.6)
 
-                textdep1.text = dep1
-                textdep2.text = dep2
+                textdep1.text = dep2
+                textdep2.text = dep1
         }
         saveStats(){
                
