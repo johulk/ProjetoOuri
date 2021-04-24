@@ -20,6 +20,7 @@ var config = {
 
 var game = new Phaser.Game(config);
 
+
 //PVP
 let scorePlayer1 = 0;
 let scorePlayer2 = 0;

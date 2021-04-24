@@ -7,8 +7,7 @@ var player = 1;
 var depJogador1 = 0;
 var depJogador2 = 0;
 var check = 0;
-var casasPC = [6, 7, 8, 9, 10, 11]
-var casasJogador = [0, 1, 2, 3, 4, 5]
+
 
 
 class Pvp extends Phaser.Scene {

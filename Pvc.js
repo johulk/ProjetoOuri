@@ -16,6 +16,7 @@ var textP;
 var textC;
 var textdepComputador;
 var textdepJogador;
+
 var state = []
 var player = 1;
 var depJogador = 0;
@@ -70,10 +71,10 @@ class Pvc extends Phaser.Scene {
                 this.computadorScore.setScale(0.75)
                 // Inicializar
                 player = 1;
-                depJogador = 24;
-                depComputador = 21;
+                depJogador = 0;
+                depComputador = 0;
                 check = 0;
-                state = [0,0,0,0,0,1, 0,0,1,0,1,0];
+                state = [4,4,4,4,4,4, 4,4,4,4,4,4];
 
 
 
