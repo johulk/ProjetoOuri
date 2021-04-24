@@ -183,7 +183,7 @@ class Menu extends Phaser.Scene {
         //Calculos de %
 
         var totalJogos = stats.totalGames.reduce((a,b) => a+b,0)
-        var totalWins = totalJogos/(stats.totalWon.reduce((a,b) => a+b,0))  ;
+        var totalWins = ((stats.totalWon.reduce((a,b) => a+b,0)) / totalJogos )*100;
         var totalWinsEasy = (stats.totalWon[0] / stats.totalGames[0])*100
         var totalWinsMedium = (stats.totalWon[1] / stats.totalGames[1])*100
         var totalWinsHard = (stats.totalWon[2] / stats.totalGames[2])*100
