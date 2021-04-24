@@ -187,16 +187,16 @@ class Pvp extends Phaser.Scene {
 			//Apresentar desforra
 			switch (vencedor) {
 				case 1:
-					this.quadroP1W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP1").setScale(1.4);
+					this.quadroP1W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP1").setScale(1.4).setDepth(8887);;
 
 					break;
 
 				case 2:
-					this.quadroP2W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP2").setScale(1.4);
+					this.quadroP2W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP2").setScale(1.4).setDepth(8887);;
 
 					break;
 				case 3:
-					this.quadroEmpate = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "empate").setScale(1.4);
+					this.quadroEmpate = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "empate").setScale(1.4).setDepth(8887);;
 					break;
 
 			}
