@@ -621,7 +621,7 @@ class Pvc extends Phaser.Scene {
 
                 let arvore = this.construirArvore(copiaestado, 8);
 
-
+                console.log(arvore)
                 var melhorValorFinal = this.minimax(arvore, 8, -Infinity, +Infinity, true)
                 console.log(melhorValorFinal)
 
