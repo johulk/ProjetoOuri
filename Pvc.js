@@ -89,8 +89,10 @@ class Pvc extends Phaser.Scene {
                 
                 textP = this.add.text(915 * 2, 52 * 2, scorePInt, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
                 textC = this.add.text(915 * 2, 140 * 2, scoreCInt, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
-                textdep1 = this.add.text(1224, 270 * 2, dep1 , { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
-                textdep2 = this.add.text(1224, 270 * 2, dep2 , { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
+                textdep1 = this.add.text(1438, 585, dep1 , { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
+                textdep2 = this.add.text(580, 585, dep2 , { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
+                textdep1.setDepth(8888)
+                textdep2.setDepth(8888)  
 
                 this.setaP1 = this.add.sprite(1024, 936, 'setaP1').setScale(0.7).setVisible(false)
                 this.setaP2 = this.add.sprite(1024, 250, 'setaP2').setScale(0.7).setVisible(false)
