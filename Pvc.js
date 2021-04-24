@@ -1,4 +1,4 @@
-function EstadoSimulado(stateTabuleiro, deposito2, deposito1,isOver) {
+function EstadoSimulado(stateTabuleiro, deposito2, deposito1, isOver) {
         this.estado = stateTabuleiro;
         this.depJogador = deposito2;
         this.depComputador = deposito1;
@@ -203,6 +203,72 @@ class Pvc extends Phaser.Scene {
 
         }
 
+        //Atualiza as imagens dos tabuleiros
+        atualizaTabuleiro(w, h) {
+                // Adiciona o Tabuleiro
+                this.tabuleiro = this.add.sprite(w, h, 'tabuleiro');
+                this.tabuleiro.setScale(2)
+
+                // Coordenadas das imagens dos ovos
+                let coords = [337, 355, 405, 385, 476, 398, 548, 398, 620, 386, 689, 356,
+                        689, 246, 620, 215, 548, 205, 476, 205, 405, 215, 337, 246];
+
+                // Adiciona as imagens dos ovos
+                for (var i = 0; i < 12; i++) {
+                        this.numero = this.add.sprite(coords[2 * i] * 2, coords[2 * i + 1] * 2, 'i' + state[i]).setScale(0.45).setInteractive();
+                        this.numero.key = i;
+                }
+
+                //Adiciona os ovos aos depositos
+                this.numerodepComputador = this.add.sprite(240 * 2, 300 * 2, 'i' + depComputador).setScale(0.6)
+                this.numerodepJogador = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador).setScale(0.6)
+
+                textdepJogador.text = depComputador
+                textdepComputador.text = depJogador
+        }
+
+        atualizarState(pos) {
+
+                var valor = state[pos];
+
+                // retirar as pedras da casa onde clicamos
+                console.log(pos)
+                state[pos] = 0;
+
+                // distribuir as pedras pelas casas seguintes
+                for (var i = 1; valor > 0; i++) {
+                        //Quando atingir 12 pedras tem de saltar a casa onde clicamos
+                        if ((pos + i % 12) != pos) {
+                                state[(pos + i) % 12] = state[(pos + i) % 12] + 1;
+                                valor--;
+                        }
+                }
+
+                // Recolher as pedras
+                var posfinal = (pos + i - 1) % 12
+
+                if (player === 1) {
+                        while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal > 5 && posfinal < 12) {
+                                depJogador = depJogador + state[posfinal]
+                                state[posfinal] = 0;
+                                posfinal = posfinal - 1;
+                        }
+                }
+
+                //Recolher as pedras para o player 2
+                if (player === 2) {
+                        while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal >= 0 && posfinal < 6) {
+                                depComputador = depComputador + state[posfinal]
+                                state[posfinal] = 0;
+                                posfinal = posfinal - 1;
+
+                        }
+                }
+        }
+
+        //------------------------------------------------------------------
+
+
         dificuldade() {
                 switch (dif) {
                         case 0: return this.facil()
@@ -224,6 +290,56 @@ class Pvc extends Phaser.Scene {
                 return res;
 
         };
+
+        medio() {
+                var copiaestado = [...state];
+                //
+
+                let arvore = this.construirArvore(copiaestado, 4);
+
+
+                var melhorValorFinal = this.minimax(arvore, 4, -Infinity, +Infinity, true)
+
+
+
+                var procuraJogada;
+                var melhoresJogadas = [];
+                for (procuraJogada = 0; procuraJogada < arvore.descendants.length; procuraJogada++) {
+                        if (arvore.descendants[procuraJogada].valor === melhorValorFinal) {
+                                melhoresJogadas.push(arvore.descendants[procuraJogada].root)
+                        }
+                }
+                var jogadaFinal = melhoresJogadas[Math.floor(Math.random() * melhoresJogadas.length)];
+
+                return jogadaFinal
+        }
+
+        dificil() {
+                let copiaestado = [...state];
+
+                let arvore = this.construirArvore(copiaestado, 8);
+
+
+                console.log(arvore)
+                var melhorValorFinal = this.minimax(arvore, 8, -Infinity, +Infinity, true)
+                console.log(melhorValorFinal)
+
+                //30
+                var procuraJogada;
+                var melhoresJogadas = [];
+                for (procuraJogada = 0; procuraJogada < arvore.descendants.length; procuraJogada++) {
+                        if (arvore.descendants[procuraJogada].valor === melhorValorFinal) {
+                                melhoresJogadas.push(arvore.descendants[procuraJogada].root)
+                        }
+                }
+                var jogadaFinal = melhoresJogadas[Math.floor(Math.random() * melhoresJogadas.length)];
+                console.log(melhoresJogadas)
+                arvore = null;
+                return jogadaFinal
+        };
+
+        //-------------------------------
+
 
 
         checkFinal(estado, jogador, depositoJogador, depositoComputador) {
@@ -248,7 +364,7 @@ class Pvc extends Phaser.Scene {
 
         afterplay() { //Verifica se o jogo acabou
 
-                check = this.checkFinal(state,player,depJogador,depComputador);
+                check = this.checkFinal(state, player, depJogador, depComputador);
 
                 if (check === 1) {
                         var vencedor = this.terminar()
@@ -416,44 +532,7 @@ class Pvc extends Phaser.Scene {
         }
 
 
-        atualizarState(pos) {
 
-                var valor = state[pos];
-
-                // retirar as pedras da casa onde clicamos
-                console.log(pos)
-                state[pos] = 0;
-
-                // distribuir as pedras pelas casas seguintes
-                for (var i = 1; valor > 0; i++) {
-                        //Quando atingir 12 pedras tem de saltar a casa onde clicamos
-                        if ((pos + i % 12) != pos) {
-                                state[(pos + i) % 12] = state[(pos + i) % 12] + 1;
-                                valor--;
-                        }
-                }
-
-                // Recolher as pedras
-                var posfinal = (pos + i - 1) % 12
-
-                if (player === 1) {
-                        while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal > 5 && posfinal < 12) {
-                                depJogador = depJogador + state[posfinal]
-                                state[posfinal] = 0;
-                                posfinal = posfinal - 1;
-                        }
-                }
-
-                //Recolher as pedras para o player 2
-                if (player === 2) {
-                        while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal >= 0 && posfinal < 6) {
-                                depComputador = depComputador + state[posfinal]
-                                state[posfinal] = 0;
-                                posfinal = posfinal - 1;
-
-                        }
-                }
-        }
 
         // funcao que procura se existem numeros >1 na fila do jogador/pc
 
@@ -484,30 +563,6 @@ class Pvc extends Phaser.Scene {
                 return true
         }
 
-
-
-        medio() {
-                var copiaestado = [...state];
-                //
-
-                let arvore = this.construirArvore(copiaestado, 4);
-
-
-                var melhorValorFinal = this.minimax(arvore, 4, -Infinity, +Infinity, true)
-
-
-
-                var procuraJogada;
-                var melhoresJogadas = [];
-                for (procuraJogada = 0; procuraJogada < arvore.descendants.length; procuraJogada++) {
-                        if (arvore.descendants[procuraJogada].valor === melhorValorFinal) {
-                                melhoresJogadas.push(arvore.descendants[procuraJogada].root)
-                        }
-                }
-                var jogadaFinal = melhoresJogadas[Math.floor(Math.random() * melhoresJogadas.length)];
-
-                return jogadaFinal
-        }
 
 
         // Cria um array com as jogadas possiveis 
@@ -545,7 +600,7 @@ class Pvc extends Phaser.Scene {
                 //console.log("DEPTH " + depth)
                 nodo.estadoSimulado = this.simulaJogada(copiaestado, jogada, jogador, depJogadorcopy, depComputadorcopy);
 
-                if (depth === 0 ||(nodo.estadoSimulado.isOver === 1) || nodo.estadoSimulado.depComputador - nodo.estadoSimulado.depJogador <-5 ) {
+                if (depth === 0 || (nodo.estadoSimulado.isOver === 1) || nodo.estadoSimulado.depComputador - nodo.estadoSimulado.depJogador < -5) {
                         return nodo;
                 }
 
@@ -556,9 +611,8 @@ class Pvc extends Phaser.Scene {
 
                 for (var i = 0; i < jogPosNew.length; i++) {
                         nodo.descendants.push(this.construirDescendentes(nodo.estadoSimulado.estado, (jogador % 2) + 1, jogPosNew[i], depth - 1, nodo.estadoSimulado.depJogador, nodo.estadoSimulado.depComputador));
-                        
+
                 }
-                this.treeSort(nodo)
                 return nodo;
         }
 
@@ -581,9 +635,8 @@ class Pvc extends Phaser.Scene {
                 // constroi para o jogador seguinte
                 for (var jogposlen = 0; jogposlen < jogPos.length; jogposlen++) {
                         arvore.descendants.push(this.construirDescendentes(estadoRaiz, 2, jogPos[jogposlen], newProf, depJogador, depComputador));
-                        
+
                 }
-                this.treeSort(arvore)
                 return arvore;
         }
 
@@ -599,7 +652,7 @@ class Pvc extends Phaser.Scene {
                 var depJogadorSim = depJogadorcopy
                 var depComputadorSim = depComputadorcopy
 
-                var isOver = 0 ;
+                var isOver = 0;
 
                 var casasPercorridas = 1
                 for (casasPercorridas = 1; casasPercorridas <= sementesAEspalhar; casasPercorridas++) {
@@ -625,50 +678,63 @@ class Pvc extends Phaser.Scene {
 
                         }
                 }
-                
-                isOver = this.checkFinal(estadoArraySimulado,jogador,depJogadorSim,depComputadorSim)
-                
-                var estado = new EstadoSimulado(estadoArraySimulado, depJogadorSim, depComputadorSim,isOver)
+
+                isOver = this.checkFinal(estadoArraySimulado, jogador, depJogadorSim, depComputadorSim)
+
+                var estado = new EstadoSimulado(estadoArraySimulado, depJogadorSim, depComputadorSim, isOver)
                 //console.log(estado);
 
                 return estado;
         }
 
 
-        dificil() {
-                let copiaestado = [...state];
 
-                let arvore = this.construirArvore(copiaestado, 8);
+        nudgeEval(nodo) {
 
-                
-                console.log(arvore)
-                var melhorValorFinal = this.minimax(arvore, 8, -Infinity, +Infinity, true)
-                console.log(melhorValorFinal)
+                var nudgeDepJ = nodo.estadoSimulado.depJogador
+                var nudgeDepC = nodo.estadoSimulado.depComputador
+                var nudgeValue = nudgeDepC - nudgeDepJ;
+                var nudgeSimState = [...nodo.estadoSimulado.estado]
 
-                //30
-                var procuraJogada;
-                var melhoresJogadas = [];
-                for (procuraJogada = 0; procuraJogada < arvore.descendants.length; procuraJogada++) {
-                        if (arvore.descendants[procuraJogada].valor === melhorValorFinal) {
-                                melhoresJogadas.push(arvore.descendants[procuraJogada].root)
+                //CasosDeEnd
+                if (nudgeDepJ >= 25) { nudgeValue -= 25 } // nerf
+                if (nudgeDepC >= 25) { nudgeValue += 25 } // buff
+                if (nudgeDepC === 24 && nudgeDepJ === 24) { nudgeValue += 10 } // Decisao entre perder e empatar, PC prefere empatar
+
+                for (var i = 0; i < nudgeSimState.length; i++) {
+                        var ovos = nudgeSimState[i];
+                        var ultimaCasa = (i + ovos) % 12;
+                        var contaOvos = 0;
+                        if ((nudgeSimState[ultimaCasa] + 1) === (2 || 3)) {
+                                contaOvos = nudgeSimState[ultimaCasa] + 1
+                                ultimcaCasa -= (ultimaCasa - 1) % 12
+                                ovos--
+
+                                while (ovos > 0) {
+                                        if (casasJogador.indexOf(i) === -1 && casasJogador.indexOf(ultimaCasa) != -1 && (nudgeSimState[ultimaCasa] + 1) === (2 || 3)) { //Então i é uma casa do Computador e cai numa casa do jogador
+                                                ovos--
+                                                ultimaCasa = (ultimaCasa - 1) % 12
+                                        }
+                                        else { nudgeValue++; break; }
+                                        if (casasPC.indexOf(i) === -1 && casasPC.indexOf(ultimaCasa) != -1 && (nudgeSimState[ultimaCasa] + 1) === (2 || 3)) { //Então i é uma casa do Jogador e cai numa casa do PC
+                                                ovos--
+                                                ultimaCasa = (ultimaCasa - 1) % 12
+                                        }
+                                        else { nudgeValue--; break; }
+                                }
+
                         }
+
                 }
-                var jogadaFinal = melhoresJogadas[Math.floor(Math.random() * melhoresJogadas.length)];
-                console.log(melhoresJogadas)
-                arvore = null;
-                return jogadaFinal
-        };
-
-
-        treeSort(root){
-
-                 root.descendants.sort(function (a,b){ return a.valor - b.valor})
-
+                return (nudgeValue)
         }
+
+
+
 
         minimax(node, depth, alpha, beta, maximizingPlayer) {
                 if ((depth === 0) || (node.estadoSimulado.depJogador >= 25) || (node.estadoSimulado.depComputador >= 25) || (node.estadoSimulado.depJogador === 24 && node.estadoSimulado.depComputador === 24)) {
-                        return node.estadoSimulado.depComputador - node.estadoSimulado.depJogador;
+                        return this.nudgeEval(node);
                 }
 
                 if (maximizingPlayer === true) {
@@ -707,29 +773,7 @@ class Pvc extends Phaser.Scene {
 
 
 
-        //Atualiza as imagens dos tabuleiros
-        atualizaTabuleiro(w, h) {
-                // Adiciona o Tabuleiro
-                this.tabuleiro = this.add.sprite(w, h, 'tabuleiro');
-                this.tabuleiro.setScale(2)
 
-                // Coordenadas das imagens dos ovos
-                let coords = [337, 355, 405, 385, 476, 398, 548, 398, 620, 386, 689, 356,
-                        689, 246, 620, 215, 548, 205, 476, 205, 405, 215, 337, 246];
-
-                // Adiciona as imagens dos ovos
-                for (var i = 0; i < 12; i++) {
-                        this.numero = this.add.sprite(coords[2 * i] * 2, coords[2 * i + 1] * 2, 'i' + state[i]).setScale(0.45).setInteractive();
-                        this.numero.key = i;
-                }
-
-                //Adiciona os ovos aos depositos
-                this.numerodepComputador = this.add.sprite(240 * 2, 300 * 2, 'i' + depComputador).setScale(0.6)
-                this.numerodepJogador = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador).setScale(0.6)
-
-                textdepJogador.text = depComputador
-                textdepComputador.text = depJogador
-        }
         saveStats() {
 
                 if (typeof (Storage) === "undefined") {
