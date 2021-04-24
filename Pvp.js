@@ -195,16 +195,16 @@ class Pvp extends Phaser.Scene {
 			//Apresentar desforra
 			switch (vencedor) {
 				case 1:
-					this.quadroP1W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP1").setScale(1.4).setDepth(8887);;
+					this.quadroP1W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP1").setScale(1.4).setDepth(8889);;
 
 					break;
 
 				case 2:
-					this.quadroP2W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP2").setScale(1.4).setDepth(8887);;
+					this.quadroP2W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP2").setScale(1.4).setDepth(8889);;
 
 					break;
 				case 3:
-					this.quadroEmpate = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "empate").setScale(1.4).setDepth(8887);;
+					this.quadroEmpate = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "empate").setScale(1.4).setDepth(8889);;
 					break;
 
 			}
@@ -214,14 +214,14 @@ class Pvp extends Phaser.Scene {
 			this.close.on('pointerdown', () => { this.clickMenu() });
 			this.close.setScale(0.62 * 2)
 			this.close.key = -1
-			this.close.depth = 4
+			this.close.depth = 8890
 
 			//Forwards
 			this.forward = this.add.sprite((config.width - config.width / 4 - config.width / 24 - config.width / 150) * 2, (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98) * 2, 'forward').setInteractive();
 			this.forward.on('pointerdown', () => this.scene.start("pvp"));
 			this.forward.setScale(0.62 * 2)
 			this.forward.key = -1
-			this.forward.depth = 4
+			this.forward.depth = 8890
 		}
 		//Atualiza indicadores de score
 

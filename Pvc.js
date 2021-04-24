@@ -70,10 +70,10 @@ class Pvc extends Phaser.Scene {
                 this.computadorScore.setScale(0.75)
                 // Inicializar
                 player = 1;
-                depJogador = 0;
-                depComputador = 0;
+                depJogador = 24;
+                depComputador = 21;
                 check = 0;
-                state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
+                state = [0,0,0,0,0,1, 0,0,1,0,1,0];
 
 
 
@@ -158,7 +158,7 @@ class Pvc extends Phaser.Scene {
                 if ((gameObject.key === -1) || (gameObject.key > 5)) { return; }
 
                 var pos = gameObject.key;
-
+                
                 // Impedir que um jogador jogue no campo errado
                 if ((player === 1 && pos > 5) || (player === 2 && pos < 6)) { return; }
 
@@ -228,8 +228,7 @@ class Pvc extends Phaser.Scene {
 
                 var anyJog = [];
                 anyJog.push(this.verificaJogadas(state, player), this.verificaJogadas(state, (player % 2) + 1));
-
-                
+               
                 if ((anyJog[0].length === 0 )&&(anyJog[1].length === 0))  { check = 1 }; //verifica se ha jogadas possiveis para os dois jogadores
                 if ((depJogador > 24) || (depComputador > 24) || (depJogador === 24 && depComputador === 24)) { check = 1 } //Verifica pelos depositos
                 if ((depJogador + depComputador) === 46) {
@@ -244,6 +243,7 @@ class Pvc extends Phaser.Scene {
 
                 if (check === 1) {
                         var vencedor = this.terminar()
+                   
                         if (depJogador === depComputador) {
                                 vencedor = 3;
                         }
@@ -280,18 +280,18 @@ class Pvc extends Phaser.Scene {
                         //this.desforraQuadro.setScale(1.4)
                         switch (vencedor) {
                                 case 1:
-                                        this.quadroP1W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP1").setScale(1.4).setDepth(8887);
+                                        this.quadroP1W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP1").setScale(1.4).setDepth(8889);
                                         // this.texto1 =  this.add.text(370*2,250*2,"O jogador 1 ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
                                         //this.texto2 = this.add.text(370*2,300*2,"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
                                         break;
 
                                 case 2:
-                                        this.quadroCW = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouC").setScale(1.4).setDepth(8887);;
+                                        this.quadroCW = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouC").setScale(1.4).setDepth(8889);;
                                         //this.texto3 =  this.add.text(370*2,250*2,"O computador ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
                                         //this.texto4 = this.add.text(370*2,300*2,"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
                                         break;
                                 case 3:
-                                        this.quadroEmpate = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "empate").setScale(1.4).setDepth(8887);;
+                                        this.quadroEmpate = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "empate").setScale(1.4).setDepth(8889);;
                                         break;
                         }
 
@@ -300,14 +300,15 @@ class Pvc extends Phaser.Scene {
                         this.close.on('pointerdown', () => { this.clickMenu() });
                         this.close.setScale(0.62 * 2)
                         this.close.key = -1
-                        this.close.depth = 4
+                        this.close.depth = 8890
+                        
 
                         //Forwards
                         this.forward = this.add.sprite((config.width - config.width / 4 - config.width / 24 - config.width / 150) * 2, (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98) * 2, 'forward').setInteractive();
                         this.forward.on('pointerdown', () => this.scene.start("pvc"));
                         this.forward.setScale(0.62 * 2)
                         this.forward.key = -1
-                        this.forward.depth = 4
+                        this.forward.depth = 8890
 
                 }
 
@@ -352,22 +353,26 @@ class Pvc extends Phaser.Scene {
 
 
 
-        terminar() {
-                var res;
-                var i;
-                var j;
+        
+	terminar() {
+		var res = 1
+		var i;
 
-                for (i = 0, j = 5; i < 6, j < 12; i++, j++) {
-                        depJogador = depJogador + state[i]
-                        depComputador = depComputador + state[j]
-                }
+		for (i = 0; i < 6; i++) {
+			depJogador1 = depJogador1 + state[i]
+		}
 
-                if (depJogador > depComputador) { res = 1 }
-                else { res = 2 }
-                this.numerodepJogador = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador).setScale(0.6)
-                this.numerodepComputador = this.add.sprite(790 * 2, 300 * 2, 'i' + depComputador).setScale(0.6)
-                return res
-        }
+		for (i = 5; i < 12; i++) {
+			depJogador2 = depJogador2 + state[i]
+		}
+
+		if (depJogador1 > depJogador2) { player = 1 }
+		else { res = 2 }
+		this.numerodepJogador = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
+        this.numerodepComputador = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
+		return res
+	       }
+        
 
         // Funcao que decide qual é o proximo jogador a jogar
         nextPlayer() {
@@ -407,6 +412,7 @@ class Pvc extends Phaser.Scene {
                 var valor = state[pos];
 
                 // retirar as pedras da casa onde clicamos
+                console.log(pos)
                 state[pos] = 0;
 
                 // distribuir as pedras pelas casas seguintes
@@ -680,7 +686,7 @@ class Pvc extends Phaser.Scene {
                 // Adiciona o Tabuleiro
                 this.tabuleiro = this.add.sprite(w, h, 'tabuleiro');
                 this.tabuleiro.setScale(2)
-
+                
                 // Coordenadas das imagens dos ovos
                 let coords = [337, 355, 405, 385, 476, 398, 548, 398, 620, 386, 689, 356,
                         689, 246, 620, 215, 548, 205, 476, 205, 405, 215, 337, 246];
