@@ -643,7 +643,7 @@ class Pvc extends Phaser.Scene {
 
 
         minimax(node, depth, alpha, beta, maximizingPlayer) {
-                if ((depth === 0) || (node.estadoSimulado.depJogador === 25) || (node.estadoSimulado.depComputador === 25) || (node.estadoSimulado.depJogador === 24 && node.estadoSimulado.depComputador === 24)) {
+                if ((depth === 0) || (node.estadoSimulado.depJogador >= 25) || (node.estadoSimulado.depComputador >= 25) || (node.estadoSimulado.depJogador === 24 && node.estadoSimulado.depComputador === 24)) {
                         return node.estadoSimulado.depComputador - node.estadoSimulado.depJogador;
                 }
 
