@@ -67,32 +67,27 @@ class Pvc extends Phaser.Scene {
                 state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
 
 
-                scorePlayer = localStorage.getItem('jogador');
 
+                scorePlayer = stats.totalWon.slice();
 
-                scoreComputador = localStorage.getItem('computador');
+                scoreComputador = [stats.totalGames[0] - stats.totalWon[0], stats.totalGames[1] - stats.totalWon[1], stats.totalGames[2] - stats.totalWon[2]];
 
                 //scorePInt = 0;
                 //scoreCInt = 0;
-                if (scorePlayer === null || scoreComputador === null) {
-                        if (scorePlayer === null) {
-                                scorePInt = 0
-                        }
-                        else {
-                                if (scoreComputador === null) {
-                                        scoreCInt = 0;
-                                }
-                        }
-                        textP = this.add.text(915 * 2, 52 * 2, scorePInt, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
-                        textC = this.add.text(915 * 2, 140 * 2, scoreCInt, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
+
+                if (scorePlayer.length === 0 || scoreComputador.length === 0) {
+                        scorePInt = 0
+                        scoreCInt = 0;
+                }
+                else 
+                {
+                        scoreCInt = scoreComputador[dif]
+                        scorePInt = scorePlayer[dif]
 
                 }
-                else {
-                        scoreCInt = parseInt(scoreComputador, 10);
-                        scorePInt = parseInt(scorePlayer, 10);
-                        textP = this.add.text(915 * 2, 52 * 2, scorePlayer, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
-                        textC = this.add.text(915 * 2, 140 * 2, scoreComputador, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
-                }
+
+                textP = this.add.text(915 * 2, 52 * 2, scorePInt, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
+                textC = this.add.text(915 * 2, 140 * 2, scoreCInt, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
 
                 this.setaP1 = this.add.sprite(1024, 936, 'setaP1').setScale(0.7).setVisible(false)
                 this.setaP2 = this.add.sprite(1024, 250, 'setaP2').setScale(0.7).setVisible(false)
@@ -105,6 +100,8 @@ class Pvc extends Phaser.Scene {
                 this.atualizaSetas();
 
                 this.input.on('gameobjectdown', this.jogada, this);
+
+
 
         }
 
@@ -172,7 +169,7 @@ class Pvc extends Phaser.Scene {
 
                 //verifica se o jogo terminou
                 this.afterplay();
-               
+
                 if (check === 1) { return; }
                 //console.log(dif)
                 setTimeout(() => {
@@ -184,7 +181,7 @@ class Pvc extends Phaser.Scene {
                                 this.nextPlayer();
                                 this.atualizaSetas();
                                 this.afterplay();
-                                
+
                         }
                 }, 1000)
 
@@ -240,25 +237,26 @@ class Pvc extends Phaser.Scene {
                                 //console.log("player " + vencedor + " wins")
                                 if (vencedor === 1) {
                                         scorePInt += 1;
-                                        //console.log(String(scorePInt))
-                                        scorePlayer = String(scorePInt);
-                                        scoreComputador = String(scoreCInt);
-                                        localStorage.setItem('jogador', scorePlayer)
-                                        localStorage.setItem('computador', scoreComputador)
+                                        scorePlayer[dif] = scorePInt;
+                                        scoreComputador[dif]=scoreCInt;
+                                        stats.totalGames[dif] +=1
+                                        stats.totalWon[dif] +=1
+                                        
+                                        
                                 }
                                 if (vencedor === 2) {
                                         scoreCInt += 1;
-                                        scoreComputador = String(scoreCInt);
-                                        scorePlayer = String(scorePInt);
-                                        localStorage.setItem('jogador', scorePlayer)
-                                        localStorage.setItem('computador', scoreComputador)
+                                        scorePlayer[dif] = scorePInt;
+                                        scoreComputador[dif]=scoreCInt;
+                                        stats.totalGames[dif] +=1
+                                        
                                 }
                         }
 
                         //Atualiza indicadores de score
 
-                        textP.text = scorePlayer;
-                        textC.text = scoreComputador;
+                        textP.text = scorePlayer[dif];
+                        textC.text = scoreComputador[dif];
 
                         //Apresentar desforra
 
@@ -683,11 +681,18 @@ class Pvc extends Phaser.Scene {
                 this.numerodep2 = this.add.sprite(240 * 2, 300 * 2, 'i' + dep2).setScale(0.6)
                 this.numerodep1 = this.add.sprite(790 * 2, 300 * 2, 'i' + dep1).setScale(0.6)
         }
-
+        saveStats(){
+               
+        if(typeof(Storage) === "undefined") {
+                return;
+            }
+        let statsstring = JSON.stringify(stats);
+        localStorage.setItem("OuriStats",statsstring);
+        }
         clickMenu() {
                 console.log('Menu');
-                scorePlayer1 = 0;
-                scorePlayer2 = 0;
+                this.saveStats();
+
                 this.scene.start('menu');
         }
 

@@ -12,6 +12,7 @@ class Pvp extends Phaser.Scene {
 		var w = config.width;
 		var h = config.height;
 		this.scale.lockOrientation('landscape')
+		
 		// User Interface
 		this.background = this.add.sprite(w, h, "background_2");
 		this.background.displayWidth = 1024 * 2;
@@ -23,19 +24,15 @@ class Pvp extends Phaser.Scene {
 		this.home.setScale(1.3)
 
 		this.ouri = this.add.sprite(150 * 2, 55 * 2, 'ouri');
-		// this.ouri.displayHeight = 
-		//this.ouri.displayWidth = 
 		this.ouri.depth = 2
 
 		//Pintainho 1
 		this.pinto1 = this.add.sprite(910 * 2, 290 * 2, 'pinto_1')
-		//this.pinto1.setScale(0.5)
 		this.pinto1.depth = 1
 
 
 		//Pintainho 4
 		this.pinto4 = this.add.sprite(110 * 2, 290 * 2, 'pinto_4')
-		//this.pinto4.setScale(0.5)
 		this.pinto4.flipX = true
 		this.pinto4.depth = 1
 
@@ -165,8 +162,6 @@ class Pvp extends Phaser.Scene {
 		if (check === 1) {
 			var vencedor = this.terminar()
 			if (dep2 === dep1) {
-				
-				//console.log(" Bruh")
 				vencedor = 3
 
 			}
@@ -185,21 +180,15 @@ class Pvp extends Phaser.Scene {
 			textP2.text = scorePlayer2;
 
 			//Apresentar desforra
-
-
-			//this.desforraQuadro = this.add.sprite((config.width/2)*2,(config.height/2+config.height/12)*2,"infoVazio");
-			//this.desforraQuadro.setScale(1.4)
 			switch (vencedor) {
 				case 1:
 					this.quadroP1W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP1").setScale(1.4);
-					//this.texto1 =  this.add.text(370*2,250*2,"O jogador 1 ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
-					//this.texto2 = this.add.text(370*2,300*2,"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
+
 					break;
 
 				case 2:
 					this.quadroP2W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP2").setScale(1.4);
-					//this.texto3 =  this.add.text(370*2,250*2,"O jogador 2 ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
-					//this.texto4 = this.add.text(370*2,300*2,"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
+
 					break;
 				case 3:
 					this.quadroEmpate = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "empate").setScale(1.4);

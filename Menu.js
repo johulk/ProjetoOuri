@@ -14,7 +14,7 @@ class Menu extends Phaser.Scene {
         this.background.displayWidth = 1024 * 2;
         this.background.displayHeight = 600 * 2;
         this.background.depth = 0
-
+        this.loadStats();
         //Titulo
         this.ouri = this.add.sprite((w / 2) * 2, (h / 12) * 2, 'ouri');
         //this.ouri.setScale(.)
@@ -89,9 +89,42 @@ class Menu extends Phaser.Scene {
         this.stats = this.add.sprite((w - w / 18 + w / 60) * 2, (h / 2 + h / 12 + h / 24) * 2, 'stats').setInteractive();
         this.stats.on('pointerdown', () => this.clickStats());
         this.stats.setScale(0.8 * 2)
+        
+
+       
+    }
+
+    loadStats(){
+        if(typeof(Storage) === "undefined") {
+            return;
+        }
+        
+        let dataAux = localStorage.getItem('OuriStats');
+        if(dataAux != null){
+            let data = JSON.parse(dataAux);
+            this.parseData(data);
+        }
+    }
+
+    parseData(){
+        if(Array.isArray(data['totalGames']) && data['totalGames'].length === 3 && this.checkArrayInteger(data['totalGames'])){
+            totalGames = data['totalGames'].slice();
+        }
+        if(Array.isArray(data['totalWon']) && data['totalWon'].length === 3 && this.checkArrayInteger(data['totalWon'])){
+            totalWon = data['totalWon'].slice();
+        }
 
     }
 
+    checkArrayInteger(array) {
+       
+        for (let i = 0; i < array.length;i++) {
+            if(!Number.isInteger(array[i]) || array[i] < 0){
+                return false;
+            }
+        }
+        return true;
+    }
     clickPlayers() {
         console.log('2 Jogadores');
         this.scene.start("pvp");
@@ -145,6 +178,35 @@ class Menu extends Phaser.Scene {
         this.close.on('pointerdown', () => this.scene.start("menu"));
         this.close.setScale(0.62 * 2)
         this.close.depth = 4
+
+
+        //Calculos de %
+
+        totalJogos = stats.totalGames.reduce((a,b) => a+b,0)
+        totalWins = (stats.totalWon.reduce((a,b) => a+b,0)) / totalJogos;
+        totalWinsEasy = stats.totalWon[0] / stats.totalGames[0]
+        totalWinsMedium = stats.totalWon[1] / stats.totalGames[1]
+        totalWinsHard = stats.totalWon[2] / stats.totalGames[2]
+
+        textTotalGames = this.add.text(915 * 2, 52 * 2, totalJogos, { fontFamily: 'Arial', fontSize: 25, color: '#FFFFFF' });
+        textTotalWins  = this.add.text(915 * 2, 60 * 2, totalWins, { fontFamily: 'Arial', fontSize: 25, color: '#FFFFFF' });
+        textWinsEasy   = this.add.text(915 * 2, 68 * 2, totalWinsEasy, { fontFamily: 'Arial', fontSize: 25, color: '#FFFFFF' });
+        textWinsMedium = this.add.text(915 * 2, 76 * 2, totalWinsMedium, { fontFamily: 'Arial', fontSize: 25, color: '#FFFFFF' });
+        textWinsHard   = this.add.text(915 * 2, 84 * 2, totalWinsHard, { fontFamily: 'Arial', fontSize: 25, color: '#FFFFFF' });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         console.log('Stats');
     }
     counterInfo(contador) {
