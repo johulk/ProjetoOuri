@@ -221,7 +221,8 @@ class Pvc extends Phaser.Scene {
                 var anyJog = [];
                 anyJog.push(this.verificaJogadas(state, player), this.verificaJogadas(state, (player % 2) + 1));
 
-                if (anyJog.length === 0) { check = 1 }; //verifica se ha jogadas possiveis para os dois jogadores
+                
+                if ((anyJog[0].length === 0 )&&(anyJog[1].length === 0))  { check = 1 }; //verifica se ha jogadas possiveis para os dois jogadores
                 if ((dep2 > 24) || (dep1 > 24) || (dep2 === 24 && dep1 === 24)) { check = 1 } //Verifica pelos depositos
                 if ((dep2 + dep1) === 46) {
                         for (var i = 0; i < 6; i++) {
