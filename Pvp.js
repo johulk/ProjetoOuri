@@ -1,7 +1,7 @@
 let textP1;
 let textP2;
-let textodep2;
-let textodep1;
+let textodepJogador2;
+let textodepJogador1;
 
 class Pvp extends Phaser.Scene {
 	constructor() {
@@ -45,10 +45,10 @@ class Pvp extends Phaser.Scene {
 
 		textP1 = this.add.text(915 * 2, 52 * 2, scorePlayer1, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
 		textP2 = this.add.text(915 * 2, 140 * 2, scorePlayer2, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
-		textodep2 = this.add.text(1438, 585, dep1 , { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
-        textodep1 = this.add.text(580, 585, dep2 , { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
-        textodep2.setDepth(8888)
-        textodep1.setDepth(8888) 
+		textodepJogador2 = this.add.text(1438, 585, depJogador1 , { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
+        textodepJogador1 = this.add.text(580, 585, depJogador2 , { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
+        textodepJogador2.setDepth(8888)
+        textodepJogador1.setDepth(8888) 
 
 		this.setaP1 = this.add.sprite(1024, 936, 'setaP1').setScale(0.7).setVisible(false)
 		this.setaP2 = this.add.sprite(1024, 250, 'setaP2').setScale(0.7).setVisible(false)
@@ -59,8 +59,8 @@ class Pvp extends Phaser.Scene {
 
 		// Inicializar
 		player = 1;
-		dep1 = 0;
-		dep2 = 0;
+		depJogador1 = 0;
+		depJogador2 = 0;
 		check = 0;
 		state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
 
@@ -134,8 +134,8 @@ class Pvp extends Phaser.Scene {
 	}
 
 	afterplay() {
-		if ((dep1 > 24) || (dep2 > 24) || (dep1 === 24 && dep2 === 24)) { check = 1 } //Verifica pelos depositos		
-		if ((dep1 + dep2) === 46) {
+		if ((depJogador1 > 24) || (depJogador2 > 24) || (depJogador1 === 24 && depJogador2 === 24)) { check = 1 } //Verifica pelos depositos		
+		if ((depJogador1 + depJogador2) === 46) {
 			for (var i = 0; i < 6; i++) {
 				if (state[i] === 1) {
 					if (state[i + 6] === 1) {
@@ -166,7 +166,7 @@ class Pvp extends Phaser.Scene {
 
 		if (check === 1) {
 			var vencedor = this.terminar()
-			if (dep1 === dep2) {
+			if (depJogador1 === depJogador2) {
 				vencedor = 3
 
 			}
@@ -266,17 +266,17 @@ class Pvp extends Phaser.Scene {
 		var i;
 
 		for (i = 0; i < 6; i++) {
-			dep1 = dep1 + state[i]
+			depJogador1 = depJogador1 + state[i]
 		}
 
 		for (i = 5; i < 12; i++) {
-			dep2 = dep2 + state[i]
+			depJogador2 = depJogador2 + state[i]
 		}
 
-		if (dep1 > dep2) { player = 1 }
+		if (depJogador1 > depJogador2) { player = 1 }
 		else { res = 2 }
-		this.numerodep1 = this.add.sprite(240 * 2, 300 * 2, 'i' + dep1).setScale(0.6)
-        this.numerodep2 = this.add.sprite(790 * 2, 300 * 2, 'i' + dep2).setScale(0.6)
+		this.numerodepJogador1 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
+        this.numerodepJogador2 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
 		return res
 	}
 
@@ -332,7 +332,7 @@ class Pvp extends Phaser.Scene {
 
 		if (player === 1) {
 			while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal > 5 && posfinal < 12) {
-				dep1 = dep1 + state[posfinal]
+				depJogador1 = depJogador1 + state[posfinal]
 				state[posfinal] = 0;
 				posfinal = posfinal - 1;
 			}
@@ -341,7 +341,7 @@ class Pvp extends Phaser.Scene {
 		//Recolher as pedras para o player 2
 		if (player === 2) {
 			while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal >= 0 && posfinal < 6) {
-				dep2 = dep2 + state[posfinal]
+				depJogador2 = depJogador2 + state[posfinal]
 				state[posfinal] = 0;
 				posfinal = posfinal - 1;
 
@@ -394,10 +394,10 @@ class Pvp extends Phaser.Scene {
 		}
 
 		//Adiciona os ovos aos depositos
-		this.numerodep2 = this.add.sprite(240 * 2, 300 * 2, 'i' + dep2).setScale(0.6)
-		this.numerodep1 = this.add.sprite(790 * 2, 300 * 2, 'i' + dep1).setScale(0.6)
-		textodep1.text = dep2
-    	textodep2.text = dep1
+		this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
+		this.numerodepJogador1 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
+		textodepJogador1.text = depJogador2
+    	textodepJogador2.text = depJogador1
 	}
 
 	clickMenu() {
