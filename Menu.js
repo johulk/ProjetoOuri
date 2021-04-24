@@ -184,15 +184,15 @@ class Menu extends Phaser.Scene {
 
         totalJogos = stats.totalGames.reduce((a,b) => a+b,0)
         totalWins = (stats.totalWon.reduce((a,b) => a+b,0)) / totalJogos;
-        totalWinsEasy = stats.totalWon[0] / stats.totalGames[0]
-        totalWinsMedium = stats.totalWon[1] / stats.totalGames[1]
-        totalWinsHard = stats.totalWon[2] / stats.totalGames[2]
+        totalWinsEasy = (stats.totalWon[0] / stats.totalGames[0])*100
+        totalWinsMedium = (stats.totalWon[1] / stats.totalGames[1])*100
+        totalWinsHard = (stats.totalWon[2] / stats.totalGames[2])*100
 
-        textTotalGames = this.add.text(915 * 2, 52 * 2, totalJogos, { fontFamily: 'Arial', fontSize: 25, color: '#FFFFFF' });
-        textTotalWins  = this.add.text(915 * 2, 60 * 2, totalWins, { fontFamily: 'Arial', fontSize: 25, color: '#FFFFFF' });
-        textWinsEasy   = this.add.text(915 * 2, 68 * 2, totalWinsEasy, { fontFamily: 'Arial', fontSize: 25, color: '#FFFFFF' });
-        textWinsMedium = this.add.text(915 * 2, 76 * 2, totalWinsMedium, { fontFamily: 'Arial', fontSize: 25, color: '#FFFFFF' });
-        textWinsHard   = this.add.text(915 * 2, 84 * 2, totalWinsHard, { fontFamily: 'Arial', fontSize: 25, color: '#FFFFFF' });
+        textTotalGames = this.add.text(915 * 2, 52 * 2, totalJogos , { fontFamily: 'Arial', fontSize: 25, color: '#FFFFFF' });
+        textTotalWins  = this.add.text(915 * 2, 60 * 2, totalWins+"%", { fontFamily: 'Arial', fontSize: 25, color: '#FFFFFF' });
+        textWinsEasy   = this.add.text(915 * 2, 68 * 2, totalWinsEasy+ "%", { fontFamily: 'Arial', fontSize: 25, color: '#FFFFFF' });
+        textWinsMedium = this.add.text(915 * 2, 76 * 2, totalWinsMedium+ "%", { fontFamily: 'Arial', fontSize: 25, color: '#FFFFFF' });
+        textWinsHard   = this.add.text(915 * 2, 84 * 2, totalWinsHard+ "%", { fontFamily: 'Arial', fontSize: 25, color: '#FFFFFF' });
 
 
 
