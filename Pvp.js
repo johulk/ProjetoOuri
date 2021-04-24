@@ -1,7 +1,7 @@
 let textP1;
 let textP2;
-let textdep1;
-let textdep2;
+let textodep1;
+let textodep2;
 
 class Pvp extends Phaser.Scene {
 	constructor() {
@@ -45,10 +45,10 @@ class Pvp extends Phaser.Scene {
 
 		textP1 = this.add.text(915 * 2, 52 * 2, scorePlayer1, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
 		textP2 = this.add.text(915 * 2, 140 * 2, scorePlayer2, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
-		textdep1 = this.add.text(1438, 585, dep1 , { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
-        textdep2 = this.add.text(580, 585, dep2 , { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
-        textdep1.setDepth(8888)
-        textdep2.setDepth(8888) 
+		textodep1 = this.add.text(1438, 585, dep1 , { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
+        textodep2 = this.add.text(580, 585, dep2 , { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
+        textodep1.setDepth(8888)
+        textodep2.setDepth(8888) 
 
 		this.setaP1 = this.add.sprite(1024, 936, 'setaP1').setScale(0.7).setVisible(false)
 		this.setaP2 = this.add.sprite(1024, 250, 'setaP2').setScale(0.7).setVisible(false)
@@ -396,8 +396,8 @@ class Pvp extends Phaser.Scene {
 		//Adiciona os ovos aos depositos
 		this.numerodep2 = this.add.sprite(240 * 2, 300 * 2, 'i' + dep2).setScale(0.6)
 		this.numerodep1 = this.add.sprite(790 * 2, 300 * 2, 'i' + dep1).setScale(0.6)
-		textdep1.text = dep1
-    	textdep2.text = dep2
+		textodep1.text = dep1
+    	textodep2.text = dep2
 	}
 
 	clickMenu() {
