@@ -1,7 +1,7 @@
 function EstadoSimulado(stateTabuleiro, deposito2, deposito1) {
         this.estado = stateTabuleiro;
-        this.dep2 = deposito2;
-        this.dep1 = deposito1;
+        this.dep1 = deposito2;
+        this.dep2 = deposito1;
 }
 
 function TreeNode() {
@@ -14,8 +14,8 @@ function TreeNode() {
 
 let textP;
 let textC;
-let textdep1;
 let textdep2;
+let textdep1;
 
 
 class Pvc extends Phaser.Scene {
@@ -62,8 +62,8 @@ class Pvc extends Phaser.Scene {
                 this.computadorScore.setScale(0.75)
                 // Inicializar
                 player = 1;
-                dep2 = 0;
                 dep1 = 0;
+                dep2 = 0;
                 check = 0;
                 state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
 
@@ -89,10 +89,10 @@ class Pvc extends Phaser.Scene {
                 
                 textP = this.add.text(915 * 2, 52 * 2, scorePInt, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
                 textC = this.add.text(915 * 2, 140 * 2, scoreCInt, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
-                textdep1 = this.add.text(1438, 585, dep1 , { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
-                textdep2 = this.add.text(580, 585, dep2 , { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
-                textdep1.setDepth(8888)
-                textdep2.setDepth(8888)  
+                textdep2 = this.add.text(1438, 585, dep2 , { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
+                textdep1 = this.add.text(580, 585, dep1 , { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
+                textdep2.setDepth(8888)
+                textdep1.setDepth(8888)  
 
                 this.setaP1 = this.add.sprite(1024, 936, 'setaP1').setScale(0.7).setVisible(false)
                 this.setaP2 = this.add.sprite(1024, 250, 'setaP2').setScale(0.7).setVisible(false)
@@ -223,8 +223,8 @@ class Pvc extends Phaser.Scene {
 
                 
                 if ((anyJog[0].length === 0 )&&(anyJog[1].length === 0))  { check = 1 }; //verifica se ha jogadas possiveis para os dois jogadores
-                if ((dep2 > 24) || (dep1 > 24) || (dep2 === 24 && dep1 === 24)) { check = 1 } //Verifica pelos depositos
-                if ((dep2 + dep1) === 46) {
+                if ((dep1 > 24) || (dep2 > 24) || (dep1 === 24 && dep2 === 24)) { check = 1 } //Verifica pelos depositos
+                if ((dep1 + dep2) === 46) {
                         for (var i = 0; i < 6; i++) {
                                 if (state[i] === 1) {
                                         if (state[i + 6] === 1) {
@@ -236,7 +236,7 @@ class Pvc extends Phaser.Scene {
 
                 if (check === 1) {
                         var vencedor = this.terminar()
-                        if (dep2 === dep1) {
+                        if (dep1 === dep2) {
                                 vencedor = 3;
                         }
                         else {
@@ -350,14 +350,14 @@ class Pvc extends Phaser.Scene {
                 var j;
 
                 for (i = 0, j = 5; i < 6, j < 12; i++, j++) {
-                        dep2 = dep2 + state[i]
-                        dep1 = dep1 + state[j]
+                        dep1 = dep1 + state[i]
+                        dep2 = dep2 + state[j]
                 }
 
-                if (dep2 > dep1) { res = 1 }
+                if (dep1 > dep2) { res = 1 }
                 else { res = 2 }
-                this.numerodep2 = this.add.sprite(240 * 2, 300 * 2, 'i' + dep2).setScale(0.6)
-                this.numerodep1 = this.add.sprite(790 * 2, 300 * 2, 'i' + dep1).setScale(0.6)
+                this.numerodep1 = this.add.sprite(240 * 2, 300 * 2, 'i' + dep1).setScale(0.6)
+                this.numerodep2 = this.add.sprite(790 * 2, 300 * 2, 'i' + dep2).setScale(0.6)
                 return res
         }
 
@@ -415,7 +415,7 @@ class Pvc extends Phaser.Scene {
 
                 if (player === 1) {
                         while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal > 5 && posfinal < 12) {
-                                dep2 = dep2 + state[posfinal]
+                                dep1 = dep1 + state[posfinal]
                                 state[posfinal] = 0;
                                 posfinal = posfinal - 1;
                         }
@@ -424,7 +424,7 @@ class Pvc extends Phaser.Scene {
                 //Recolher as pedras para o player 2
                 if (player === 2) {
                         while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal >= 0 && posfinal < 6) {
-                                dep1 = dep1 + state[posfinal]
+                                dep2 = dep2 + state[posfinal]
                                 state[posfinal] = 0;
                                 posfinal = posfinal - 1;
 
@@ -508,7 +508,7 @@ class Pvc extends Phaser.Scene {
 
 
         //Controi o resto dos nodos de acordo com os states simulados ao longo do jogo
-        construirDescendentes(staterecebido, jogador, jogada, depth, auxdep2, auxdep1) {
+        construirDescendentes(staterecebido, jogador, jogada, depth, auxdep1, auxdep2) {
 
                 //receber um estado + 1 jogada -- Fazer a jogada -- Procurar novas jogadas -- passar aos descedentes
                 var nodo = new TreeNode();
@@ -516,11 +516,11 @@ class Pvc extends Phaser.Scene {
                 // Fazer copia das variaveis globais
                 var copiaestado = [...staterecebido];
 
-                var dep2copy = auxdep2
                 var dep1copy = auxdep1
+                var dep2copy = auxdep2
 
                 //console.log("DEPTH " + depth)
-                nodo.estadoSimulado = this.simulaJogada(copiaestado, jogada, jogador, dep2copy, dep1copy);
+                nodo.estadoSimulado = this.simulaJogada(copiaestado, jogada, jogador, dep1copy, dep2copy);
 
                 if (depth === 0) {
                         return nodo;
@@ -530,7 +530,7 @@ class Pvc extends Phaser.Scene {
 
                 var jogPosNew = this.verificaJogadas(nodo.estadoSimulado.estado, (jogador % 2) + 1);
                 for (var i = 0; i < jogPosNew.length; i++) {
-                        nodo.descendants.push(this.construirDescendentes(nodo.estadoSimulado.estado, (jogador % 2) + 1, jogPosNew[i], depth - 1, nodo.estadoSimulado.dep2, nodo.estadoSimulado.dep1));
+                        nodo.descendants.push(this.construirDescendentes(nodo.estadoSimulado.estado, (jogador % 2) + 1, jogPosNew[i], depth - 1, nodo.estadoSimulado.dep1, nodo.estadoSimulado.dep2));
                 }
                 return nodo;
         }
@@ -544,7 +544,7 @@ class Pvc extends Phaser.Scene {
                 var arvore = new TreeNode();
 
                 // raiz
-                var estadoSim = new EstadoSimulado(estadoRaiz, dep2, dep1);
+                var estadoSim = new EstadoSimulado(estadoRaiz, dep1, dep2);
 
 
                 //tudobem
@@ -553,22 +553,22 @@ class Pvc extends Phaser.Scene {
 
                 // constroi para o jogador seguinte
                 for (var jogposlen = 0; jogposlen < jogPos.length; jogposlen++) {
-                        arvore.descendants.push(this.construirDescendentes(estadoRaiz, 2, jogPos[jogposlen], newProf, dep2, dep1));
+                        arvore.descendants.push(this.construirDescendentes(estadoRaiz, 2, jogPos[jogposlen], newProf, dep1, dep2));
                 }
                 return arvore;
         }
 
 
 
-        simulaJogada(copiaEstado, jogada, jogador, dep2copy, dep1copy) {
+        simulaJogada(copiaEstado, jogada, jogador, dep1copy, dep2copy) {
 
                 //Faz a jogada
                 var estadoArraySimulado = [...copiaEstado];
                 var sementesAEspalhar = estadoArraySimulado[jogada];
                 var ultimacasa = (jogada + sementesAEspalhar) % 12;
                 estadoArraySimulado[jogada] = 0;
-                var dep2Sim = dep2copy
                 var dep1Sim = dep1copy
+                var dep2Sim = dep2copy
 
                 var casasPercorridas = 1
                 for (casasPercorridas = 1; casasPercorridas <= sementesAEspalhar; casasPercorridas++) {
@@ -578,7 +578,7 @@ class Pvc extends Phaser.Scene {
                 if (estadoArraySimulado[ultimacasa] === (2 | 3)) {
                         if (jogador === 1) { //Em caso de ser o jogador a jogar
                                 while (estadoArraySimulado[ultimacasa] === (2 | 3) && (ultimacasa >= 6 && ultimacasa < 12)) {
-                                        dep2Sim += estadoArraySimulado[ultimacasa];
+                                        dep1Sim += estadoArraySimulado[ultimacasa];
                                         estadoArraySimulado[ultimacasa] = 0;
                                         ultimacasa--;
 
@@ -586,7 +586,7 @@ class Pvc extends Phaser.Scene {
                         }
                         else { //Em caso de ser o computador a jogar
                                 while (estadoArraySimulado[ultimacasa] === (2 | 3) && (ultimacasa >= 0 && ultimacasa < 6)) {
-                                        dep1Sim += estadoArraySimulado[ultimacasa];
+                                        dep2Sim += estadoArraySimulado[ultimacasa];
                                         estadoArraySimulado[ultimacasa] = 0;
                                         ultimacasa--;
 
@@ -594,7 +594,7 @@ class Pvc extends Phaser.Scene {
 
                         }
                 }
-                var estado = new EstadoSimulado(estadoArraySimulado, dep2Sim, dep1Sim)
+                var estado = new EstadoSimulado(estadoArraySimulado, dep1Sim, dep2Sim)
                 //console.log(estado);
 
                 return estado;
@@ -627,8 +627,8 @@ class Pvc extends Phaser.Scene {
 
 
         minimax(node, depth, alpha, beta, maximizingPlayer) {
-                if ((depth === 0) || (node.estadoSimulado.dep2 === 25) || (node.estadoSimulado.dep1 === 25) || (node.estadoSimulado.dep2 === 24 && node.estadoSimulado.dep1 === 24)) {
-                        return node.estadoSimulado.dep1 - node.estadoSimulado.dep2;
+                if ((depth === 0) || (node.estadoSimulado.dep1 === 25) || (node.estadoSimulado.dep2 === 25) || (node.estadoSimulado.dep1 === 24 && node.estadoSimulado.dep2 === 24)) {
+                        return node.estadoSimulado.dep2 - node.estadoSimulado.dep1;
                 }
 
                 if (maximizingPlayer === true) {
@@ -684,11 +684,11 @@ class Pvc extends Phaser.Scene {
                 }
 
                 //Adiciona os ovos aos depositos
-                this.numerodep2 = this.add.sprite(240 * 2, 300 * 2, 'i' + dep1).setScale(0.6)
-                this.numerodep1 = this.add.sprite(790 * 2, 300 * 2, 'i' + dep2).setScale(0.6)
+                this.numerodep2 = this.add.sprite(240 * 2, 300 * 2, 'i' + dep2).setScale(0.6)
+                this.numerodep1 = this.add.sprite(790 * 2, 300 * 2, 'i' + dep1).setScale(0.6)
 
-                textdep1.text = dep2
-                textdep2.text = dep1
+                textdep1.text = dep1
+                textdep2.text = dep2
         }
         saveStats(){
                
