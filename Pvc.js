@@ -662,10 +662,10 @@ class Pvc extends Phaser.Scene {
 
                  root.descendants.sort((a,b)=> {
                          if (a.valor >b.valor){
-                                 return 1;
+                                 return -1;
                          }
                          if (b.valor >a.valor){
-                                 return -1;
+                                 return 1;
                          }
                  })
 
