@@ -608,7 +608,7 @@ class Pvc extends Phaser.Scene {
                 ///////  RECEBE O JOGADOR NESTE MOMENTO
                 if (estadoArraySimulado[ultimacasa] === (2 | 3)) {
                         if (jogador === 1) { //Em caso de ser o jogador a jogar
-                                while (estadoArraySimulado[ultimacasa] === (2 | 3) && (ultimacasa >= 6 && ultimacasa < 12)) {
+                                while (estadoArraySimulado[ultimacasa] === (2 || 3) && (ultimacasa >= 6 && ultimacasa < 12)) {
                                         depJogadorSim += estadoArraySimulado[ultimacasa];
                                         estadoArraySimulado[ultimacasa] = 0;
                                         ultimacasa--;
@@ -616,7 +616,7 @@ class Pvc extends Phaser.Scene {
                                 }
                         }
                         else { //Em caso de ser o computador a jogar
-                                while (estadoArraySimulado[ultimacasa] === (2 | 3) && (ultimacasa >= 0 && ultimacasa < 6)) {
+                                while (estadoArraySimulado[ultimacasa] === (2 || 3) && (ultimacasa >= 0 && ultimacasa < 6)) {
                                         depComputadorSim += estadoArraySimulado[ultimacasa];
                                         estadoArraySimulado[ultimacasa] = 0;
                                         ultimacasa--;
