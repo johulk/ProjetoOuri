@@ -14,7 +14,8 @@ function TreeNode() {
 
 let textP;
 let textC;
-
+let textdep1;
+let textdep2;
 
 
 class Pvc extends Phaser.Scene {
@@ -85,9 +86,11 @@ class Pvc extends Phaser.Scene {
                         scorePInt = scorePlayer[dif]
 
                 }
-
+                
                 textP = this.add.text(915 * 2, 52 * 2, scorePInt, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
                 textC = this.add.text(915 * 2, 140 * 2, scoreCInt, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
+                textdep1 = this.add.text(1224, 270 * 2, dep1 , { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
+                textdep2 = this.add.text(1224, 270 * 2, dep2 , { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
 
                 this.setaP1 = this.add.sprite(1024, 936, 'setaP1').setScale(0.7).setVisible(false)
                 this.setaP2 = this.add.sprite(1024, 250, 'setaP2').setScale(0.7).setVisible(false)
@@ -680,6 +683,9 @@ class Pvc extends Phaser.Scene {
                 //Adiciona os ovos aos depositos
                 this.numerodep2 = this.add.sprite(240 * 2, 300 * 2, 'i' + dep2).setScale(0.6)
                 this.numerodep1 = this.add.sprite(790 * 2, 300 * 2, 'i' + dep1).setScale(0.6)
+
+                textdep1.text = dep1
+                textdep2.text = dep2
         }
         saveStats(){
                
