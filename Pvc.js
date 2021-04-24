@@ -317,7 +317,7 @@ class Pvc extends Phaser.Scene {
         dificil() {
                 let copiaestado = [...state];
 
-                let arvore = this.construirArvore(copiaestado, 8);
+                var arvore = this.construirArvore(copiaestado, 8);
 
 
                 console.log(arvore)
