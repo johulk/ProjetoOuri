@@ -545,7 +545,7 @@ class Pvc extends Phaser.Scene {
                 //console.log("DEPTH " + depth)
                 nodo.estadoSimulado = this.simulaJogada(copiaestado, jogada, jogador, depJogadorcopy, depComputadorcopy);
 
-                if (depth === 0 || nodo.estadoSimulado.isOver === 1) {
+                if (depth === 0 ||(nodo.estadoSimulado.isOver === 1) || nodo.estadoSimulado.depComputador - nodo.estadoSimulado.depJogador <0 ) {
                         return nodo;
                 }
 
