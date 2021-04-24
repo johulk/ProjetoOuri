@@ -2,6 +2,14 @@ let textP1;
 let textP2;
 let textodepJogador2;
 let textodepJogador1;
+let state = []
+let player = 1;
+let depJogador1 = 0;
+let depJogador2 = 0;
+let check = 0;
+let casasPC = [6, 7, 8, 9, 10, 11]
+let casasJogador = [0, 1, 2, 3, 4, 5]
+
 
 class Pvp extends Phaser.Scene {
 	constructor() {
