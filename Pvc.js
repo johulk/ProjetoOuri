@@ -336,7 +336,7 @@ class Pvc extends Phaser.Scene {
                 console.log(melhoresJogadas)
                 //arvore = undefined;
                 delete arvore.descendants
-                delete arvore
+                
                 return jogadaFinal
         };
 
