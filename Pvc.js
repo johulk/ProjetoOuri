@@ -700,9 +700,9 @@ class Pvc extends Phaser.Scene {
                 var nudgeSimState = [...nodo.estadoSimulado.estado]
 
                 //CasosDeEnd
-                if (nudgeDepJ >= 25) { nudgeValue -= 80; return this.nudgeValue } // nerf
-                if (nudgeDepC >= 25) { nudgeValue += 80; return this.nudgeValue } // buff
-                if (nudgeDepC === 24 && nudgeDepJ === 24) { nudgeValue += 25 ; return this.nudgeValue } // Decisao entre perder e empatar, PC prefere empatar
+                if (nudgeDepJ >= 25) { nudgeValue -= 80; return nudgeValue } // nerf
+                if (nudgeDepC >= 25) { nudgeValue += 80; return nudgeValue } // buff
+                if (nudgeDepC === 24 && nudgeDepJ === 24) { nudgeValue += 25 ; return nudgeValue } // Decisao entre perder e empatar, PC prefere empatar
 
                 for (var i = 0; i < nudgeSimState.length; i++) {
                         var ovos = nudgeSimState[i];
