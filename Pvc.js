@@ -700,9 +700,9 @@ class Pvc extends Phaser.Scene {
                 var nudgeSimState = [...nodo.estadoSimulado.estado]
 
                 //CasosDeEnd
-                if (nudgeDepJ >= 25) { nudgeValue -= 25 } // nerf
-                if (nudgeDepC >= 25) { nudgeValue += 25 } // buff
-                if (nudgeDepC === 24 && nudgeDepJ === 24) { nudgeValue += 10 } // Decisao entre perder e empatar, PC prefere empatar
+                if (nudgeDepJ >= 25) { nudgeValue -= 80 } // nerf
+                if (nudgeDepC >= 25) { nudgeValue += 80 } // buff
+                if (nudgeDepC === 24 && nudgeDepJ === 24) { nudgeValue += 25 } // Decisao entre perder e empatar, PC prefere empatar
 
                 for (var i = 0; i < nudgeSimState.length; i++) {
                         var ovos = nudgeSimState[i];
@@ -740,6 +740,16 @@ class Pvc extends Phaser.Scene {
                                                 nudgeValue +=3
                                         case 12:
                                                 nudgeValue -=2
+                                        case 13:
+                                        case 14:
+                                        case 15:
+                                        case 16:
+                                        case 17:
+                                        case 18:
+                                        case 19:
+                                        case 20:
+                                                nudgeValue -=1
+                                        
                                 }
                         }
                         if (casasPC.indexOf(i) != -1){
@@ -752,6 +762,15 @@ class Pvc extends Phaser.Scene {
                                                 nudgeValue -=3
                                         case 12:
                                                 nudgeValue +=2
+                                        case 13:
+                                        case 14:
+                                        case 15:
+                                        case 16:
+                                        case 17:
+                                        case 18:
+                                        case 19:
+                                        case 20:
+                                                nudgeValue +=1
                                 }
                         }
 
