@@ -775,6 +775,7 @@ class Pvc extends Phaser.Scene {
                         }
 
                 }
+                console.log(nudgeValue + "Nudged")
                 return (nudgeValue)
         }
 
