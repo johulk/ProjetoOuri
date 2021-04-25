@@ -73,10 +73,10 @@ class Pvc extends Phaser.Scene {
                 this.computadorScore.setScale(0.75)
                 // Inicializar
                 player = 1;
-                depJogador = 21;
-                depComputador = 23;
+                depJogador = 0;
+                depComputador = 0;
                 check = 0;
-                state = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1];
+                state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
 
 
 
@@ -317,24 +317,34 @@ class Pvc extends Phaser.Scene {
         dificil() {
                 let copiaestado = [...state];
 
-                var arvore = this.construirArvore(copiaestado, 8);
+                var arvore = this.construirArvore(copiaestado, 7);
 
 
                 console.log(arvore)
-                var melhorValorFinal = this.minimax(arvore, 8, -Infinity, +Infinity, true)
+                var melhorValorFinal = this.minimax(arvore, 7, -Infinity, +Infinity, true)
                 console.log(melhorValorFinal)
 
                 //30
+
                 var procuraJogada;
                 var melhoresJogadas = [];
-                for (procuraJogada = 0; procuraJogada < arvore.descendants.length; procuraJogada++) {
-                        if (arvore.descendants[procuraJogada].valor === melhorValorFinal) {
-                                melhoresJogadas.push(arvore.descendants[procuraJogada].root)
+                if ((melhorValorFinal === (+Infinity || -Infinity)) && arvore.descendants.length > 1) {
+                        for (procuraJogada = 0; procuraJogada < arvore.descendants.length; procuraJogada++) {
+                                if (arvore.descendants[procuraJogada].valor != melhorValorFinal)
+                                        melhoresJogadas.push(arvore.descendants[procuraJogada].root)
+                        }
+
+                }
+                else {
+                        for (procuraJogada = 0; procuraJogada < arvore.descendants.length; procuraJogada++) {
+                                if (arvore.descendants[procuraJogada].valor === melhorValorFinal) {
+                                        melhoresJogadas.push(arvore.descendants[procuraJogada].root)
+                                }
                         }
                 }
                 var jogadaFinal = melhoresJogadas[Math.floor(Math.random() * melhoresJogadas.length)];
                 console.log(melhoresJogadas)
-                delete arvore.descendants
+                //delete arvore.descendants
 
                 return jogadaFinal
         };
@@ -349,6 +359,7 @@ class Pvc extends Phaser.Scene {
                 anyJog.push(this.verificaJogadas(estado, jogador), this.verificaJogadas(estado, (jogador % 2) + 1));
 
                 var isFinal = 0;
+
                 if ((anyJog[0].length === 0) && (anyJog[1].length === 0)) { isFinal = 1 }; //verifica se ha jogadas possiveis para os dois jogadores
                 if ((depositoJogador > 24) || (depositoComputador > 24) || (depositoJogador === 24 && depComputador === 24)) { isFinal = 1 } //Verifica pelos depositos
                 if ((depJogador + depositoComputador) === 46) {
@@ -519,8 +530,8 @@ class Pvc extends Phaser.Scene {
 
 
         one(estado, pos) {
-
                 if (estado[pos] === 0) {
+
                         return false;
                 }
 
@@ -548,17 +559,17 @@ class Pvc extends Phaser.Scene {
 
         // Cria um array com as jogadas possiveis 
         verificaJogadas(estadoRecebido, jogador) {
-                //console.log(dif + " xDDDDDD")
+
                 //casasPC = [6,7,8,9,10,11]
                 //casasJogador = [0,1,2,3,4,5]
                 switch (jogador) {
 
                         case 1:
-                                var jogPos = casasJogador.filter((casa) => this.one(estadoRecebido, casa) && this.popularOponente(estadoRecebido, casa, jogador));
+                                var jogPos = casasJogador.filter((casa) => this.one(estadoRecebido, casa) && this.popularOponente(estadoRecebido, casa, jogador) && estadoRecebido[casa] != 0);
                                 break
 
                         case 2:
-                                var jogPos = casasPC.filter((casa) => this.one(estadoRecebido, casa) && this.popularOponente(estadoRecebido, casa, jogador));
+                                var jogPos = casasPC.filter((casa) => this.one(estadoRecebido, casa) && this.popularOponente(estadoRecebido, casa, jogador) && estadoRecebido[casa] != 0);
                                 break
 
 
@@ -578,11 +589,11 @@ class Pvc extends Phaser.Scene {
 
                 var depJogadorcopy = auxdepJogador
                 var depComputadorcopy = auxdepComputador
-
+                console.log(depth + "DEPTH")
                 //console.log("DEPTH " + depth)
                 nodo.estadoSimulado = this.simulaJogada(copiaestado, jogada, jogador, depJogadorcopy, depComputadorcopy);
 
-                if (depth === 0 || (nodo.estadoSimulado.isOver === 1)) {
+                if (depth === 0) {
                         return nodo;
                 }
 
@@ -616,7 +627,7 @@ class Pvc extends Phaser.Scene {
 
                 // constroi para o jogador seguinte
                 for (var jogposlen = 0; jogposlen < jogPos.length; jogposlen++) {
-                        arvore.descendants.push(this.construirDescendentes(estadoRaiz, 2, jogPos[jogposlen], newProf, depJogador, depComputador));
+                        arvore.descendants.push(this.construirDescendentes(estadoRaiz, 2, jogPos[jogposlen], newProf - 1, depJogador, depComputador));
 
                 }
                 return arvore;
@@ -641,7 +652,7 @@ class Pvc extends Phaser.Scene {
                         estadoArraySimulado[(jogada + casasPercorridas) % 12] = estadoArraySimulado[(jogada + casasPercorridas) % 12] + 1; //espalha as sementes todas
                 }
                 ///////  RECEBE O JOGADOR NESTE MOMENTO
-                if (estadoArraySimulado[ultimacasa] === (2 | 3)) {
+                if (estadoArraySimulado[ultimacasa] === (2 || 3)) {
                         if (jogador === 1) { //Em caso de ser o jogador a jogar
                                 while (estadoArraySimulado[ultimacasa] === (2 || 3) && (ultimacasa >= 6 && ultimacasa < 12)) {
                                         depJogadorSim += estadoArraySimulado[ultimacasa];
@@ -664,7 +675,9 @@ class Pvc extends Phaser.Scene {
                 isOver = this.checkFinal(estadoArraySimulado, jogador, depJogadorSim, depComputadorSim)
 
                 var estado = new EstadoSimulado(estadoArraySimulado, depJogadorSim, depComputadorSim, isOver)
-                //console.log(estado);
+                console.log("E");
+                console.log(estado);
+                console.log("S");
 
                 return estado;
         }
@@ -694,18 +707,21 @@ class Pvc extends Phaser.Scene {
                 //case win +1000, case lose -1000, case empate, +500
                 //repeat para player
 
-                var anyJog = [];
-                anyJog.push(this.verificaJogadas(nudgeSimState, 1), this.verificaJogadas(nudgeSimState, 2));
+                var anyJogJ = [];
+                var anyJogC = [];
+                anyJogJ = this.verificaJogadas(nudgeSimState, 1)
+                anyJogC = this.verificaJogadas(nudgeSimState, 2);
                 //[ [jogadas player] , [jogadas computador]]
-                console.log(anyJog)
-                anyJog[1].forEach(jogada => {
+                console.log(nudgeSimState)
+                anyJogC.forEach(jogada => {
+                        console.log(anyJogC)
                         var valor = nudgeSimState[jogada]
                         var casaFinal = (jogada + valor) % 12
                         console.log("baixo")
                         console.log(nudgeSimState[jogada])
-                        console.log(nudgeSimState[casaFinal])
+                        console.log(casaFinal)
                         console.log("cima")
-                        if ((casasJogador.includes(casaFinal)) && (nudgeSimState[casaFinal] == (1 || 2))) {
+                        if ((casasJogador.includes(casaFinal)) && (nudgeSimState[casaFinal] + 1 === (2 || 3))) {
                                 console.log("no if aasasantes do check")
                                 var nudgeAuxState = [...nudgeSimState]
                                 var casasPercorridas = 1
@@ -741,11 +757,11 @@ class Pvc extends Phaser.Scene {
                 })
 
 
-                anyJog[0].forEach(jogada => {
+                anyJogJ.forEach(jogada => {
                         var valor = nudgeSimState[jogada]
                         var casaFinal = (jogada + valor) % 12
 
-                        if ((casasPC.includes(casaFinal)) && (nudgeSimState[casaFinal] == (1 || 2))) {
+                        if ((casasPC.includes(casaFinal)) && (nudgeSimState[casaFinal] + 1 === (2 || 3))) {
                                 var nudgeAuxState = [...nudgeSimState]
                                 var casasPercorridas = 1
                                 nudgeAuxState[jogada] = 0
@@ -777,19 +793,20 @@ class Pvc extends Phaser.Scene {
 
 
                 //Avalia buracos tabuleiro
-                for (var i = 0; i < nudgeSimState.length; i++) {
-                        var numOvos = nudgeSimState[i];
-                        if (casasJogador.indexOf(i) != -1) {
-                                if (numOvos === 0) { nudgeValue += 4 }
-                                if (numOvos === (1 || 2)) { nudgeValue += 3 }
-                                if (numOvos == 12) { nudgeValue -= 2 }
-                        }
-                }
-                if (casasPC.indexOf(i) != -1) {
-                        if (numOvos === 0) { nudgeValue -= 4 }
-                        if (numOvos === (1 || 2)) { nudgeValue -= 3 }
-                        if (numOvos == 12) { nudgeValue += 2 }
-                }
+                /* for (var i = 0; i < nudgeSimState.length; i++) {
+                         var numOvos = nudgeSimState[i];
+                         if (casasJogador.indexOf(i) != -1) {
+                                 if (numOvos === 0) { nudgeValue += 4 }
+                                 if (numOvos === (1 || 2)) { nudgeValue += 3 }
+                                 if (numOvos == 12) { nudgeValue -= 2 }
+                         }
+                 }
+                 if (casasPC.indexOf(i) != -1) {
+                         if (numOvos === 0) { nudgeValue -= 4 }
+                         if (numOvos === (1 || 2)) { nudgeValue -= 3 }
+                         if (numOvos == 12) { nudgeValue += 2 }
+                 }
+                 */
                 return (nudgeValue)
 
         }
@@ -800,7 +817,9 @@ class Pvc extends Phaser.Scene {
 
 
         minimax(node, depth, alpha, beta, maximizingPlayer) {
-                if ((depth === 0) || (node.estadoSimulado.depJogador >= 25) || (node.estadoSimulado.depComputador >= 25) || (node.estadoSimulado.depJogador === 24 && node.estadoSimulado.depComputador === 24)) {
+                console.log(node.estadoSimulado.isOver)
+                if ((node.estadoSimulado.isOver === 1)) {
+                        console.log("BRUHS")
                         return this.nudgeEval(node);
                 }
 
