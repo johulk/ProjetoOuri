@@ -343,8 +343,7 @@ class Pvc extends Phaser.Scene {
                         }
                 }
                 var jogadaFinal = melhoresJogadas[Math.floor(Math.random() * melhoresJogadas.length)];
-                console.log(melhoresJogadas)
-                //delete arvore.descendants
+                delete arvore.descendants
 
                 return jogadaFinal
         };
@@ -589,11 +588,9 @@ class Pvc extends Phaser.Scene {
 
                 var depJogadorcopy = auxdepJogador
                 var depComputadorcopy = auxdepComputador
-                console.log(depth + "DEPTH")
-                //console.log("DEPTH " + depth)
                 nodo.estadoSimulado = this.simulaJogada(copiaestado, jogada, jogador, depJogadorcopy, depComputadorcopy);
 
-                if (depth === 0) {
+                if (depth === 0 || nodo.estadoSimulado.over === 1) {
                         return nodo;
                 }
 
@@ -675,9 +672,7 @@ class Pvc extends Phaser.Scene {
                 isOver = this.checkFinal(estadoArraySimulado, jogador, depJogadorSim, depComputadorSim)
 
                 var estado = new EstadoSimulado(estadoArraySimulado, depJogadorSim, depComputadorSim, isOver)
-                console.log("E");
-                console.log(estado);
-                console.log("S");
+
 
                 return estado;
         }
@@ -712,15 +707,9 @@ class Pvc extends Phaser.Scene {
                 anyJogJ = this.verificaJogadas(nudgeSimState, 1)
                 anyJogC = this.verificaJogadas(nudgeSimState, 2);
                 //[ [jogadas player] , [jogadas computador]]
-                console.log(nudgeSimState)
                 anyJogC.forEach(jogada => {
-                        console.log(anyJogC)
                         var valor = nudgeSimState[jogada]
                         var casaFinal = (jogada + valor) % 12
-                        console.log("baixo")
-                        console.log(nudgeSimState[jogada])
-                        console.log(casaFinal)
-                        console.log("cima")
                         if ((casasJogador.includes(casaFinal)) && (nudgeSimState[casaFinal] + 1 === (2 || 3))) {
                                 console.log("no if aasasantes do check")
                                 var nudgeAuxState = [...nudgeSimState]
@@ -817,9 +806,7 @@ class Pvc extends Phaser.Scene {
 
 
         minimax(node, depth, alpha, beta, maximizingPlayer) {
-                console.log(node.estadoSimulado.isOver)
-                if ((node.estadoSimulado.isOver === 1)) {
-                        console.log("BRUHS")
+                if (depth == 0 || (node.estadoSimulado.isOver === 1)) {
                         return this.nudgeEval(node);
                 }
 
@@ -828,7 +815,6 @@ class Pvc extends Phaser.Scene {
                         let maxEval = -Infinity;
                         for (var i = 0; i < node.descendants.length; i++) {
                                 var evalu = this.minimax(node.descendants[i], depth - 1, alpha, beta, false);
-                                console.log(evalu + " Eval")
                                 maxEval = Math.max(maxEval, evalu);
                                 alpha = Math.max(alpha, evalu);
                                 node.valor = alpha;
