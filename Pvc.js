@@ -370,57 +370,30 @@ class Pvc extends Phaser.Scene {
                 if (check === 1) {
 
                         var vencedor = this.terminar(state, depJogador, depComputador, false)
-
-                        if (depJogador === depComputador) {
-                                vencedor = 3;
-                        }
-                        else {
-                                //console.log("player " + vencedor + " wins")
-                                if (vencedor === 1) {
+                        switch (vencedor) {
+                                case 1:
                                         scorePInt += 1;
                                         scorePlayer[dif] = scorePInt;
                                         scoreComputador[dif] = scoreCInt;
                                         stats.totalGames[dif] += 1
                                         stats.totalWon[dif] += 1
 
+                                        this.quadroP1W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP1").setScale(1.4).setDepth(8889);
+                                        break;
 
-                                }
-                                if (vencedor === 2) {
+                                case 2:
                                         scoreCInt += 1;
                                         scorePlayer[dif] = scorePInt;
                                         scoreComputador[dif] = scoreCInt;
                                         stats.totalGames[dif] += 1
-
-                                }
-                        }
-
-                        //Atualiza indicadores de score
-
-                        textP.text = scorePlayer[dif];
-                        textC.text = scoreComputador[dif];
-
-                        //Apresentar desforra
-
-
-
-                        //this.desforraQuadro = this.add.sprite((config.width/2)*2,(config.height/2+config.height/12)*2,"infoVazio");
-                        //this.desforraQuadro.setScale(1.4)
-                        switch (vencedor) {
-                                case 1:
-                                        this.quadroP1W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP1").setScale(1.4).setDepth(8889);
-                                        // this.texto1 =  this.add.text(370*2,250*2,"O jogador 1 ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
-                                        //this.texto2 = this.add.text(370*2,300*2,"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
-                                        break;
-
-                                case 2:
                                         this.quadroCW = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouC").setScale(1.4).setDepth(8889);;
-                                        //this.texto3 =  this.add.text(370*2,250*2,"O computador ganhou.",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' });
-                                        //this.texto4 = this.add.text(370*2,300*2,"Deseja a desforra?",{ fontFamily: 'Arial', fontSize: 60, color: '#000000' })
                                         break;
                                 case 3:
                                         this.quadroEmpate = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "empate").setScale(1.4).setDepth(8889);;
                                         break;
                         }
+                        textP.text = scorePlayer[dif];
+                        textC.text = scoreComputador[dif];
 
                         //Fechar
                         this.close = this.add.sprite(2 * (config.width / 4 + config.width / 24 + config.width / 150), 2 * (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98), 'close').setInteractive();
@@ -496,10 +469,12 @@ class Pvc extends Phaser.Scene {
                 if (depTerminadoJogador > depTerminadoComputador) { res = 1 }
                 else { res = 2 }
 
+                if (depTerminadoJogador === depTerminadoComputador) { res = 3 }
                 if (!isSimulado) {
                         this.numerodepJogador = this.add.sprite(240 * 2, 300 * 2, 'i' + depTerminadoJogador).setScale(0.6)
                         this.numerodepComputador = this.add.sprite(790 * 2, 300 * 2, 'i' + depTerminadoComputador).setScale(0.6)
                 }
+
                 return res
         }
 
@@ -708,64 +683,90 @@ class Pvc extends Phaser.Scene {
                 if (nudgeDepC >= 25) { nudgeValue += 80; return nudgeValue } // buff
                 if (nudgeDepC === 24 && nudgeDepJ === 24) { nudgeValue += 25; return nudgeValue } // Decisao entre perder e empatar, PC prefere empatar
 
-                for (var i = 0; i < nudgeSimState.length; i++) {
-                var ovos = nudgeSimState[i];
-                var ultimaCasa = (i + ovos) % 12;
-                var nudgeAuxState = [...nudgeSimState]
-                
-                if ((nudgeSimState[ultimaCasa] + 1) === (2 || 3)) {
-                        
-                        //nudgeAuxState[ultimaCasa] = nudgeSimState[ultimaCasa] + 1
-                        //ultimaCasa -= (ultimaCasa - 1) % 12
-                        //ovos--
+                //Para O Computador
+                // Escolher uma jogada
+                // 1 - distribuir
+                // Verificar se começa recolha
+                //Recolher até parar
+                //Verificar check e terminar
+                //case win +1000, case lose -1000, case empate, +500
+                //repeat para player
 
-                        while (ovos > 0) {
-                                if (casasJogador.indexOf(i) === -1 && casasJogador.indexOf(ultimaCasa) != -1 && (nudgeSimState[ultimaCasa] += 1) === (2 || 3)) { //Então i é uma casa do Computador e cai numa casa do jogador 
-                                        nudgeDepC += nudgeAuxState[ultimaCasa] // coloca as capturadas no dep
-                                        nudgeAuxState[ultimaCasa] = 0
-                                        ovos--
-                                        ultimaCasa = (ultimaCasa - 1) % 12
+                var anyJog = [];
+                anyJog.push(this.verificaJogadas(nudgeSimState, 1), this.verificaJogadas(nudgeSimState, 2));
+                //[ [jogadas player] , [jogadas computador]]
+
+                anyJog[1].forEach(jogada => {
+                        var valor = nudgeSimState[jogada]
+                        var casaFinal = (jogada + valor) % 12
+
+                        if ((casasJogador.includes(casaFinal)) && (nudgeSimState[casaFinal] == (1 || 2))) {
+                                var nudgeAuxState = [...nudgeSimState]
+                                var casasPercorridas = 1
+                                nudgeAuxState[jogada] = 0
+                                var nudgeAuxDepJ = nudgeDepJ
+                                var nudgeAuxDepC = nudgeDepC
+                                //espalha as sementes todas
+                                for (casasPercorridas = 1; casasPercorridas <= valor; casasPercorridas++) {
+                                        nudgeAuxState[(jogada + casasPercorridas) % 12] = nudgeAuxState[(jogada + casasPercorridas) % 12] + 1;
                                 }
-                                else {
-                                        if (ovos > 0) { // se nao capturou todos os ovos, colocamos os restantes no tabuleiro
-                                                while (ovo > 0) {
-                                                        nudgeAuxState[ultimaCasa] += 1
-                                                        ultimaCasa = (ultimaCasa - 1) % 12
-                                                        ovos--
-                                                }
+
+                                while (nudgeAuxState[casaFinal] === (2 || 3) && (casaFinal >= 0 && casaFinal < 6)) {
+                                        nudgeAuxDepC += nudgeAuxState[casaFinal];
+                                        nudgeAuxState[casaFinal] = 0;
+                                        casaFinal--;
+                                }
+                                if (this.checkFinal(nudgeAuxState, 2, nudgeAuxDepJ, nudgeAuxDepC) === 1) {
+                                        var simVencedor = this.terminar(nudgeAuxState, nudgeAuxDepJ, nudgeAuxDepC, true)
+                                        switch (simVencedor) {
+                                                case 1:
+                                                        return nudgeValue -= 1000
+                                                case 2:
+                                                        return nudgeValue += 1000
+                                                case 3:
+                                                        return nudgeValue += 500
                                         }
-                                        if (this.checkFinal(nudgeAuxState, 2, nudgeDepJ, nudgeDepC) === 1) { 
-                                                if(this.terminar(nudgeAuxState,nudgeDepJ,nudgeDepC,true) == 2){
-                                                        return nudgeValue += 100 
-                                                }
-                                                else {return nudgeValue -= 100} }
-                                        nudgeValue += 2; break;
-                                }
-                                if (casasPC.indexOf(i) === -1 && casasPC.indexOf(ultimaCasa) != -1 && (nudgeSimState[ultimaCasa] += 1) === (2 || 3)) { //Então i é uma casa do Jogador e cai numa casa do PC
-                                        nudgeDepJ += nudgeAuxState[ultimaCasa]
-                                        nudgeAuxState[ultimaCasa] = 0
-                                        ovos--
-                                        ultimaCasa = (ultimaCasa - 1) % 12
-                                }
-                                else {
-                                        if (ovos > 0) { // se nao capturou todos os ovos, colocamos os restantes no tabuleiro
-                                                while (ovo > 0) {
-                                                        nudgeAuxState[ultimaCasa] += 1
-                                                        ultimaCasa = (ultimaCasa - 1) % 12
-                                                }
-                                        }
-                                        if (this.checkFinal(nudgeAuxState, 1, nudgeDepJ, nudgeDepC) === 1) { 
-                                                if(this.terminar(nudgeAuxState,nudgeDepJ,nudgeDepC,true) == 1){
-                                                        return nudgeValue -= 100 
-                                                }
-                                                else {return nudgeValue += 100} }
-                                        nudgeValue--; break;
                                 }
                         }
 
-                }
-        }
-                
+
+                })
+
+
+                anyJog[0].forEach(jogada => {
+                        var valor = nudgeSimState[jogada]
+                        var casaFinal = (jogada + valor) % 12
+
+                        if ((casasPC.includes(casaFinal)) && (nudgeSimState[casaFinal] == (1 || 2))) {
+                                var nudgeAuxState = [...nudgeSimState]
+                                var casasPercorridas = 1
+                                nudgeAuxState[jogada] = 0
+                                var nudgeAuxDepJ = nudgeDepJ
+                                var nudgeAuxDepC = nudgeDepC
+                                //espalha as sementes todas
+                                for (casasPercorridas = 1; casasPercorridas <= valor; casasPercorridas++) {
+                                        nudgeAuxState[(jogada + casasPercorridas) % 12] = nudgeAuxState[(jogada + casasPercorridas) % 12] + 1;
+                                }
+
+                                while (nudgeAuxState[casaFinal] === (2 || 3) && (casaFinal >= 0 && casaFinal < 6)) {
+                                        nudgeAuxDepJ += nudgeAuxState[casaFinal];
+                                        nudgeAuxState[casaFinal] = 0;
+                                        casaFinal--;
+                                }
+                                if (this.checkFinal(nudgeAuxState, 1, nudgeAuxDepJ, nudgeAuxDepC) === 1) {
+                                        var simVencedor = this.terminar(nudgeAuxState, nudgeAuxDepJ, nudgeAuxDepC, true)
+                                        switch (simVencedor) {
+                                                case 1:
+                                                        return nudgeValue += 1000
+                                                case 2:
+                                                        return nudgeValue -= 1000
+                                                case 3:
+                                                        return nudgeValue += 500
+                                        }
+                                }
+                        }
+                })
+
 
                 //Avalia buracos tabuleiro
                 for (var i = 0; i < nudgeSimState.length; i++) {
@@ -782,6 +783,7 @@ class Pvc extends Phaser.Scene {
                         if (numOvos == 12) { nudgeValue += 2 }
                 }
                 return (nudgeValue)
+
         }
 
 
