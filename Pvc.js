@@ -335,7 +335,7 @@ class Pvc extends Phaser.Scene {
                 var jogadaFinal = melhoresJogadas[Math.floor(Math.random() * melhoresJogadas.length)];
                 console.log(melhoresJogadas)
                 delete arvore.descendants
-                
+
                 return jogadaFinal
         };
 
@@ -368,7 +368,8 @@ class Pvc extends Phaser.Scene {
                 check = this.checkFinal(state, player, depJogador, depComputador);
 
                 if (check === 1) {
-                        var vencedor = this.terminar()
+
+                        var vencedor = this.terminar(state, depJogador, depComputador, false)
 
                         if (depJogador === depComputador) {
                                 vencedor = 3;
@@ -480,22 +481,25 @@ class Pvc extends Phaser.Scene {
 
 
 
-        terminar() {
+        terminar(estado, depTerminadoJogador, depTerminadoComputador, isSimulado) {
                 var res = 1
                 var i;
 
                 for (i = 0; i < 6; i++) {
-                        depJogador = depJogador + state[i]
+                        depTerminadoJogador = depTerminadoJogador + estado[i]
                 }
 
                 for (i = 5; i < 12; i++) {
-                        depComputador = depComputador + state[i]
+                        depTerminadoComputador = depTerminadoComputador + estado[i]
                 }
 
-                if (depJogador > depComputador) { res = 1 }
+                if (depTerminadoJogador > depTerminadoComputador) { res = 1 }
                 else { res = 2 }
-                this.numerodepJogador = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador).setScale(0.6)
-                this.numerodepComputador = this.add.sprite(790 * 2, 300 * 2, 'i' + depComputador).setScale(0.6)
+
+                if (!isSimulado) {
+                        this.numerodepJogador = this.add.sprite(240 * 2, 300 * 2, 'i' + depTerminadoJogador).setScale(0.6)
+                        this.numerodepComputador = this.add.sprite(790 * 2, 300 * 2, 'i' + depTerminadoComputador).setScale(0.6)
+                }
                 return res
         }
 
@@ -699,84 +703,84 @@ class Pvc extends Phaser.Scene {
 
                 var nudgeSimState = [...nodo.estadoSimulado.estado]
 
-                //CasosDeEnd
+                //Avalia Depositos
                 if (nudgeDepJ >= 25) { nudgeValue -= 80; return nudgeValue } // nerf
                 if (nudgeDepC >= 25) { nudgeValue += 80; return nudgeValue } // buff
-                if (nudgeDepC === 24 && nudgeDepJ === 24) { nudgeValue += 25 ; return nudgeValue } // Decisao entre perder e empatar, PC prefere empatar
+                if (nudgeDepC === 24 && nudgeDepJ === 24) { nudgeValue += 25; return nudgeValue } // Decisao entre perder e empatar, PC prefere empatar
 
-                for (var i = 0; i < nudgeSimState.length; i++) {
-                        var ovos = nudgeSimState[i];
-                        var ultimaCasa = (i + ovos) % 12;
-                        var contaOvos = 0;
-                        if ((nudgeSimState[ultimaCasa] + 1) === (2 || 3)) {
-                                contaOvos = nudgeSimState[ultimaCasa] + 1
-                                ultimaCasa -= (ultimaCasa - 1) % 12
-                                ovos--
+                var ovos = nudgeSimState[i];
+                var ultimaCasa = (i + ovos) % 12;
+                var nudgeAuxState = [...nudgeSimState]
+                if ((nudgeSimState[ultimaCasa] + 1) === (2 || 3)) {
+                        
+                        //nudgeAuxState[ultimaCasa] = nudgeSimState[ultimaCasa] + 1
+                        //ultimaCasa -= (ultimaCasa - 1) % 12
+                        //ovos--
 
-                                while (ovos > 0) {
-                                        if (casasJogador.indexOf(i) === -1 && casasJogador.indexOf(ultimaCasa) != -1 && (nudgeSimState[ultimaCasa] + 1) === (2 || 3)) { //Então i é uma casa do Computador e cai numa casa do jogador
-                                                ovos--
-                                                ultimaCasa = (ultimaCasa - 1) % 12
-                                        }
-                                        else { nudgeValue += 2; break; }
-                                        if (casasPC.indexOf(i) === -1 && casasPC.indexOf(ultimaCasa) != -1 && (nudgeSimState[ultimaCasa] + 1) === (2 || 3)) { //Então i é uma casa do Jogador e cai numa casa do PC
-                                                ovos--
-                                                ultimaCasa = (ultimaCasa - 1) % 12
-                                        }
-                                        else { nudgeValue--; break; }
+                        while (ovos > 0) {
+                                if (casasJogador.indexOf(i) === -1 && casasJogador.indexOf(ultimaCasa) != -1 && (nudgeSimState[ultimaCasa] += 1) === (2 || 3)) { //Então i é uma casa do Computador e cai numa casa do jogador 
+                                        nudgeDepC += nudgeAuxState[ultimaCasa] // coloca as capturadas no dep
+                                        nudgeAuxState[ultimaCasa] = 0
+                                        ovos--
+                                        ultimaCasa = (ultimaCasa - 1) % 12
                                 }
-
+                                else {
+                                        if (ovos > 0) { // se nao capturou todos os ovos, colocamos os restantes no tabuleiro
+                                                while (ovo > 0) {
+                                                        nudgeAuxState[ultimaCasa] += 1
+                                                        ultimaCasa = (ultimaCasa - 1) % 12
+                                                        ovos--
+                                                }
+                                        }
+                                        if (this.checkFinal(nudgeAuxState, 2, nudgeDepJ, nudgeDepC) === 1) { 
+                                                if(this.terminar(nudgeAuxState,nudgeDepJ,nudgeDepC,true) == 2){
+                                                        return nudgeValue += 100 
+                                                }
+                                                else {return nudgeValue -= 100} }
+                                        nudgeValue += 2; break;
+                                }
+                                if (casasPC.indexOf(i) === -1 && casasPC.indexOf(ultimaCasa) != -1 && (nudgeSimState[ultimaCasa] += 1) === (2 || 3)) { //Então i é uma casa do Jogador e cai numa casa do PC
+                                        nudgeDepJ += nudgeAuxState[ultimaCasa]
+                                        nudgeAuxState[ultimaCasa] = 0
+                                        ovos--
+                                        ultimaCasa = (ultimaCasa - 1) % 12
+                                }
+                                else {
+                                        if (ovos > 0) { // se nao capturou todos os ovos, colocamos os restantes no tabuleiro
+                                                while (ovo > 0) {
+                                                        nudgeAuxState[ultimaCasa] += 1
+                                                        ultimaCasa = (ultimaCasa - 1) % 12
+                                                }
+                                        }
+                                        if (this.checkFinal(nudgeAuxState, 1, nudgeDepJ, nudgeDepC) === 1) { 
+                                                if(this.terminar(nudgeAuxState,nudgeDepJ,nudgeDepC,true) == 1){
+                                                        return nudgeValue -= 100 
+                                                }
+                                                else {return nudgeValue += 100} }
+                                        nudgeValue--; break;
+                                }
                         }
 
                 }
-                for (var i = 0; i < nudgeSimState.length; i++) {
-                        if (casasJogador.indexOf(i) != -1){
-                                var numOvos = nudgeSimState[i];
-                                switch (numOvos) {
-                                        case 0:
-                                                nudgeValue +=4
-                                        case 1:
-                                        case 2:
-                                                nudgeValue +=3
-                                        case 12:
-                                                nudgeValue -=2
-                                        case 13:
-                                        case 14:
-                                        case 15:
-                                        case 16:
-                                        case 17:
-                                        case 18:
-                                        case 19:
-                                        case 20:
-                                                nudgeValue -=1
-                                        
-                                }
-                        }
-                        if (casasPC.indexOf(i) != -1){
-                                var numOvos = nudgeSimState[i];
-                                switch (numOvos) {
-                                        case 0:
-                                                nudgeValue -=4
-                                        case 1:
-                                        case 2:
-                                                nudgeValue -=3
-                                        case 12:
-                                                nudgeValue +=2
-                                        case 13:
-                                        case 14:
-                                        case 15:
-                                        case 16:
-                                        case 17:
-                                        case 18:
-                                        case 19:
-                                        case 20:
-                                                nudgeValue +=1
-                                }
-                        }
 
+                //Avalia buracos tabuleiro
+                for (var i = 0; i < nudgeSimState.length; i++) {
+                        var numOvos = nudgeSimState[i];
+                        if (casasJogador.indexOf(i) != -1) {
+                                if (numOvos === 0) { nudgeValue += 4 }
+                                if (numOvos === (1 || 2)) { nudgeValue += 3 }
+                                if (numOvos == 12) { nudgeValue -= 2 }
+                        }
+                }
+                if (casasPC.indexOf(i) != -1) {
+                        if (numOvos === 0) { nudgeValue -= 4 }
+                        if (numOvos === (1 || 2)) { nudgeValue -= 3 }
+                        if (numOvos == 12) { nudgeValue += 2 }
                 }
                 return (nudgeValue)
         }
+
+
 
 
 
