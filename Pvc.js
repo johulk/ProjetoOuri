@@ -716,7 +716,7 @@ class Pvc extends Phaser.Scene {
                                                 ovos--
                                                 ultimaCasa = (ultimaCasa - 1) % 12
                                         }
-                                        else { nudgeValue++; break; }
+                                        else { nudgeValue += 2; break; }
                                         if (casasPC.indexOf(i) === -1 && casasPC.indexOf(ultimaCasa) != -1 && (nudgeSimState[ultimaCasa] + 1) === (2 || 3)) { //Então i é uma casa do Jogador e cai numa casa do PC
                                                 ovos--
                                                 ultimaCasa = (ultimaCasa - 1) % 12
