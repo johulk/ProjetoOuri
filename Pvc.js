@@ -729,6 +729,33 @@ class Pvc extends Phaser.Scene {
                         }
 
                 }
+                for (var i = 0; i < nudgeSimState.length; i++) {
+                        if (casasJogador.indexOf(i) != -1){
+                                var numOvos = nudgeSimState[i];
+                                switch (numOvos) {
+                                        case 0:
+                                                nudgeValue +=4
+                                        case 1:
+                                        case 2:
+                                                nudgeValue +=3
+                                        case 12:
+                                                nudgeValue -=2
+                                }
+                        }
+                        if (casasPC.indexOf(i) != -1){
+                                var numOvos = nudgeSimState[i];
+                                switch (numOvos) {
+                                        case 0:
+                                                nudgeValue -=4
+                                        case 1:
+                                        case 2:
+                                                nudgeValue -=3
+                                        case 12:
+                                                nudgeValue +=2
+                                }
+                        }
+
+                }
                 return (nudgeValue)
         }
 
