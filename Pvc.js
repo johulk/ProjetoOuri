@@ -694,8 +694,8 @@ class Pvc extends Phaser.Scene {
 
                 var nudgeDepJ = nodo.estadoSimulado.depJogador
                 var nudgeDepC = nodo.estadoSimulado.depComputador
-                //var nudgeValue = nudgeDepC - nudgeDepJ;
-                var nudgeValue = 0;
+                var nudgeValue = nudgeDepC - nudgeDepJ;
+                //var nudgeValue = 0;
 
                 var nudgeSimState = [...nodo.estadoSimulado.estado]
 
