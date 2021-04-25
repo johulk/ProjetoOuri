@@ -73,10 +73,10 @@ class Pvc extends Phaser.Scene {
                 this.computadorScore.setScale(0.75)
                 // Inicializar
                 player = 1;
-                depJogador = 0;
-                depComputador = 0;
+                depJogador = 21;
+                depComputador = 23;
                 check = 0;
-                state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
+                state = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1];
 
 
 
@@ -359,6 +359,7 @@ class Pvc extends Phaser.Scene {
                                         }
                                 }
                         }
+
                 } return isFinal;
         }
 
@@ -558,6 +559,7 @@ class Pvc extends Phaser.Scene {
 
                         case 2:
                                 var jogPos = casasPC.filter((casa) => this.one(estadoRecebido, casa) && this.popularOponente(estadoRecebido, casa, jogador));
+                                break
 
 
                 }
@@ -695,12 +697,16 @@ class Pvc extends Phaser.Scene {
                 var anyJog = [];
                 anyJog.push(this.verificaJogadas(nudgeSimState, 1), this.verificaJogadas(nudgeSimState, 2));
                 //[ [jogadas player] , [jogadas computador]]
-
+                console.log(anyJog)
                 anyJog[1].forEach(jogada => {
                         var valor = nudgeSimState[jogada]
                         var casaFinal = (jogada + valor) % 12
-
+                        console.log("baixo")
+                        console.log(nudgeSimState[jogada])
+                        console.log(nudgeSimState[casaFinal])
+                        console.log("cima")
                         if ((casasJogador.includes(casaFinal)) && (nudgeSimState[casaFinal] == (1 || 2))) {
+                                console.log("no if aasasantes do check")
                                 var nudgeAuxState = [...nudgeSimState]
                                 var casasPercorridas = 1
                                 nudgeAuxState[jogada] = 0
@@ -716,7 +722,9 @@ class Pvc extends Phaser.Scene {
                                         nudgeAuxState[casaFinal] = 0;
                                         casaFinal--;
                                 }
+                                console.log("no if antes do check")
                                 if (this.checkFinal(nudgeAuxState, 2, nudgeAuxDepJ, nudgeAuxDepC) === 1) {
+                                        console.log("no if depois do check")
                                         var simVencedor = this.terminar(nudgeAuxState, nudgeAuxDepJ, nudgeAuxDepC, true)
                                         switch (simVencedor) {
                                                 case 1:
