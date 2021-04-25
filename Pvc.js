@@ -775,7 +775,6 @@ class Pvc extends Phaser.Scene {
                         }
 
                 }
-                console.log(nudgeValue + "Nudged")
                 return (nudgeValue)
         }
 
@@ -792,6 +791,7 @@ class Pvc extends Phaser.Scene {
                         let maxEval = -Infinity;
                         for (var i = 0; i < node.descendants.length; i++) {
                                 var evalu = this.minimax(node.descendants[i], depth - 1, alpha, beta, false);
+                                console.log(evalu + " Eval")
                                 maxEval = Math.max(maxEval, evalu);
                                 alpha = Math.max(alpha, evalu);
                                 node.valor = alpha;
