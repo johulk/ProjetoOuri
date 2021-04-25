@@ -708,9 +708,11 @@ class Pvc extends Phaser.Scene {
                 if (nudgeDepC >= 25) { nudgeValue += 80; return nudgeValue } // buff
                 if (nudgeDepC === 24 && nudgeDepJ === 24) { nudgeValue += 25; return nudgeValue } // Decisao entre perder e empatar, PC prefere empatar
 
+                for (var i = 0; i < nudgeSimState.length; i++) {
                 var ovos = nudgeSimState[i];
                 var ultimaCasa = (i + ovos) % 12;
                 var nudgeAuxState = [...nudgeSimState]
+                
                 if ((nudgeSimState[ultimaCasa] + 1) === (2 || 3)) {
                         
                         //nudgeAuxState[ultimaCasa] = nudgeSimState[ultimaCasa] + 1
@@ -762,6 +764,8 @@ class Pvc extends Phaser.Scene {
                         }
 
                 }
+        }
+                
 
                 //Avalia buracos tabuleiro
                 for (var i = 0; i < nudgeSimState.length; i++) {
