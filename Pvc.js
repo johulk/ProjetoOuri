@@ -564,11 +564,11 @@ class Pvc extends Phaser.Scene {
                 switch (jogador) {
 
                         case 1:
-                                var jogPos = casasJogador.filter((casa) => this.one(estadoRecebido, casa) && this.popularOponente(estadoRecebido, casa, jogador) && estadoRecebido[casa] != 0);
+                                var jogPos = casasJogador.filter((casa) => this.one(estadoRecebido, casa) && this.popularOponente(estadoRecebido, casa, jogador));
                                 break
 
                         case 2:
-                                var jogPos = casasPC.filter((casa) => this.one(estadoRecebido, casa) && this.popularOponente(estadoRecebido, casa, jogador) && estadoRecebido[casa] != 0);
+                                var jogPos = casasPC.filter((casa) => this.one(estadoRecebido, casa) && this.popularOponente(estadoRecebido, casa, jogador));
                                 break
 
 
