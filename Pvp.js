@@ -394,10 +394,15 @@ class Pvp extends Phaser.Scene {
 		let coords = [337, 355, 405, 385, 476, 398, 548, 398, 620, 386, 689, 356,
 			689, 246, 620, 215, 548, 205, 476, 205, 405, 215, 337, 246];
 
+		
 		// Adiciona as imagens dos ovos
 		for (var i = 0; i < 12; i++) {
+			setTimeout(() => {
+			
 			this.numero = this.add.sprite(coords[2 * i] * 2, coords[2 * i + 1] * 2, 'i' + state[i]).setScale(0.45).setInteractive();
 			this.numero.key = i;
+			
+		}, 100)
 		}
 
 		//Adiciona os ovos aos depositos

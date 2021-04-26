@@ -198,9 +198,13 @@ class Menu extends Phaser.Scene {
         else{
 
             totalWins = ((stats.totalWon.reduce((a,b) => a+b,0)) / totalJogos )*100;
+            totalWins.round()
             totalWinsEasy = (stats.totalWon[0] / stats.totalGames[0])*100
+            totalWinsEasy.round()
             totalWinsMedium = (stats.totalWon[1] / stats.totalGames[1])*100
+            totalWinsMedium.round()
             totalWinsHard = (stats.totalWon[2] / stats.totalGames[2])*100
+            totalWinsHard.round()
         }
         console.log(totalJogos)
         var textTotalGames = this.add.text(1224, 270 * 2, totalJogos , { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
