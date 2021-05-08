@@ -416,7 +416,7 @@ class Pvp extends Phaser.Scene {
 		}
 		// Adiciona as imagens dos ovos
 		for (let i = 0; i < casasAfetadas.length; i++) {
-			this.atualizaCasas(coords,i)
+			this.atualizaCasas(coords,casasAfetadas[i])
 		}
 
 		//Adiciona os ovos aos depositos
