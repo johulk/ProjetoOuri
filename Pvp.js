@@ -408,7 +408,7 @@ class Pvp extends Phaser.Scene {
 		let coords = [337, 355, 405, 385, 476, 398, 548, 398, 620, 386, 689, 356,
 			689, 246, 620, 215, 548, 205, 476, 205, 405, 215, 337, 246];
 
-		casasAfetadas = [] // tabuleiro fantasma
+		let casasAfetadas = [] // tabuleiro fantasma
 		for(let valor = 0; valor < 12; c++){
 			if(stateAnterior[valor] != state[valor]){
 				casasAfetadas.push(valor);
