@@ -3,6 +3,7 @@ var textP2;
 var textodepJogador2;
 var textodepJogador1;
 var state = []
+var stateAnterior; 
 var player = 1;
 var depJogador1 = 0;
 var depJogador2 = 0;
@@ -70,6 +71,7 @@ class Pvp extends Phaser.Scene {
 		depJogador2 = 0;
 		check = 0;
 		state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
+		stateAnterior = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
 
 
 		this.atualizaTabuleiro(w, h);
@@ -97,6 +99,7 @@ class Pvp extends Phaser.Scene {
 
 		console.log('update')
 
+		stateAnterior = [...state]
 		// A jogada e valida e pode começar
 		this.atualizarState(pos);
 		this.atualizaTabuleiro(config.width, config.height);
@@ -385,12 +388,15 @@ class Pvp extends Phaser.Scene {
 
     
     atualizaCasas(coords,i){
+		
     	setTimeout(() => {
 			
 			this.numero = this.add.sprite(coords[2 * i] * 2, coords[2 * i + 1] * 2, 'i' + state[i]).setScale(0.45).setInteractive();
 			this.numero.key = i;
 			
 		}, 100*i)
+
+		
     }
 	//Atualiza as imagens dos tabuleiros
 	atualizaTabuleiro(w, h) {
@@ -402,9 +408,14 @@ class Pvp extends Phaser.Scene {
 		let coords = [337, 355, 405, 385, 476, 398, 548, 398, 620, 386, 689, 356,
 			689, 246, 620, 215, 548, 205, 476, 205, 405, 215, 337, 246];
 
-		
+		casasAfetadas = [] // tabuleiro fantasma
+		for(let valor = 0; valor < 12; c++){
+			if(stateAnterior[valor] != state[valor]){
+				casasAfetadas.push(valor);
+			}
+		}
 		// Adiciona as imagens dos ovos
-		for (let i = 0; i < 12; i++) {
+		for (let i = 0; i < len(casasAfetadas); i++) {
 			this.atualizaCasas(coords,i)
 		}
 

@@ -803,8 +803,6 @@ class Pvc extends Phaser.Scene {
 
 
 
-
-
         minimax(node, depth, alpha, beta, maximizingPlayer) {
                 if (depth == 0 || (node.estadoSimulado.isOver === 1)) {
                         return this.nudgeEval(node);
@@ -842,9 +840,6 @@ class Pvc extends Phaser.Scene {
                         return minEval;
                 }
         }
-
-
-
 
 
         saveStats() {
