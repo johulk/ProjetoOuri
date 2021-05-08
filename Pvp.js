@@ -74,7 +74,7 @@ class Pvp extends Phaser.Scene {
 		stateAnterior = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 
-		this.atualizaTabuleiro(w, h);
+		this.setTabuleiro(w, h);
 		this.atualizaSetas();
 
 
@@ -389,6 +389,7 @@ class Pvp extends Phaser.Scene {
     
     atualizaCasas(coords,i){
 		
+		
     	setTimeout(() => {
 			
 			this.numero = this.add.sprite(coords[2 * i] * 2, coords[2 * i + 1] * 2, 'i' + state[i]).setScale(0.45).setInteractive();
@@ -399,17 +400,22 @@ class Pvp extends Phaser.Scene {
 		
     }
 
-	atualizaCasasV2(coords,i){
-		
-    	setTimeout(() => {
-			
-			this.numero = this.add.sprite(coords[2 * i] * 2, coords[2 * i + 1] * 2, 'i' + state[i]).setScale(0.45).setInteractive();
-			this.numero.key = i;
-			
-		}, 100)
+    setTabuleiro(w,h){
+    	// Adiciona o Tabuleiro
+		this.tabuleiro = this.add.sprite(w, h, 'tabuleiro');
+		this.tabuleiro.setScale(2)
 
-		
+		// Coordenadas das imagens dos ovos
+		let coords = [337, 355, 405, 385, 476, 398, 548, 398, 620, 386, 689, 356,
+			689, 246, 620, 215, 548, 205, 476, 205, 405, 215, 337, 246];
+
+        for(let casa = 0; casa < 12; casa++){
+		    this.numero = this.add.sprite(coords[2 * casa] * 2, coords[2 * casa + 1] * 2, 'i' + state[casa]).setScale(0.45).setInteractive();
+			this.numero.key = i;
+
+        }
     }
+   
 	//Atualiza as imagens dos tabuleiros
 	atualizaTabuleiro(w, h) {
 		// Adiciona o Tabuleiro
@@ -421,19 +427,19 @@ class Pvp extends Phaser.Scene {
 			689, 246, 620, 215, 548, 205, 476, 205, 405, 215, 337, 246];
 
 		let casasAfetadas = [] // tabuleiro fantasma
+		let casasIguais = []
 		for(let casa = 0; casa < 12; casa++){
 			if(stateAnterior[casa] != state[casa]){
 				casasAfetadas.push(casa);
 			}
+			else casasIguais.push(casa)
 		}
+		
 		// Adiciona as imagens dos ovos
 		for (let i = 0; i < casasAfetadas.length; i++) {
 			this.atualizaCasas(coords,casasAfetadas[i])
 		}
-		for (let i = 0; i < 12; i++) {
-			this.atualizaCasas(coords,i)
-		}
-
+		
 
 		//Adiciona os ovos aos depositos
 		this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
