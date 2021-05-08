@@ -409,9 +409,9 @@ class Pvp extends Phaser.Scene {
 			689, 246, 620, 215, 548, 205, 476, 205, 405, 215, 337, 246];
 
 		let casasAfetadas = [] // tabuleiro fantasma
-		for(let valor = 0; valor < 12; c++){
-			if(stateAnterior[valor] != state[valor]){
-				casasAfetadas.push(valor);
+		for(let casa = 0; casa < 12; casa++){
+			if(stateAnterior[casa] != state[casa]){
+				casasAfetadas.push(casa);
 			}
 		}
 		// Adiciona as imagens dos ovos
