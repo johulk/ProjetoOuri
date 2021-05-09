@@ -3,6 +3,7 @@ var textP2;
 var textodepJogador2;
 var textodepJogador1;
 var state = []
+var sprites = [];
 var stateAnterior; 
 var player = 1;
 var depJogador1 = 0;
@@ -392,8 +393,8 @@ class Pvp extends Phaser.Scene {
 		
     	setTimeout(() => {
 			
-			this.numero = this.add.sprite(coords[2 * i] * 2, coords[2 * i + 1] * 2, 'i' + state[i]).setScale(0.45).setInteractive();
-			this.numero.key = i;
+			sprites[i].setTexture('i' + state[i]);
+			sprites[i].key = i;
 			
 		}, 100*i)
 
@@ -410,8 +411,9 @@ class Pvp extends Phaser.Scene {
 			689, 246, 620, 215, 548, 205, 476, 205, 405, 215, 337, 246];
 
         for(let casa = 0; casa < 12; casa++){
-		    this.numero = this.add.sprite(coords[2 * casa] * 2, coords[2 * casa + 1] * 2, 'i' + state[casa]).setScale(0.45).setInteractive();
-			this.numero.key = casa;
+
+		    sprites[i] = this.add.sprite(coords[2 * casa] * 2, coords[2 * casa + 1] * 2, 'i' + state[casa]).setScale(0.45).setInteractive();
+			sprites[i].key = casa;
 
         }
     }
