@@ -411,7 +411,7 @@ class Pvp extends Phaser.Scene {
 
         for(let casa = 0; casa < 12; casa++){
 		    this.numero = this.add.sprite(coords[2 * casa] * 2, coords[2 * casa + 1] * 2, 'i' + state[casa]).setScale(0.45).setInteractive();
-			this.numero.key = i;
+			this.numero.key = casa;
 
         }
     }
