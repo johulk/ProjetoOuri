@@ -85,11 +85,13 @@ class Pvp extends Phaser.Scene {
 
 	}
 
-	jogada(pointer, gameObject) {
+	jogada(pointer,gameObject) {
 		// Impedir jogada quando se clica no home
-		if (gameObject.key === -1) { return; }
+		console.log("ASDASD")
 
-		var pos = gameObject.key;
+        var pos;
+			
+         console.log(pos)
 
 		// Impedir que um jogador jogue no campo errado
 		if ((player === 1 && pos > 5) || (player === 2 && pos < 6)) { return; }
@@ -100,9 +102,8 @@ class Pvp extends Phaser.Scene {
 
 		if (this.popularOponente(pos) === -1) { return; }
 
-		console.log('update')
+		console.log(pos)
 
-		stateAnterior = [...state]
 		// A jogada e valida e pode começar
 		this.atualizarState(pos);
 		this.atualizaTabuleiro(config.width, config.height);
@@ -325,7 +326,7 @@ class Pvp extends Phaser.Scene {
 	}
 
 	atualizarState(pos) {
-
+        console.log("state")
 		var valor = state[pos];
 
 		// retirar as pedras da casa onde clicamos
@@ -394,34 +395,26 @@ class Pvp extends Phaser.Scene {
 	}
 
     
-    atualizaCasas(i){
-		
-		
-    	setTimeout(() => {
-			
-			sprites[i].setTexture('i' + state[i]);
-			sprites[i].key = i;
-			
-		}, 100*i)
-
-		
-    }
-
+   
 
     setTabuleiro(w,h){
     	// Adiciona o Tabuleiro
 		this.tabuleiro = this.add.sprite(w, h, 'tabuleiro');
 		this.tabuleiro.setScale(2)
-
+        let i = 0;
 		coords.forEach(c => {
-			let i = 0;
+			
 			sprites.push({
 				sprite: this.add.sprite(c.x * 2, c.y * 2).setScale(0.45).setInteractive(),
 				dirty: true,
 				casa : i
 			})
-
+            i++;
 		})
+
+
+		
+		sprites.forEach(spr =>{spr.sprite.on('pointerdown', () => { this.clickOvos() })})
 		this.atualizaTabuleiro(w, h)
      }
    
@@ -429,7 +422,7 @@ class Pvp extends Phaser.Scene {
 	atualizaTabuleiro(w, h) {
 		
 		// Coordenadas das imagens dos ovos
-	
+	    console.log("XD")
 		let delay = 100;
 		let delayCount = 0;
 		sprites.forEach(h =>{
@@ -454,6 +447,11 @@ class Pvp extends Phaser.Scene {
 		scorePlayer1 = 0;
 		scorePlayer2 = 0;
 		this.scene.start('menu');
+	}
+
+	clickOvos() {
+		console.log('OVOS');
+		
 	}
 
 }
