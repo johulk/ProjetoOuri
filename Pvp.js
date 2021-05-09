@@ -87,11 +87,11 @@ class Pvp extends Phaser.Scene {
 
 	jogada(pointer,gameObject) {
 		// Impedir jogada quando se clica no home
-		console.log("ASDASD")
-
-        var pos;
-			
-         console.log(pos)
+		if (gameObject.key == -1){return}
+    
+        console.log(gameObject.key);
+        var pos = gameObject.key;
+        			
 
 		// Impedir que um jogador jogue no campo errado
 		if ((player === 1 && pos > 5) || (player === 2 && pos < 6)) { return; }
@@ -106,7 +106,7 @@ class Pvp extends Phaser.Scene {
 
 		// A jogada e valida e pode começar
 		this.atualizarState(pos);
-		this.atualizaTabuleiro(config.width, config.height);
+		this.atualizaTabuleiro(pos);
 
 		this.nextPlayer();
 		this.atualizaSetas();
@@ -401,7 +401,7 @@ class Pvp extends Phaser.Scene {
     	// Adiciona o Tabuleiro
 		this.tabuleiro = this.add.sprite(w, h, 'tabuleiro');
 		this.tabuleiro.setScale(2)
-        let i = 0;
+        var i = 0;
 		coords.forEach(c => {
 			
 			sprites.push({
@@ -412,27 +412,47 @@ class Pvp extends Phaser.Scene {
             i++;
 		})
 
-		sprites.forEach(spr =>{spr.sprite.on('pointerdown', () => { this.clickOvos() })})
-
-		this.atualizaTabuleiro(w, h)
+		sprites.forEach(spr =>{spr.sprite.key = spr.casa})
+	
+		this.atualizaTabuleiro(-1)
+		
+		
      }
    
 	//Atualiza as imagens dos tabuleiros
-	atualizaTabuleiro(w, h) {
-		
+	atualizaTabuleiro(pos) {
+		if(pos == -1){return};
 		// Coordenadas das imagens dos ovos
 	    console.log("XD")
 		let delay = 100;
 		let delayCount = 0;
-		sprites.forEach(h =>{
+
+		
+		if (player == 1){
+			sprites.forEach(h =>{
 			if (h.dirty){
 				this.time.delayedCall(delay * delayCount,() =>{
-					h.sprite.setTexture('i'+state[h.casa]).setInteractive()
+					h.sprite.setTexture('i'+state[h.casa])
 				})
 				delayCount++
 				h.dirty= false
 			}
-		})		
+		})	
+		}
+
+		if(player == 2){
+			for(let j = 6; j < 18 ; j++){
+				if(sprites[j%12].sprite.dirty){
+					this.time.delayedCall(delay * delayCount,() =>{
+						h.sprite.setTexture('i'+state[h.casa])
+					})
+				}
+				delayCount++
+				h.dirty= false
+
+			}
+		}
+			
 
 		//Adiciona os ovos aos depositos
 		this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
@@ -446,11 +466,6 @@ class Pvp extends Phaser.Scene {
 		scorePlayer1 = 0;
 		scorePlayer2 = 0;
 		this.scene.start('menu');
-	}
-
-	clickOvos() {
-		console.log('OVOS');
-		
 	}
 
 }
