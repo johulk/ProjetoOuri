@@ -9,7 +9,8 @@ var player = 1;
 var depJogador1 = 0;
 var depJogador2 = 0;
 var check = 0;
-
+var coords = [{x: 337,y: 355}, {x:405,y: 385}, {x:476, y:398}, {x:548, y:398},{x: 620,y: 386}, {x:689, y: 356},
+	{x:689, y: 246}, {x:620, y: 215}, {x:548, y: 205},{x: 476, y: 205}, {x:405,y:  215}, {x:337,y:  246}];
 
 
 class Pvp extends Phaser.Scene {
@@ -329,11 +330,13 @@ class Pvp extends Phaser.Scene {
 		// retirar as pedras da casa onde clicamos
 		state[pos] = 0;
 
+		sprites[pos].dirty = true;
 		// distribuir as pedras pelas casas seguintes
 		for (var i = 1; valor > 0; i++) {
 			//Quando atingir 12 pedras tem de saltar a casa onde clicamos
 			if ((pos + i % 12) != pos) {
 				state[(pos + i) % 12] = state[(pos + i) % 12] + 1;
+				sprites[(pos + i) % 12].dirty = true;
 				valor--;
 			}
 		}
@@ -345,6 +348,7 @@ class Pvp extends Phaser.Scene {
 			while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal > 5 && posfinal < 12) {
 				depJogador1 = depJogador1 + state[posfinal]
 				state[posfinal] = 0;
+				sprites[posfinal].dirty = true;
 				posfinal = posfinal - 1;
 			}
 		}
@@ -354,6 +358,7 @@ class Pvp extends Phaser.Scene {
 			while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal >= 0 && posfinal < 6) {
 				depJogador2 = depJogador2 + state[posfinal]
 				state[posfinal] = 0;
+				sprites[posfinal].dirty = true;
 				posfinal = posfinal - 1;
 
 			}
@@ -401,44 +406,39 @@ class Pvp extends Phaser.Scene {
 		
     }
 
+
     setTabuleiro(w,h){
     	// Adiciona o Tabuleiro
 		this.tabuleiro = this.add.sprite(w, h, 'tabuleiro');
 		this.tabuleiro.setScale(2)
 
-		// Coordenadas das imagens dos ovos
-		let coords = [337, 355, 405, 385, 476, 398, 548, 398, 620, 386, 689, 356,
-			689, 246, 620, 215, 548, 205, 476, 205, 405, 215, 337, 246];
+		coords.forEach(coord, c => {
+			let i = 0;
+			sprites.push({
+				sprite: this.add.sprite(c.x * 2, c.y * 2).setScale(0.45).setInteractive(),
+				dirty: true,
+				casa = i
+			})
 
-        for(let casa = 0; casa < 12; casa++){
-
-		    sprites[casa] = this.add.sprite(coords[2 * casa] * 2, coords[2 * casa + 1] * 2, 'i' + state[casa]).setScale(0.45).setInteractive();
-			sprites[casa].key = casa;
-
-        }
-    }
+		})
+     }
    
 	//Atualiza as imagens dos tabuleiros
 	atualizaTabuleiro(w, h) {
 		
 		// Coordenadas das imagens dos ovos
-		let coords = [337, 355, 405, 385, 476, 398, 548, 398, 620, 386, 689, 356,
-			689, 246, 620, 215, 548, 205, 476, 205, 405, 215, 337, 246];
-
-		let casasAfetadas = [] // tabuleiro fantasma
-		let casasIguais = []
-		for(let casa = 0; casa < 12; casa++){
-			if(stateAnterior[casa] != state[casa]){
-				casasAfetadas.push(casa);
+	
+		let delay = 100;
+		let delayCount = 0;
+		sprites.forEach(h =>{
+			if (h.dirty){
+				this.time.delayedCall(delay * delayCount,() =>{
+					h.sprite.setTexture('i'+state[h.casa])
+				})
+				delayCount++
+				h.dirty= false
 			}
-			else casasIguais.push(casa)
-		}
-		
-		// Adiciona as imagens dos ovos
-		for (let i = 0; i < casasAfetadas.length; i++) {
-			this.atualizaCasas(coords,casasAfetadas[i])
-		}
-		
+		})		
 
 		//Adiciona os ovos aos depositos
 		this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
