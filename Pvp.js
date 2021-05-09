@@ -421,6 +421,7 @@ class Pvp extends Phaser.Scene {
 			})
 
 		})
+		this.atualizaTabuleiro(w, h)
      }
    
 	//Atualiza as imagens dos tabuleiros
