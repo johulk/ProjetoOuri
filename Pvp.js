@@ -419,11 +419,7 @@ class Pvp extends Phaser.Scene {
 		
      }
 	
-	testeTabuleiro(h,delay,delayCount){
-		this.time.delayedCall(delay * delayCount,() =>{
-			h.sprite.setTexture('i'+state[h.casa])
-		})
-	}
+	
    
 	//Atualiza as imagens dos tabuleiros
 	atualizaTabuleiro(pos) {
@@ -437,10 +433,11 @@ class Pvp extends Phaser.Scene {
 		if (player == 1){
 			sprites.forEach(h =>{
 			if (h.dirty){
-				this.testeTabuleiro(h,delay,delayCount);
-				h.dirty= false
+				this.time.delayedCall(delay * delayCount,() =>{
+					h.sprite.setTexture('i'+state[h.casa])
+				})
 				delayCount++
-				
+				h.dirty= false
 			}
 		})	
 		}
