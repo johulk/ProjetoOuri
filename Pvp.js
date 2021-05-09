@@ -465,7 +465,7 @@ class Pvp extends Phaser.Scene {
 		console.log('Menu');
 		scorePlayer1 = 0;
 		scorePlayer2 = 0;
-		this.scene.start('menu');
+		this.scene.switch('menu');
 	}
 
 }
