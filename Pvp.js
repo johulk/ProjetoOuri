@@ -388,7 +388,7 @@ class Pvp extends Phaser.Scene {
 	}
 
     
-    atualizaCasas(coords,i){
+    atualizaCasas(i){
 		
 		
     	setTimeout(() => {
@@ -412,18 +412,15 @@ class Pvp extends Phaser.Scene {
 
         for(let casa = 0; casa < 12; casa++){
 
-		    sprites[i] = this.add.sprite(coords[2 * casa] * 2, coords[2 * casa + 1] * 2, 'i' + state[casa]).setScale(0.45).setInteractive();
-			sprites[i].key = casa;
+		    sprites[casa] = this.add.sprite(coords[2 * casa] * 2, coords[2 * casa + 1] * 2, 'i' + state[casa]).setScale(0.45).setInteractive();
+			sprites[casa].key = casa;
 
         }
     }
    
 	//Atualiza as imagens dos tabuleiros
 	atualizaTabuleiro(w, h) {
-		// Adiciona o Tabuleiro
-		this.tabuleiro = this.add.sprite(w, h, 'tabuleiro');
-		this.tabuleiro.setScale(2)
-
+		
 		// Coordenadas das imagens dos ovos
 		let coords = [337, 355, 405, 385, 476, 398, 548, 398, 620, 386, 689, 356,
 			689, 246, 620, 215, 548, 205, 476, 205, 405, 215, 337, 246];
