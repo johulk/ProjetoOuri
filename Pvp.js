@@ -405,13 +405,14 @@ class Pvp extends Phaser.Scene {
 		coords.forEach(c => {
 			
 			sprites.push({
-				sprite: this.add.sprite(c.x * 2, c.y * 2).setScale(0.45).setInteractive().on('pointerdown', () => { this.clickOvos() }),
+				sprite: this.add.sprite(c.x * 2, c.y * 2,"i"+4).setScale(0.45).setInteractive(),
 				dirty: true,
 				casa : i
 			})
             i++;
 		})
 
+		sprites.forEach(spr =>{spr.sprite.on('pointerdown', () => { this.clickOvos() })})
 
 		this.atualizaTabuleiro(w, h)
      }
