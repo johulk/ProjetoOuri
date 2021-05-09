@@ -425,8 +425,7 @@ class Pvp extends Phaser.Scene {
 	atualizaTabuleiro(pos) {
 		if(pos == -1){return};
 		// Coordenadas das imagens dos ovos
-	    console.log("XD")
-		let delay = 100;
+		let delay = 200;
 		let delayCount = 0;
 
 		
@@ -441,12 +440,12 @@ class Pvp extends Phaser.Scene {
 			}
 		})	
 		}
-
+        
 		if(player == 2){
 			for(let j = 6; j < 18 ; j++){
 				if(sprites[j%12].sprite.dirty){
 					this.time.delayedCall(delay * delayCount,() =>{
-						sprites[j%12].sprite.setTexture('i'+state[prites[j%12].casa])
+						sprites[j%12].sprite.setTexture('i'+state[sprites[j%12].casa])
 					})
 				}
 				delayCount++
@@ -467,6 +466,7 @@ class Pvp extends Phaser.Scene {
 		console.log('Menu');
 		scorePlayer1 = 0;
 		scorePlayer2 = 0;
+        sprites = [];
 		this.scene.start('menu');
 	}
 
