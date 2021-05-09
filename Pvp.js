@@ -412,7 +412,7 @@ class Pvp extends Phaser.Scene {
 		this.tabuleiro = this.add.sprite(w, h, 'tabuleiro');
 		this.tabuleiro.setScale(2)
 
-		coords.forEach(coord, c => {
+		coords.forEach(c => {
 			let i = 0;
 			sprites.push({
 				sprite: this.add.sprite(c.x * 2, c.y * 2).setScale(0.45).setInteractive(),
