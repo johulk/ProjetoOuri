@@ -417,7 +417,7 @@ class Pvp extends Phaser.Scene {
 			sprites.push({
 				sprite: this.add.sprite(c.x * 2, c.y * 2).setScale(0.45).setInteractive(),
 				dirty: true,
-				casa = i
+				casa : i
 			})
 
 		})
