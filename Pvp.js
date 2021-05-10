@@ -4,7 +4,6 @@ var textodepJogador2;
 var textodepJogador1;
 var state = []
 var sprites = [];
-var stateAnterior; 
 var player = 1;
 var depJogador1 = 0;
 var depJogador2 = 0;
