@@ -18,7 +18,7 @@ var textP;
 var textC;
 var textdepComputador;
 var textdepJogador;
-
+var sprites = [];
 var state = []
 var player = 1;
 var depJogador = 0;
@@ -111,7 +111,7 @@ class Pvc extends Phaser.Scene {
                 this.setaJog1 = this.add.sprite(910 * 2, 736, 'setaP1').setScale(0.4).setVisible(false)
                 this.setaJog2 = this.add.sprite(225, 736, 'setaP1').setScale(0.4).setVisible(false)
 
-                this.atualizaTabuleiro(w, h);
+                this.setTabuleiro(w,h);
                 this.atualizaSetas();
 
                 this.input.on('gameobjectdown', this.jogada, this);
@@ -176,7 +176,7 @@ class Pvc extends Phaser.Scene {
                 this.atualizarState(pos);
 
                 // Atualiza o tabuleiro de acordo com o state
-                this.atualizaTabuleiro(config.width, config.height);
+                this.atualizaTabuleiro(pos);
 
                 //Ve qual o proximo player a jogar
                 this.nextPlayer();
@@ -187,45 +187,88 @@ class Pvc extends Phaser.Scene {
 
                 if (check === 1) { return; }
                 //console.log(dif)
-                setTimeout(() => {
+                this.time.delayedCall(1200,()=> {
                         if (player === 2) {
 
                                 pos = this.dificuldade();
                                 this.atualizarState(pos);
-                                this.atualizaTabuleiro(config.width, config.height);
+                                this.atualizaTabuleiro(pos);
                                 this.nextPlayer();
                                 this.atualizaSetas();
                                 this.afterplay();
 
                         }
-                }, 1000)
+                })
 
 
         }
 
-        //Atualiza as imagens dos tabuleiros
-        atualizaTabuleiro(w, h) {
+        setTabuleiro(w,h){
                 // Adiciona o Tabuleiro
-                this.tabuleiro = this.add.sprite(w, h, 'tabuleiro');
-                this.tabuleiro.setScale(2)
-
-                // Coordenadas das imagens dos ovos
-                let coords = [337, 355, 405, 385, 476, 398, 548, 398, 620, 386, 689, 356,
-                        689, 246, 620, 215, 548, 205, 476, 205, 405, 215, 337, 246];
-
-                // Adiciona as imagens dos ovos
-                for (var i = 0; i < 12; i++) {
-                        this.numero = this.add.sprite(coords[2 * i] * 2, coords[2 * i + 1] * 2, 'i' + state[i]).setScale(0.45).setInteractive();
-                        this.numero.key = i;
-                }
-
-                //Adiciona os ovos aos depositos
-                this.numerodepComputador = this.add.sprite(240 * 2, 300 * 2, 'i' + depComputador).setScale(0.6)
-                this.numerodepJogador = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador).setScale(0.6)
-
-                textdepJogador.text = depComputador
-                textdepComputador.text = depJogador
-        }
+                    this.tabuleiro = this.add.sprite(w, h, 'tabuleiro');
+                    this.tabuleiro.setScale(2)
+            var i = 0;
+                    coords.forEach(c => {
+                            
+                            sprites.push({
+                                    sprite: this.add.sprite(c.x * 2, c.y * 2,"i"+4).setScale(0.45).setInteractive(),
+                                    dirty: true,
+                                    casa : i
+                            })
+                i++;
+                    })
+    
+                    sprites.forEach(spr =>{spr.sprite.key = spr.casa})
+            
+                    this.atualizaTabuleiro(-1)
+                    
+                    
+         }
+            
+            
+       
+            //Atualiza as imagens dos tabuleiros
+            atualizaTabuleiro(pos) {
+                    if(pos == -1){return};
+                    // Coordenadas das imagens dos ovos
+                    let delay = 200;
+                    let delayCount = 0;
+    
+                    
+                    if (player == 1){
+                            sprites.forEach(h =>{
+                            if (h.dirty){
+                                    this.time.delayedCall(delay * delayCount,() =>{
+                                            h.sprite.setTexture('i'+state[h.casa])
+                                    })
+                                    delayCount++
+                                    h.dirty= false
+                            }
+                    })	
+                    }
+            
+                    if(player == 2){
+                            for(let j = 0; j < 12 ; j++){
+                                    if(sprites[(j+6)%12].dirty){
+                                            this.time.delayedCall(delay * delayCount,() =>{
+                                                    console.log(sprites[(j+6)%12].casa)
+                                                    sprites[(j+6)%12].sprite.setTexture('i'+state[sprites[(j+6)%12].casa])
+                                            })
+                                    }
+                                    delayCount++
+                                    sprites[(j+6)%12].sprite.dirty= false
+    
+                            }
+                    }
+                            
+            this.time.delayedCall(delay * delayCount,() =>{
+                    //Adiciona os ovos aos depositos
+                    this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
+                    this.numerodepJogador1 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
+                    textodepJogador1.text = depJogador2
+                textodepJogador2.text = depJogador1
+            })
+            }
 
         atualizarState(pos) {
 
@@ -853,7 +896,7 @@ class Pvc extends Phaser.Scene {
         clickMenu() {
                 console.log('Menu');
                 this.saveStats();
-
+                sprites = [];
                 this.scene.start('menu');
         }
 
