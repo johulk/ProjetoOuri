@@ -455,12 +455,13 @@ class Pvp extends Phaser.Scene {
 			}
 		}
 			
-
+        this.time.delayedCall(delay * delayCount,() =>{
 		//Adiciona os ovos aos depositos
 		this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
 		this.numerodepJogador1 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
 		textodepJogador1.text = depJogador2
     	textodepJogador2.text = depJogador1
+        })
 	}
 
 	clickMenu() {
