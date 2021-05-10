@@ -249,14 +249,14 @@ class Pvc extends Phaser.Scene {
             
                     if(player == 2){
                             for(let j = 0; j < 12 ; j++){
-                                    if(sprites[(j+6)%12].dirty){
+                                    if(sprites[pos%12].dirty){
                                             this.time.delayedCall(delay * delayCount,() =>{
-                                                    console.log(sprites[(j+6)%12].casa)
-                                                    sprites[(j+6)%12].sprite.setTexture('i'+state[sprites[(j+6)%12].casa])
+                                                    console.log(sprites[pos%12].casa)
+                                                    sprites[pos%12].sprite.setTexture('i'+state[sprites[pos%12].casa])
                                             })
                                     }
                                     delayCount++
-                                    sprites[(j+6)%12].sprite.dirty= false
+                                    sprites[pos%12].sprite.dirty= false
     
                             }
                     }
