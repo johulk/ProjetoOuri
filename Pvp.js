@@ -73,7 +73,6 @@ class Pvp extends Phaser.Scene {
 		depJogador2 = 0;
 		check = 0;
 		state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
-		stateAnterior = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 
 		this.setTabuleiro(w, h);

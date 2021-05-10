@@ -187,7 +187,7 @@ class Pvc extends Phaser.Scene {
 
                 if (check === 1) { return; }
                 //console.log(dif)
-                this.time.delayedCall(1200,()=> {
+                this.time.delayedCall(2000,()=> {
                         if (player === 2) {
 
                                 pos = this.dificuldade();
