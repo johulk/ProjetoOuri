@@ -278,11 +278,14 @@ class Pvc extends Phaser.Scene {
                 console.log(pos)
                 state[pos] = 0;
 
+                sprites[pos].dirty = true;
+
                 // distribuir as pedras pelas casas seguintes
                 for (var i = 1; valor > 0; i++) {
                         //Quando atingir 12 pedras tem de saltar a casa onde clicamos
                         if ((pos + i % 12) != pos) {
                                 state[(pos + i) % 12] = state[(pos + i) % 12] + 1;
+                                sprites[(pos + i) % 12].dirty = true;
                                 valor--;
                         }
                 }
@@ -294,6 +297,7 @@ class Pvc extends Phaser.Scene {
                         while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal > 5 && posfinal < 12) {
                                 depJogador = depJogador + state[posfinal]
                                 state[posfinal] = 0;
+                                sprites[posfinal].dirty = true;
                                 posfinal = posfinal - 1;
                         }
                 }
@@ -303,6 +307,7 @@ class Pvc extends Phaser.Scene {
                         while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal >= 0 && posfinal < 6) {
                                 depComputador = depComputador + state[posfinal]
                                 state[posfinal] = 0;
+                                sprites[posfinal].dirty = true;
                                 posfinal = posfinal - 1;
 
                         }
