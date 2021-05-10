@@ -260,7 +260,7 @@ class Pvc extends Phaser.Scene {
     
                             }
                     }
-                            
+                        delayCount++ 
             this.time.delayedCall(delay * delayCount,() =>{
                     //Adiciona os ovos aos depositos
                     this.numerodepComputador = this.add.sprite(240 * 2, 300 * 2, 'i' + depComputador).setScale(0.6)
@@ -276,7 +276,6 @@ class Pvc extends Phaser.Scene {
                 var valor = state[pos];
 
                 // retirar as pedras da casa onde clicamos
-                console.log(pos)
                 state[pos] = 0;
 
                 sprites[pos].dirty = true;
@@ -369,9 +368,7 @@ class Pvc extends Phaser.Scene {
                 var arvore = this.construirArvore(copiaestado, 7);
 
 
-                console.log(arvore)
                 var melhorValorFinal = this.minimax(arvore, 7, -Infinity, +Infinity, true)
-                console.log(melhorValorFinal)
 
                 //30
 
@@ -465,7 +462,13 @@ class Pvc extends Phaser.Scene {
 
                         //Forwards
                         this.forward = this.add.sprite((config.width - config.width / 4 - config.width / 24 - config.width / 150) * 2, (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98) * 2, 'forward').setInteractive();
-                        this.forward.on('pointerdown', () => this.scene.start("pvc"));
+                        this.forward.on('pointerdown', () => {
+                                this.scene.start("pvc")
+                                sprites = [];
+				textdepJogador.text = "0"
+    			        textdepComputador.text = "0"
+                                                
+                        });
                         this.forward.setScale(0.62 * 2)
                         this.forward.key = -1
                         this.forward.depth = 8890
@@ -760,7 +763,6 @@ class Pvc extends Phaser.Scene {
                         var valor = nudgeSimState[jogada]
                         var casaFinal = (jogada + valor) % 12
                         if ((casasJogador.includes(casaFinal)) && (nudgeSimState[casaFinal] + 1 === (2 || 3))) {
-                                console.log("no if aasasantes do check")
                                 var nudgeAuxState = [...nudgeSimState]
                                 var casasPercorridas = 1
                                 nudgeAuxState[jogada] = 0
@@ -776,9 +778,7 @@ class Pvc extends Phaser.Scene {
                                         nudgeAuxState[casaFinal] = 0;
                                         casaFinal--;
                                 }
-                                console.log("no if antes do check")
                                 if (this.checkFinal(nudgeAuxState, 2, nudgeAuxDepJ, nudgeAuxDepC) === 1) {
-                                        console.log("no if depois do check")
                                         var simVencedor = this.terminar(nudgeAuxState, nudgeAuxDepJ, nudgeAuxDepC, true)
                                         switch (simVencedor) {
                                                 case 1:

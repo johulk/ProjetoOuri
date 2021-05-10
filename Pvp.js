@@ -222,7 +222,14 @@ class Pvp extends Phaser.Scene {
 
 			//Forwards
 			this.forward = this.add.sprite((config.width - config.width / 4 - config.width / 24 - config.width / 150) * 2, (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98) * 2, 'forward').setInteractive();
-			this.forward.on('pointerdown', () => this.scene.start("pvp"));
+			this.forward.on('pointerdown', () => {
+				sprites = [];
+				textodepJogador1.text = "0"
+    			textodepJogador2.text = "0"
+				this.scene.start("pvp");
+				
+
+		});
 			this.forward.setScale(0.62 * 2)
 			this.forward.key = -1
 			this.forward.depth = 8890
@@ -452,7 +459,7 @@ class Pvp extends Phaser.Scene {
 
 			}
 	}
-			
+		delayCount++ 
         this.time.delayedCall(delay * delayCount,() =>{
 		//Adiciona os ovos aos depositos
 		this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
