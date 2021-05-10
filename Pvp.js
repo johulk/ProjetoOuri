@@ -442,14 +442,14 @@ class Pvp extends Phaser.Scene {
 		}
         
 		if(player == 2){
-			for(let j = 6; j < 18 ; j++){
-				if(sprites[j%12].sprite.dirty){
+			for(let j = 0; j < 12 ; j++){
+				if(sprites[j+6%12].sprite.dirty){
 					this.time.delayedCall(delay * delayCount,() =>{
-						sprites[j%12].sprite.setTexture('i'+state[sprites[j%12].casa])
+						sprites[j+6%12].sprite.setTexture('i'+state[sprites[j+6%12].casa])
 					})
 				}
 				delayCount++
-				sprites[j%12].sprite.dirty= false
+				sprites[j+6%12].sprite.dirty= false
 
 			}
 		}
