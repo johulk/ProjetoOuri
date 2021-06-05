@@ -74,6 +74,8 @@ class Pvp extends Phaser.Scene {
 		depJogador2 = 0;
 		check = 0;
 		state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
+		possoJogar = true;
+
 
 
 		this.setTabuleiro(w, h);
@@ -86,6 +88,7 @@ class Pvp extends Phaser.Scene {
 
 	jogada(pointer,gameObject) {
 		// Impedir jogada quando se clica no home
+		console.log(possoJogar)
 		if (gameObject.key == -1 || possoJogar == false){return}
     
         console.log(gameObject.key);
