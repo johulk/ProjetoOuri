@@ -472,8 +472,7 @@ class Pvp extends Phaser.Scene {
     	textodepJogador2.text = depJogador1
 		},delay*delayCount);
 		
-		
-        
+		        
 	}
 
 	clickMenu() {

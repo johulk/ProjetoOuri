@@ -229,47 +229,49 @@ class Pvc extends Phaser.Scene {
        
             //Atualiza as imagens dos tabuleiros
             atualizaTabuleiro(pos) {
-                    if(pos == -1){return};
-                    // Coordenadas das imagens dos ovos
-                    let delay = 400;
-                    let delayCount = 0;
-    
-                    
-                    if (player == 1){
-                            sprites.forEach(h =>{
-                            if (h.dirty){
-                                    this.time.delayedCall(delay * delayCount,() =>{
-                                            h.sprite.setTexture('i'+state[h.casa])
-                                    })
-                                    delayCount++
-                                    h.dirty= false
-                            }
-                    })	
-                    }
-            
-                    if(player == 2){
-                            for(let j = 0; j < 12 ; j++){
-                                    if(sprites[(pos+j)%12].dirty){
-                                            this.time.delayedCall(delay * delayCount,() =>{
-                                                    console.log(sprites[(pos+j)%12].casa)
-                                                    sprites[(pos+j)%12].sprite.setTexture('i'+state[sprites[(pos+j)%12].casa])
-                                            })
-                                    }
-                                    delayCount++
-                                    sprites[(pos+j)%12].sprite.dirty= false
-    
-                            }
-                    }
-                        delayCount++ 
-            this.time.delayedCall(delay * delayCount,() =>{
-                    //Adiciona os ovos aos depositos
-                    this.numerodepComputador = this.add.sprite(240 * 2, 300 * 2, 'i' + depComputador).setScale(0.6)
-                this.numerodepJogador = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador).setScale(0.6)
+		if(pos == -1){return};
+		// Coordenadas das imagens dos ovos
+		let delay = 400;
+		let delayCount = 0;
 
-                textdepJogador.text = depComputador
-                textdepComputador.text = depJogador
-            })
-            }
+			
+		
+		for(let k = 0;k < 12 ; k++){
+			if(sprites[(pos+k)%12].dirty){
+					this.time.delayedCall(delay * delayCount,() =>{
+							console.log(sprites[(pos+k)%12].casa)
+							sprites[(pos+k)%12].sprite.setTexture('i'+state[sprites[(pos+k)%12].casa])
+					})
+					delayCount++
+			}
+			sprites[(pos+k)%12].sprite.dirty= false
+		}
+
+		
+		delayCount++
+		let backwards = 5;
+		for(let b = 0; b < 12 ; b++){
+			if(sprites[(backwards-b+12)%12].dirtyRec){
+					this.time.delayedCall(delay * delayCount,() =>{
+							console.log(sprites[(backwards-b+12)%12].casa)
+							sprites[(backwards-b+12)%12].sprite.setTexture('i'+state[sprites[(backwards-b+12)%12].casa])
+					})
+					delayCount++
+			}
+			sprites[(backwards-b+12)%12].sprite.dirtyRec= false
+		}
+		delayCount++ 
+
+		setTimeout(()=>{
+			//Adiciona os ovos aos depositos
+		this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
+		this.numerodepJogador1 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
+		textodepJogador1.text = depJogador2
+    	textodepJogador2.text = depJogador1
+		},delay*delayCount);
+		
+		        
+	}
 
         atualizarState(pos) {
 
