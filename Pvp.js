@@ -407,7 +407,6 @@ class Pvp extends Phaser.Scene {
 
     setTabuleiro(w,h){
     	// Adiciona o Tabuleiro
-		possoJogar = false;
 		this.tabuleiro = this.add.sprite(w, h, 'tabuleiro');
 		this.tabuleiro.setScale(2)
         var i = 0;
@@ -433,6 +432,8 @@ class Pvp extends Phaser.Scene {
    
 	//Atualiza as imagens dos tabuleiros
 	atualizaTabuleiro(pos) {
+		possoJogar = false;
+
 		if(pos == -1){return};
 		// Coordenadas das imagens dos ovos
 		let delay = 400;
