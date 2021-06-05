@@ -461,7 +461,7 @@ class Pvp extends Phaser.Scene {
 	}
 		delayCount++ 
         this.time.delayedCall(delay * delayCount,() =>{
-			backwards = 5;
+			let backwards = 5;
 			for(let b = 0; b < 12 ; b++){
 				if(sprites[(backwards-b)%12].dirtyRec){
 						this.time.delayedCall(delay * delayCount,() =>{
