@@ -125,18 +125,19 @@ class Pvp extends Phaser.Scene {
 		this.setaJog1 = this.setaJog1 || this.add.sprite(910 * 2, 736, 'setaP1').setScale(0.4).setVisible(false)
 		this.setaJog2 = this.setaJog2 || this.add.sprite(225, 736, 'setaP1').setScale(0.4).setVisible(false)
 
-			this.setaP2.setVisible(false)
-			this.setaCounterP2.setVisible(false)
-			this.setaP1.setVisible(true)
-			this.setaCounterP1.setVisible(true)
-			this.setaJog1.setVisible(true)
-			this.setaJog2.setVisible(false)
+		this.setaP2.setVisible(false)
+		this.setaCounterP2.setVisible(false)
+		this.setaP1.setVisible(true)
+		this.setaCounterP1.setVisible(true)
+		this.setaJog1.setVisible(true)
+		this.setaJog2.setVisible(false)
 	}
+
 	atualizaSetas() {
 
 		switch (player) {
 
-			case 2:
+			case 1:
 				this.setaP2.setVisible(false)
 				this.setaCounterP2.setVisible(false)
 				this.setaP1.setVisible(true)
@@ -145,7 +146,7 @@ class Pvp extends Phaser.Scene {
 				this.setaJog2.setVisible(false)
 				break;
 
-			case 1:
+			case 2:
 
 				this.setaP1.setVisible(false)
 				this.setaCounterP1.setVisible(false)
