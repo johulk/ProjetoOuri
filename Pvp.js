@@ -79,7 +79,7 @@ class Pvp extends Phaser.Scene {
 
 
 		this.setTabuleiro(w, h);
-		this.atualizaSetas();
+		this.setSetas();
 
 
 		this.input.on('gameobjectdown', this.jogada, this);
@@ -116,7 +116,7 @@ class Pvp extends Phaser.Scene {
 		
 	}
 
-	atualizaSetas() {
+	setSetas(){
 
 		this.setaP1 = this.setaP1 || this.add.sprite(1024, 936, 'setaP1').setScale(0.7).setVisible(false)
 		this.setaP2 = this.setaP2 || this.add.sprite(1024, 100, 'setaP2').setScale(0.7).setVisible(false)
@@ -124,6 +124,15 @@ class Pvp extends Phaser.Scene {
 		this.setaCounterP2 = this.setaCounterP2 || this.add.sprite(810 * 2, 160 * 2, 'setaCounter').setScale(0.7).setVisible(false)
 		this.setaJog1 = this.setaJog1 || this.add.sprite(910 * 2, 736, 'setaP1').setScale(0.4).setVisible(false)
 		this.setaJog2 = this.setaJog2 || this.add.sprite(225, 736, 'setaP1').setScale(0.4).setVisible(false)
+
+			this.setaP2.setVisible(false)
+			this.setaCounterP2.setVisible(false)
+			this.setaP1.setVisible(true)
+			this.setaCounterP1.setVisible(true)
+			this.setaJog1.setVisible(true)
+			this.setaJog2.setVisible(false)
+	}
+	atualizaSetas() {
 
 		switch (player) {
 
@@ -434,9 +443,10 @@ class Pvp extends Phaser.Scene {
    
 	//Atualiza as imagens dos tabuleiros
 	atualizaTabuleiro(pos) {
-		possoJogar = false;
+		
 
 		if(pos == -1){return};
+		possoJogar = false;
 		// Coordenadas das imagens dos ovos
 		let delay = 400;
 		let delayCount = 0;
