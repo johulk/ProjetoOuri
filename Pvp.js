@@ -8,6 +8,7 @@ var player = 1;
 var depJogador1 = 0;
 var depJogador2 = 0;
 var check = 0;
+var possoJogar = true;
 
 var coords = [{x: 337,y: 355}, {x:405,y: 385}, {x:476, y:398}, {x:548, y:398},{x: 620,y: 386}, {x:689, y: 356},
 	{x:689, y: 246}, {x:620, y: 215}, {x:548, y: 205},{x: 476, y: 205}, {x:405,y:  215}, {x:337,y:  246}];
@@ -85,7 +86,7 @@ class Pvp extends Phaser.Scene {
 
 	jogada(pointer,gameObject) {
 		// Impedir jogada quando se clica no home
-		if (gameObject.key == -1){return}
+		if (gameObject.key == -1 || possoJogar == false){return}
     
         console.log(gameObject.key);
         var pos = gameObject.key;
@@ -406,6 +407,7 @@ class Pvp extends Phaser.Scene {
 
     setTabuleiro(w,h){
     	// Adiciona o Tabuleiro
+		possoJogar = false;
 		this.tabuleiro = this.add.sprite(w, h, 'tabuleiro');
 		this.tabuleiro.setScale(2)
         var i = 0;
@@ -470,6 +472,7 @@ class Pvp extends Phaser.Scene {
 		this.numerodepJogador1 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
 		textodepJogador1.text = depJogador2
     	textodepJogador2.text = depJogador1
+		possoJogar = true;
 		},delay*delayCount);
 		
 		        
