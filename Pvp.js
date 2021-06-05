@@ -355,6 +355,7 @@ class Pvp extends Phaser.Scene {
 			while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal > 5 && posfinal < 12) {
 				depJogador1 = depJogador1 + state[posfinal]
 				state[posfinal] = 0;
+				sprites[posfinal].dirty = false;
 				sprites[posfinal].dirtyRec = true;
 				posfinal = posfinal - 1;
 			}
@@ -365,6 +366,7 @@ class Pvp extends Phaser.Scene {
 			while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal >= 0 && posfinal < 6) {
 				depJogador2 = depJogador2 + state[posfinal]
 				state[posfinal] = 0;
+				sprites[posfinal].dirty = false;
 				sprites[posfinal].dirtyRec = true;
 				posfinal = posfinal - 1;
 
