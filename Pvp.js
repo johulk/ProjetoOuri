@@ -467,7 +467,7 @@ class Pvp extends Phaser.Scene {
 				if(sprites[(backwards-b+12)%12].dirtyRec){
 						this.time.delayedCall(delay * delayCount,() =>{
 								console.log(sprites[(backwards-b+12)%12].casa)
-								sprites[(backwards-b)%12].sprite.setTexture('i'+state[sprites[(backwards-b+12)%12].casa])
+								sprites[(backwards-b+12)%12].sprite.setTexture('i'+state[sprites[(backwards-b+12)%12].casa])
 						})
 				}
 				delayCount++
