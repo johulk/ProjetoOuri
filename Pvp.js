@@ -450,6 +450,7 @@ class Pvp extends Phaser.Scene {
 		if(player == 2){
 			for(let j = 0; j < 12 ; j++){
 					if(sprites[(pos+j)%12].dirty){
+						console.log("player2dirty")
 							this.time.delayedCall(delay * delayCount,() =>{
 									console.log(sprites[(pos+j)%12].casa)
 									sprites[(pos+j)%12].sprite.setTexture('i'+state[sprites[(pos+j)%12].casa])
@@ -465,6 +466,7 @@ class Pvp extends Phaser.Scene {
 			let backwards = 5;
 			for(let b = 0; b < 12 ; b++){
 				if(sprites[(backwards-b+12)%12].dirtyRec){
+					console.log("dirtyRec")
 						this.time.delayedCall(delay * delayCount,() =>{
 								console.log(sprites[(backwards-b+12)%12].casa)
 								sprites[(backwards-b+12)%12].sprite.setTexture('i'+state[sprites[(backwards-b+12)%12].casa])
