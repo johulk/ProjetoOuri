@@ -355,7 +355,7 @@ class Pvp extends Phaser.Scene {
 			while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal > 5 && posfinal < 12) {
 				depJogador1 = depJogador1 + state[posfinal]
 				state[posfinal] = 0;
-				sprites[posfinal].dirty = true;
+				sprites[posfinal].dirtyRec = true;
 				posfinal = posfinal - 1;
 			}
 		}
@@ -365,7 +365,7 @@ class Pvp extends Phaser.Scene {
 			while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal >= 0 && posfinal < 6) {
 				depJogador2 = depJogador2 + state[posfinal]
 				state[posfinal] = 0;
-				sprites[posfinal].dirty = true;
+				sprites[posfinal].dirtyRec = true;
 				posfinal = posfinal - 1;
 
 			}
@@ -430,7 +430,7 @@ class Pvp extends Phaser.Scene {
 	atualizaTabuleiro(pos) {
 		if(pos == -1){return};
 		// Coordenadas das imagens dos ovos
-		let delay = 200;
+		let delay = 400;
 		let delayCount = 0;
 
 		
@@ -461,6 +461,19 @@ class Pvp extends Phaser.Scene {
 	}
 		delayCount++ 
         this.time.delayedCall(delay * delayCount,() =>{
+			backwards = 5;
+			for(let b = 0; b < 12 ; b++){
+				if(sprites[(backwards-b)%12].dirtyRec){
+						this.time.delayedCall(delay * delayCount,() =>{
+								console.log(sprites[(backwards-b)%12].casa)
+								sprites[(backwards-b)%12].sprite.setTexture('i'+state[sprites[(backwards-b)%12].casa])
+						})
+				}
+				delayCount++
+				sprites[(backwards-b)%12].sprite.dirtyRec= false
+
+		}
+
 		//Adiciona os ovos aos depositos
 		this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
 		this.numerodepJogador1 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)

@@ -231,7 +231,7 @@ class Pvc extends Phaser.Scene {
             atualizaTabuleiro(pos) {
                     if(pos == -1){return};
                     // Coordenadas das imagens dos ovos
-                    let delay = 200;
+                    let delay = 400;
                     let delayCount = 0;
     
                     
@@ -467,7 +467,7 @@ class Pvc extends Phaser.Scene {
                                 sprites = [];
 				textdepJogador.text = "0"
     			        textdepComputador.text = "0"
-                                                
+                                                        
                         });
                         this.forward.setScale(0.62 * 2)
                         this.forward.key = -1
