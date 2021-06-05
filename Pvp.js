@@ -462,21 +462,22 @@ class Pvp extends Phaser.Scene {
 					sprites[(pos+j)%12].sprite.dirty= false
 
 			}
-	}
-		delayCount++ 
-			let backwards = 5;
-			for(let b = 0; b < 12 ; b++){
-				if(sprites[(backwards-b+12)%12].dirtyRec){
-					console.log("dirtyRec")
-						this.time.delayedCall(delay * delayCount,() =>{
-								console.log(sprites[(backwards-b+12)%12].casa)
-								sprites[(backwards-b+12)%12].sprite.setTexture('i'+state[sprites[(backwards-b+12)%12].casa])
-						})
-				}
-				delayCount++
-				sprites[(backwards-b+12)%12].sprite.dirtyRec= false
-
 		}
+		delayCount++ 
+		let backwards = 5;
+		for(let b = 0; b < 12 ; b++){
+			if(sprites[(backwards-b+12)%12].dirtyRec){
+				console.log("dirtyRec")
+					this.time.delayedCall(delay * delayCount,() =>{
+							console.log(sprites[(backwards-b+12)%12].casa)
+							sprites[(backwards-b+12)%12].sprite.setTexture('i'+state[sprites[(backwards-b+12)%12].casa])
+					})
+					delayCount++
+			}
+			sprites[(backwards-b+12)%12].sprite.dirtyRec= false
+		}
+		delayCount++ 
+
 
 		this.time.delayedCall(delay * delayCount,() =>{
 		//Adiciona os ovos aos depositos
