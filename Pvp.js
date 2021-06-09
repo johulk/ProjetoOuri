@@ -355,6 +355,8 @@ class Pvp extends Phaser.Scene {
         console.log("state")
 		var valor = state[pos];
 
+		possoJogar = false;
+
 		// retirar as pedras da casa onde clicamos
 		state[pos] = 0;
 
@@ -368,6 +370,8 @@ class Pvp extends Phaser.Scene {
 				valor--;
 			}
 		}
+
+		this.atualizaPecas(pos);
 
 		// Recolher as pedras
 		var posfinal = (pos + i - 1) % 12
@@ -393,6 +397,9 @@ class Pvp extends Phaser.Scene {
 
 			}
 		}
+
+		this.atualizaRecolha();
+		this.atualizaDepositos();
 	}
 
 	one(pos) {
@@ -448,20 +455,10 @@ class Pvp extends Phaser.Scene {
 		
      }
 	
-	
-   
-	//Atualiza as imagens dos tabuleiros
-	atualizaTabuleiro(pos) {
-		
-
-		if(pos == -1){return};
-		possoJogar = false;
-		// Coordenadas das imagens dos ovos
+	atualizaPecas(pos){
 		let delay = 400;
 		let delayCount = 0;
 
-			
-		
 		for(let k = 0;k < 12 ; k++){
 			if(sprites[(pos+k)%12].dirty){
 					this.time.delayedCall(delay * delayCount,() =>{
@@ -472,9 +469,14 @@ class Pvp extends Phaser.Scene {
 			}
 			sprites[(pos+k)%12].sprite.dirty= false
 		}
+	}
 
-		
-		delayCount++
+	atualizaRecolha(){
+		// Coordenadas das imagens dos ovos
+		let delay = 400;
+		let delayCount = 0;
+
+			
 		let backwards = 5;
 		for(let b = 0; b < 12 ; b++){
 			if(sprites[(backwards-b+12)%12].dirtyRec){
@@ -486,10 +488,11 @@ class Pvp extends Phaser.Scene {
 			}
 			sprites[(backwards-b+12)%12].sprite.dirtyRec= false
 		}
-		delayCount++ 
 
-		setTimeout(()=>{
-			//Adiciona os ovos aos depositos
+	}
+
+	atualizaDepositos(){
+
 		this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
 		this.numerodepJogador1 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
 		textodepJogador1.text = depJogador2
@@ -498,11 +501,9 @@ class Pvp extends Phaser.Scene {
 		this.nextPlayer();
 		this.atualizaSetas();
 		this.afterplay();
-		
-		},delay*delayCount);
-		
-		        
+
 	}
+   
 
 	clickMenu() {
 		console.log('Menu');
