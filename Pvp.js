@@ -483,7 +483,6 @@ class Pvp extends Phaser.Scene {
 
 	atualizaRecolha(){
 		// Coordenadas das imagens dos ovos
-		delayCount+=2
 		setTimeout(()=>{
 		let backwards = 5;
 		for(let b = 0; b < 12 ; b++){
