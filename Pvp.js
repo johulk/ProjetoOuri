@@ -77,7 +77,7 @@ class Pvp extends Phaser.Scene {
 		depJogador1 = 0;
 		depJogador2 = 0;
 		check = 0;
-		state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
+		state = [3, 2, 1, 8, 7, 6, 6, 6, 5, 0, 2, 2];
 		possoJogar = true;
 
 
@@ -372,36 +372,11 @@ class Pvp extends Phaser.Scene {
 				valor--;
 			}
 		}
+        
+        console.log(state[10]);
+        console.log(state[11]);
+		this.atualizaPecas(pos,i);
 
-		this.atualizaPecas(pos);
-
-		// Recolher as pedras
-		var posfinal = (pos + i - 1) % 12
-
-		if (player === 1) {
-			while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal > 5 && posfinal < 12) {
-				depJogador1 = depJogador1 + state[posfinal]
-				state[posfinal] = 0;
-				sprites[posfinal].dirty = false;
-				sprites[posfinal].dirtyRec = true;
-				posfinal = posfinal - 1;
-			}
-		}
-
-		//Recolher as pedras para o player 2
-		if (player === 2) {
-			while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal >= 0 && posfinal < 6) {
-				depJogador2 = depJogador2 + state[posfinal]
-				state[posfinal] = 0;
-				sprites[posfinal].dirty = false;
-				sprites[posfinal].dirtyRec = true;
-				posfinal = posfinal - 1;
-
-			}
-		}
-
-		this.atualizaRecolha();
-		this.atualizaDepositos();
 	}
 
 	one(pos) {
@@ -442,7 +417,7 @@ class Pvp extends Phaser.Scene {
 		coords.forEach(c => {
 			
 			sprites.push({
-				sprite: this.add.sprite(c.x * 2, c.y * 2,"i"+4).setScale(0.45).setInteractive(),
+				sprite: this.add.sprite(c.x * 2, c.y * 2,"i"+state[i]).setScale(0.45).setInteractive(),
 				dirty: true,
 				dirtyRec: false,
 				casa : i
@@ -457,7 +432,7 @@ class Pvp extends Phaser.Scene {
 		
      }
 	
-	atualizaPecas(pos){
+	atualizaPecas(pos,i){
 		if(pos == -1) {return;}
 
 		for(let k = 0;k < 12 ; k++){
@@ -470,6 +445,38 @@ class Pvp extends Phaser.Scene {
 			}
 			sprites[(pos+k)%12].sprite.dirty= false
 		}
+
+        setTimeout(()=>{
+		// Recolher as pedras
+		var posfinal = (pos + i - 1) % 12
+
+		if (player === 1) {
+			while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal > 5 && posfinal < 12) {
+				depJogador1 = depJogador1 + state[posfinal]
+				state[posfinal] = 0;
+				sprites[posfinal].dirty = false;
+				sprites[posfinal].dirtyRec = true;
+				posfinal = posfinal - 1;
+			}
+		}
+
+		//Recolher as pedras para o player 2
+		if (player === 2) {
+			while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal >= 0 && posfinal < 6) {
+				depJogador2 = depJogador2 + state[posfinal]
+				state[posfinal] = 0;
+				sprites[posfinal].dirty = false;
+				sprites[posfinal].dirtyRec = true;
+				posfinal = posfinal - 1;
+
+			}
+		}
+		this.atualizaRecolha();
+
+		this.atualizaDepositos();
+		
+		},delay*delayCount);
+
 	}
 
 	atualizaRecolha(){
