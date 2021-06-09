@@ -10,6 +10,9 @@ var depJogador1 = 0;
 var depJogador2 = 0;
 var check = 0;
 var possoJogar = true;
+var delay = 400;
+var delayCount = 0;
+
 
 var coords = [{x: 337,y: 355}, {x:405,y: 385}, {x:476, y:398}, {x:548, y:398},{x: 620,y: 386}, {x:689, y: 356},
 	{x:689, y: 246}, {x:620, y: 215}, {x:548, y: 205},{x: 476, y: 205}, {x:405,y:  215}, {x:337,y:  246}];
@@ -109,7 +112,6 @@ class Pvp extends Phaser.Scene {
 
 		// A jogada e valida e pode começar
 		this.atualizarState(pos);
-		this.atualizaTabuleiro(pos);
 
 		
 		
@@ -457,8 +459,6 @@ class Pvp extends Phaser.Scene {
 	
 	atualizaPecas(pos){
 		if(pos == -1) {return;}
-		let delay = 400;
-		let delayCount = 0;
 
 		for(let k = 0;k < 12 ; k++){
 			if(sprites[(pos+k)%12].dirty){
@@ -474,9 +474,6 @@ class Pvp extends Phaser.Scene {
 
 	atualizaRecolha(){
 		// Coordenadas das imagens dos ovos
-		let delay = 400;
-		let delayCount = 0;
-
 			
 		let backwards = 5;
 		for(let b = 0; b < 12 ; b++){
@@ -494,6 +491,9 @@ class Pvp extends Phaser.Scene {
 
 	atualizaDepositos(){
 
+		
+		setTimeout(()=>{
+			//Adiciona os ovos aos depositos
 		this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
 		this.numerodepJogador1 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
 		textodepJogador1.text = depJogador2
@@ -502,6 +502,11 @@ class Pvp extends Phaser.Scene {
 		this.nextPlayer();
 		this.atualizaSetas();
 		this.afterplay();
+		
+		},delay*delayCount);
+		delayCount = 0;
+		
+
 
 	}
    
