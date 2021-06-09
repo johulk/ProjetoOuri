@@ -10,7 +10,7 @@ var depJogador1 = 0;
 var depJogador2 = 0;
 var check = 0;
 var possoJogar = true;
-var delay = 200;
+var delay = 400;
 var delayCount = 0;
 
 
@@ -475,7 +475,7 @@ class Pvp extends Phaser.Scene {
 
 		this.atualizaDepositos();
 		
-		},delay*delayCount);
+		},(delay-65)*delayCount);
 
 	}
 
