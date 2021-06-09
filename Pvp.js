@@ -10,7 +10,7 @@ var depJogador1 = 0;
 var depJogador2 = 0;
 var check = 0;
 var possoJogar = true;
-var delay = 400;
+var delay = 200;
 var delayCount = 0;
 
 
