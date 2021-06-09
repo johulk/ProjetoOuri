@@ -111,10 +111,7 @@ class Pvp extends Phaser.Scene {
 		this.atualizarState(pos);
 		this.atualizaTabuleiro(pos);
 
-		this.nextPlayer();
-		this.atualizaSetas();
-
-		this.afterplay();
+		
 		
 	}
 
@@ -137,7 +134,7 @@ class Pvp extends Phaser.Scene {
 		this.setaJog2.setVisible(false)
 	}
 
-	
+
 	atualizaSetas() {
 		this.setaP1 = this.setaP1 || this.add.sprite(1024, 936, 'setaP1').setScale(0.7).setVisible(false)
 		this.setaP2 = this.setaP2 || this.add.sprite(1024, 100, 'setaP2').setScale(0.7).setVisible(false)
@@ -498,6 +495,10 @@ class Pvp extends Phaser.Scene {
 		textodepJogador1.text = depJogador2
     	textodepJogador2.text = depJogador1
 		possoJogar = true;
+		this.nextPlayer();
+		this.atualizaSetas();
+		this.afterplay();
+		
 		},delay*delayCount);
 		
 		        
