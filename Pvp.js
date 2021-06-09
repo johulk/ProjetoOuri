@@ -492,7 +492,7 @@ class Pvp extends Phaser.Scene {
 			}
 			sprites[(backwards-b+12)%12].sprite.dirtyRec= false
 		}
-        },delay*(delayCount-1));
+        },0);
 
 	}
 
