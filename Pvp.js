@@ -450,12 +450,13 @@ class Pvp extends Phaser.Scene {
 
 		sprites.forEach(spr =>{spr.sprite.key = spr.casa})
 	
-		this.atualizaTabuleiro(-1)
+		this.atualizaPecas(-1)
 		
 		
      }
 	
 	atualizaPecas(pos){
+		if(pos == -1) {return;}
 		let delay = 400;
 		let delayCount = 0;
 
