@@ -12,6 +12,8 @@ var check = 0;
 var possoJogar = true;
 var delay = 400;
 var delayCount = 0;
+var howmany = 0;
+
 
 
 var coords = [{x: 337,y: 355}, {x:405,y: 385}, {x:476, y:398}, {x:548, y:398},{x: 620,y: 386}, {x:689, y: 356},
@@ -77,7 +79,7 @@ class Pvp extends Phaser.Scene {
 		depJogador1 = 0;
 		depJogador2 = 0;
 		check = 0;
-		state = [3, 2, 1, 8, 7, 6, 6, 6, 5, 0, 2, 2];
+		state = [3, 2, 1, 8, 7, 6, 2, 2, 2, 2, 2, 2];
 		possoJogar = true;
 
 
@@ -469,13 +471,11 @@ class Pvp extends Phaser.Scene {
         },delay*delayCount);
 		
        
-		setTimeout(()=>{
+	
 		
 		this.atualizaRecolha();
-
-		},delay * delayCount);
-        this.atualizaDepositos();
-
+		this.atualizaDepositos();
+			
 	}
 
 	atualizaRecolha(){
@@ -492,15 +492,14 @@ class Pvp extends Phaser.Scene {
 			}
 			sprites[(backwards-b+12)%12].sprite.dirtyRec= false
 		}
-        },0);
+        },delay*delayCount);
 
 	}
 
 
 
 	atualizaDepositos(){
-        delayCount+=2
-		setTimeout(()=>{
+        setTimeout(()=>{
 			//Adiciona os ovos aos depositos
 		this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
 		this.numerodepJogador1 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
