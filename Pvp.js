@@ -445,7 +445,7 @@ class Pvp extends Phaser.Scene {
 			}
 			sprites[(pos+k)%12].sprite.dirty= false
 		}
-
+        
         setTimeout(()=>{
 		// Recolher as pedras
 		var posfinal = (pos + i - 1) % 12
@@ -471,17 +471,20 @@ class Pvp extends Phaser.Scene {
 
 			}
 		}
+		
+        },delay*delayCount);
 		this.atualizaRecolha();
 
 		this.atualizaDepositos();
 		
-		},(delay-65)*delayCount);
+		
 
 	}
 
 	atualizaRecolha(){
 		// Coordenadas das imagens dos ovos
-			
+		delayCount+=2
+		setTimeout(()=>{
 		let backwards = 5;
 		for(let b = 0; b < 12 ; b++){
 			if(sprites[(backwards-b+12)%12].dirtyRec){
@@ -493,7 +496,7 @@ class Pvp extends Phaser.Scene {
 			}
 			sprites[(backwards-b+12)%12].sprite.dirtyRec= false
 		}
-
+        },delay*delayCount);
 	}
 
 	atualizaDepositos(){
@@ -522,7 +525,10 @@ class Pvp extends Phaser.Scene {
 		console.log('Menu');
 		scorePlayer1 = 0;
 		scorePlayer2 = 0;
+		depJogador1 = 0;
+		depJogador2 = 0;
         sprites = [];
+		delayCount = 0;
 		this.scene.start('menu');
 	}
 
