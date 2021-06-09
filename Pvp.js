@@ -92,7 +92,7 @@ class Pvp extends Phaser.Scene {
 
 	jogada(pointer,gameObject) {
 		// Impedir jogada quando se clica no home
-		console.log(possoJogar)
+		
 		if (gameObject.key == -1 || possoJogar == false){return}
     
         console.log(gameObject.key);
@@ -354,7 +354,7 @@ class Pvp extends Phaser.Scene {
 	}
 
 	atualizarState(pos) {
-        console.log("state")
+    
 		var valor = state[pos];
 
 		possoJogar = false;
@@ -372,9 +372,6 @@ class Pvp extends Phaser.Scene {
 				valor--;
 			}
 		}
-        
-        console.log(state[10]);
-        console.log(state[11]);
 		this.atualizaPecas(pos,i);
 
 	}
@@ -406,8 +403,7 @@ class Pvp extends Phaser.Scene {
 		return state[pos];
 	}
 
-    
-   
+      
 
     setTabuleiro(w,h){
     	// Adiciona o Tabuleiro
@@ -429,8 +425,7 @@ class Pvp extends Phaser.Scene {
 	
 		this.atualizaPecas(-1)
 		
-		
-     }
+    }
 	
 	atualizaPecas(pos,i){
 		if(pos == -1) {return;}
@@ -471,13 +466,15 @@ class Pvp extends Phaser.Scene {
 
 			}
 		}
-		
         },delay*delayCount);
+		
+       
+		setTimeout(()=>{
+		
 		this.atualizaRecolha();
 
-		this.atualizaDepositos();
-		
-		
+		},delay * delayCount);
+        this.atualizaDepositos();
 
 	}
 
@@ -495,12 +492,14 @@ class Pvp extends Phaser.Scene {
 			}
 			sprites[(backwards-b+12)%12].sprite.dirtyRec= false
 		}
-        },delay*delayCount);
+        },delay*(delayCount-1));
+
 	}
 
-	atualizaDepositos(){
 
-		
+
+	atualizaDepositos(){
+        delayCount+=2
 		setTimeout(()=>{
 			//Adiciona os ovos aos depositos
 		this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
@@ -515,8 +514,6 @@ class Pvp extends Phaser.Scene {
 		},delay*delayCount);
 		delayCount = 0;
 		
-
-
 	}
    
 
