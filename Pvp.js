@@ -4,6 +4,7 @@ var textodepJogador2;
 var textodepJogador1;
 var state = []
 var sprites = [];
+var setas = [];
 var player = 1;
 var depJogador1 = 0;
 var depJogador2 = 0;
@@ -79,7 +80,6 @@ class Pvp extends Phaser.Scene {
 
 
 		this.setTabuleiro(w, h);
-		this.setSetas();
 
 
 		this.input.on('gameobjectdown', this.jogada, this);
@@ -111,33 +111,24 @@ class Pvp extends Phaser.Scene {
 		this.atualizaTabuleiro(pos);
 
 		this.nextPlayer();
+		this.atualizaSetas();
 
 		this.afterplay();
 		
 	}
 
-	setSetas(){
 
+	atualizaSetas() {
 		this.setaP1 = this.setaP1 || this.add.sprite(1024, 936, 'setaP1').setScale(0.7).setVisible(false)
 		this.setaP2 = this.setaP2 || this.add.sprite(1024, 100, 'setaP2').setScale(0.7).setVisible(false)
 		this.setaCounterP1 = this.setaCounterP1 || this.add.sprite(810 * 2, 72 * 2, 'setaCounter').setScale(0.7).setVisible(false)
 		this.setaCounterP2 = this.setaCounterP2 || this.add.sprite(810 * 2, 160 * 2, 'setaCounter').setScale(0.7).setVisible(false)
 		this.setaJog1 = this.setaJog1 || this.add.sprite(910 * 2, 736, 'setaP1').setScale(0.4).setVisible(false)
 		this.setaJog2 = this.setaJog2 || this.add.sprite(225, 736, 'setaP1').setScale(0.4).setVisible(false)
-
-		this.setaP2.setVisible(false)
-		this.setaCounterP2.setVisible(false)
-		this.setaP1.setVisible(true)
-		this.setaCounterP1.setVisible(true)
-		this.setaJog1.setVisible(true)
-		this.setaJog2.setVisible(false)
-	}
-
-	atualizaSetas() {
-
 		switch (player) {
+			
 
-			case 2:
+			case 1:
 				this.setaP2.setVisible(false)
 				this.setaCounterP2.setVisible(false)
 				this.setaP1.setVisible(true)
@@ -146,7 +137,7 @@ class Pvp extends Phaser.Scene {
 				this.setaJog2.setVisible(false)
 				break;
 
-			case 1:
+			case 2:
 
 				this.setaP1.setVisible(false)
 				this.setaCounterP1.setVisible(false)
@@ -487,7 +478,6 @@ class Pvp extends Phaser.Scene {
 		textodepJogador1.text = depJogador2
     	textodepJogador2.text = depJogador1
 		possoJogar = true;
-		this.atualizaSetas();
 		},delay*delayCount);
 		
 		        
