@@ -11,7 +11,6 @@ var depJogador2 = 0;
 var check = 0;
 var possoJogar = true;
 var delay = 400;
-var delayCount = 0;
 var howmany = 0;
 
 
@@ -79,7 +78,7 @@ class Pvp extends Phaser.Scene {
 		depJogador1 = 0;
 		depJogador2 = 0;
 		check = 0;
-		state = [3, 2, 1, 8, 7, 6, 2, 2, 2, 2, 2, 2];
+		state = [3, 2, 1, 8, 7, 6, 0, 0, 0, 0, 2, 2];
 		possoJogar = true;
 
 
@@ -137,7 +136,6 @@ class Pvp extends Phaser.Scene {
 		this.setaJog1.setVisible(true)
 		this.setaJog2.setVisible(false)
 	}
-
 
 	atualizaSetas() {
 		this.setaP1 = this.setaP1 || this.add.sprite(1024, 936, 'setaP1').setScale(0.7).setVisible(false)
@@ -302,9 +300,6 @@ class Pvp extends Phaser.Scene {
 		return y
 	}
 
-
-
-
 	terminar() {
 		var res = 1
 		var i;
@@ -352,7 +347,7 @@ class Pvp extends Phaser.Scene {
 		else {
 			if (player === 1) { player = 2 } else { player = 1 }
 		}
-
+		
 	}
 
 	atualizarState(pos) {
@@ -405,8 +400,6 @@ class Pvp extends Phaser.Scene {
 		return state[pos];
 	}
 
-      
-
     setTabuleiro(w,h){
     	// Adiciona o Tabuleiro
 		this.tabuleiro = this.add.sprite(w, h, 'tabuleiro');
@@ -429,9 +422,9 @@ class Pvp extends Phaser.Scene {
 		
     }
 	
-	atualizaPecas(pos,i){
-		if(pos == -1) {return;}
+	atualizaTabuleiro(pos){
 
+		let delayCount = 0;
 		for(let k = 0;k < 12 ; k++){
 			if(sprites[(pos+k)%12].dirty){
 					this.time.delayedCall(delay * delayCount,() =>{
@@ -442,64 +435,65 @@ class Pvp extends Phaser.Scene {
 			}
 			sprites[(pos+k)%12].sprite.dirty= false
 		}
-        
-        setTimeout(()=>{
-		// Recolher as pedras
-		var posfinal = (pos + i - 1) % 12
+	}
 
-		if (player === 1) {
-			while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal > 5 && posfinal < 12) {
-				depJogador1 = depJogador1 + state[posfinal]
-				state[posfinal] = 0;
-				sprites[posfinal].dirty = false;
-				sprites[posfinal].dirtyRec = true;
-				posfinal = posfinal - 1;
-			}
-		}
-
-		//Recolher as pedras para o player 2
-		if (player === 2) {
-			while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal >= 0 && posfinal < 6) {
-				depJogador2 = depJogador2 + state[posfinal]
-				state[posfinal] = 0;
-				sprites[posfinal].dirty = false;
-				sprites[posfinal].dirtyRec = true;
-				posfinal = posfinal - 1;
-
-			}
-		}
-        },delay*delayCount);
+	recolhePecas(pos,i){
 		
-       
+			// Recolher as pedras
+			var posfinal = (pos + i - 1) % 12
 	
-		
-		this.atualizaRecolha();
-		this.atualizaDepositos();
+			if (player === 1) {
+				while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal > 5 && posfinal < 12) {
+					depJogador1 = depJogador1 + state[posfinal]
+					state[posfinal] = 0;
+					sprites[posfinal].dirty = false;
+					sprites[posfinal].dirtyRec = true;
+					posfinal = posfinal - 1;
+				}
+			}
+	
+			//Recolher as pedras para o player 2
+			if (player === 2) {
+				while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal >= 0 && posfinal < 6) {
+					depJogador2 = depJogador2 + state[posfinal]
+					state[posfinal] = 0;
+					sprites[posfinal].dirty = false;
+					sprites[posfinal].dirtyRec = true;
+					posfinal = posfinal - 1;
+	
+				}
+			}	
+	}
+
+	atualizaPecas(pos,i){
+		if(pos == -1) {return;}
+
+		this.atualizaTabuleiro(pos).then(this.recolhePecas(pos,i)).then(this.atualizaRecolha()).then(this.atualizaDepositos());
+
 			
 	}
 
 	atualizaRecolha(){
 		// Coordenadas das imagens dos ovos
-		setTimeout(()=>{
 		let backwards = 5;
+		let delayCount = 0;
+
 		for(let b = 0; b < 12 ; b++){
 			if(sprites[(backwards-b+12)%12].dirtyRec){
 					this.time.delayedCall(delay * delayCount,() =>{
 							console.log(sprites[(backwards-b+12)%12].casa)
 							sprites[(backwards-b+12)%12].sprite.setTexture('i'+state[sprites[(backwards-b+12)%12].casa])
 					})
+					howmany++;
 					delayCount++
 			}
 			sprites[(backwards-b+12)%12].sprite.dirtyRec= false
 		}
-        },delay*delayCount);
+     
 
 	}
 
-
-
 	atualizaDepositos(){
-        setTimeout(()=>{
 			//Adiciona os ovos aos depositos
 		this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
 		this.numerodepJogador1 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
@@ -510,12 +504,8 @@ class Pvp extends Phaser.Scene {
 		this.atualizaSetas();
 		this.afterplay();
 		
-		},delay*delayCount);
-		delayCount = 0;
-		
 	}
    
-
 	clickMenu() {
 		console.log('Menu');
 		scorePlayer1 = 0;
