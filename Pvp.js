@@ -435,6 +435,7 @@ class Pvp extends Phaser.Scene {
 			}
 			sprites[(pos+k)%12].sprite.dirty= false
 		}
+		return Promise.resolve()
 	}
 
 	recolhePecas(pos,i){
@@ -463,6 +464,7 @@ class Pvp extends Phaser.Scene {
 	
 				}
 			}	
+			return Promise.resolve()
 	}
 
 	atualizaPecas(pos,i){
@@ -489,6 +491,7 @@ class Pvp extends Phaser.Scene {
 			}
 			sprites[(backwards-b+12)%12].sprite.dirtyRec= false
 		}
+		return Promise.resolve()
      
 
 	}
