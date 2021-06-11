@@ -421,7 +421,7 @@ class Pvp extends Phaser.Scene {
 		
     }
 	
-	atualizaPecas(pos,i){
+	async atualizaPecas(pos,i){
 		if(pos == -1) {return;}
 		let tempoDist = await this.atualizaTabuleiro(pos);
 		let tempoCalc = await this.recolhePecas(pos,i,tempoDist);
