@@ -475,7 +475,7 @@ class Pvp extends Phaser.Scene {
 		if(pos == -1) {return;}
 		let tempoDist = this.atualizaTabuleiro(pos);
 		let tempoCalc = this.recolhePecas(pos,i,tempoDist);
-		let tempoRec = this.atualizaRecolha(tempoCalc);
+		let tempoRec = this.atualizaRecolha(tempoCalc--);
 		this.atualizaDepositos(tempoRec);
 
 			
@@ -484,6 +484,7 @@ class Pvp extends Phaser.Scene {
 	atualizaRecolha(temp){
 		// Coordenadas das imagens dos ovos
 		let backwards = 5;
+		setTimeout(()=>{
 
 		for(let b = 0; b < 12 ; b++){
 			if(sprites[(backwards-b+12)%12].dirtyRec){
@@ -496,10 +497,12 @@ class Pvp extends Phaser.Scene {
 			}
 			sprites[(backwards-b+12)%12].sprite.dirtyRec= false
 		}
+	},delay*temp);
 		return temp;
      
 
 	}
+
 
 	atualizaDepositos(temp){
 		setTimeout(()=>{
@@ -523,7 +526,6 @@ class Pvp extends Phaser.Scene {
 		depJogador1 = 0;
 		depJogador2 = 0;
         sprites = [];
-		delayCount = 0;
 		this.scene.start('menu');
 	}
 
