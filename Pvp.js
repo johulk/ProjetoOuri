@@ -438,8 +438,8 @@ class Pvp extends Phaser.Scene {
 		return delayCount;
 	}
 
-	recolhePecas(pos,i){
-		
+	recolhePecas(pos,i ,temp){
+		setTimeout(()=>{
 			// Recolher as pedras
 			var posfinal = (pos + i - 1) % 12
 	
@@ -465,14 +465,18 @@ class Pvp extends Phaser.Scene {
 				}
 			}	
 
+		},delay*(temp+1));
+
+		return temp+1
+
 	}
 
 	atualizaPecas(pos,i){
 		if(pos == -1) {return;}
-		tempoDist = this.atualizaTabuleiro(pos);
-		this.recolhePecas(pos,i);
-		tempoRec = this.atualizaRecolha(tempoDist);
-		then(this.atualizaDepositos());
+		let tempoDist = this.atualizaTabuleiro(pos);
+		let tempoCalc = this.recolhePecas(pos,i,tempoDist);
+		let tempoRec = this.atualizaRecolha(tempoCalc);
+		this.atualizaDepositos(tempoRec);
 
 			
 	}
