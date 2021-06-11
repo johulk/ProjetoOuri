@@ -435,7 +435,7 @@ class Pvp extends Phaser.Scene {
 			}
 			sprites[(pos+k)%12].sprite.dirty= false
 		}
-		return Promise.resolve()
+		return delayCount;
 	}
 
 	recolhePecas(pos,i){
@@ -464,39 +464,41 @@ class Pvp extends Phaser.Scene {
 	
 				}
 			}	
-			return Promise.resolve()
+
 	}
 
 	atualizaPecas(pos,i){
 		if(pos == -1) {return;}
-
-		this.atualizaTabuleiro(pos).then(this.recolhePecas(pos,i)).then(this.atualizaRecolha()).then(this.atualizaDepositos());
+		tempoDist = this.atualizaTabuleiro(pos);
+		this.recolhePecas(pos,i);
+		tempoRec = this.atualizaRecolha(tempoDist);
+		then(this.atualizaDepositos());
 
 			
 	}
 
-	atualizaRecolha(){
+	atualizaRecolha(temp){
 		// Coordenadas das imagens dos ovos
 		let backwards = 5;
-		let delayCount = 0;
 
 		for(let b = 0; b < 12 ; b++){
 			if(sprites[(backwards-b+12)%12].dirtyRec){
-					this.time.delayedCall(delay * delayCount,() =>{
+					this.time.delayedCall(delay * temp,() =>{
 							console.log(sprites[(backwards-b+12)%12].casa)
 							sprites[(backwards-b+12)%12].sprite.setTexture('i'+state[sprites[(backwards-b+12)%12].casa])
 					})
 					howmany++;
-					delayCount++
+					temp++
 			}
 			sprites[(backwards-b+12)%12].sprite.dirtyRec= false
 		}
-		return Promise.resolve()
+		return temp;
      
 
 	}
 
-	atualizaDepositos(){
+	atualizaDepositos(temp){
+		setTimeout(()=>{
 			//Adiciona os ovos aos depositos
 		this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
 		this.numerodepJogador1 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
@@ -506,6 +508,7 @@ class Pvp extends Phaser.Scene {
 		this.nextPlayer();
 		this.atualizaSetas();
 		this.afterplay();
+		},delay*temp);
 		
 	}
    
