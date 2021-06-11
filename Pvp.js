@@ -11,7 +11,6 @@ var depJogador2 = 0;
 var check = 0;
 var possoJogar = true;
 var delay = 400;
-var howmany = 0;
 
 
 
@@ -422,7 +421,18 @@ class Pvp extends Phaser.Scene {
 		
     }
 	
-	atualizaTabuleiro(pos){
+	atualizaPecas(pos,i){
+		if(pos == -1) {return;}
+		let tempoDist = await this.atualizaTabuleiro(pos);
+		let tempoCalc = await this.recolhePecas(pos,i,tempoDist);
+		let tempoRec = await this.atualizaRecolha(tempoCalc+1);
+		this.atualizaDepositos(tempoRec);
+
+			
+	}
+
+
+	async atualizaTabuleiro(pos){
 
 		let delayCount = 0;
 		for(let k = 0;k < 12 ; k++){
@@ -438,7 +448,7 @@ class Pvp extends Phaser.Scene {
 		return delayCount;
 	}
 
-	recolhePecas(pos,i ,temp){
+	async recolhePecas(pos,i ,temp){
 		setTimeout(()=>{
 			// Recolher as pedras
 			var posfinal = (pos + i - 1) % 12
@@ -465,25 +475,18 @@ class Pvp extends Phaser.Scene {
 				}
 			}	
 
-		},delay*(temp+1));
+		},delay);
 
-		return temp+1
+		return temp
 
 	}
 
-	atualizaPecas(pos,i){
-		if(pos == -1) {return;}
-		let tempoDist = this.atualizaTabuleiro(pos);
-		let tempoCalc = this.recolhePecas(pos,i,tempoDist);
-		let tempoRec = this.atualizaRecolha(tempoCalc--);
-		this.atualizaDepositos(tempoRec);
 
-			
-	}
-
-	atualizaRecolha(temp){
+	async atualizaRecolha(temp){
 		// Coordenadas das imagens dos ovos
 		let backwards = 5;
+		let tempNew = temp;
+
 		setTimeout(()=>{
 
 		for(let b = 0; b < 12 ; b++){
@@ -492,13 +495,13 @@ class Pvp extends Phaser.Scene {
 							console.log(sprites[(backwards-b+12)%12].casa)
 							sprites[(backwards-b+12)%12].sprite.setTexture('i'+state[sprites[(backwards-b+12)%12].casa])
 					})
-					howmany++;
 					temp++
+					tempNew++
 			}
 			sprites[(backwards-b+12)%12].sprite.dirtyRec= false
 		}
 	},delay*temp);
-		return temp;
+		return tempNew;
      
 
 	}
