@@ -408,7 +408,7 @@ class Pvp extends Phaser.Scene {
 			
 			sprites.push({
 				sprite: this.add.sprite(c.x * 2, c.y * 2,"i"+state[i]).setScale(0.45).setInteractive(),
-				dirty: true,
+				dirty: false,
 				dirtyRec: false,
 				casa : i
 			})
@@ -421,23 +421,28 @@ class Pvp extends Phaser.Scene {
 		
     }
 	
-	async atualizaPecas(pos,i){
-		if(pos == -1) {return;}
-		let tempoDist = await this.atualizaTabuleiro(pos);
-		let tempoCalc = await this.recolhePecas(pos,i,tempoDist);
-		let tempoRec = await this.atualizaRecolha(tempoCalc+1);
-		this.atualizaDepositos(tempoRec);
+atualizaPecas(pos,i){
+        if(pos == -1) {return;}
+        
+        this.atualizaTabuleiro(pos,i);
 
-			
-	}
+            
+    }
 
+	atualizaTabuleiro(pos,i){
 
-	async atualizaTabuleiro(pos){
+		let count = 0;
+		for(let b = 0; b < 12 ; b++){
+			if(sprites[(pos+b)%12].dirty){
+				count++
+			}
+		}
+
 
 		let delayCount = 0;
 		for(let k = 0;k < 12 ; k++){
 			if(sprites[(pos+k)%12].dirty){
-					await this.time.delayedCall(delay * delayCount,() =>{
+					this.time.delayedCall(delay * delayCount,() =>{
 							console.log(sprites[(pos+k)%12].casa)
 							sprites[(pos+k)%12].sprite.setTexture('i'+state[sprites[(pos+k)%12].casa])
 					})
@@ -445,12 +450,17 @@ class Pvp extends Phaser.Scene {
 			}
 			sprites[(pos+k)%12].sprite.dirty= false
 		}
-		return delayCount;
+
+		this.time.delayedCall(delay*(count+1),()=>{
+			this.recolhePecas(pos,i);
+		})
+
 	}
 
-	async recolhePecas(pos,i ,temp){
+	recolhePecas(pos,i){
+    
+    		console.log("ASDASD")
 
-		 setTimeout(()=>{
 			// Recolher as pedras
 			var posfinal = (pos + i - 1) % 12
 	
@@ -476,41 +486,47 @@ class Pvp extends Phaser.Scene {
 				}
 			}	
 
-		},delay);
-
-		return temp
-
+		this.atualizaRecolha();
 	}
 
 
-	async atualizaRecolha(temp){
+	atualizaRecolha(){
 		// Coordenadas das imagens dos ovos
 		let backwards = 5;
-		let tempNew = temp;
+		let count = 0;
+    	console.log(sprites)
 
-		 setTimeout(()=>{
-
+		
 		for(let b = 0; b < 12 ; b++){
 			if(sprites[(backwards-b+12)%12].dirtyRec){
-					 this.time.delayedCall(delay * temp,() =>{
+				count++
+			}
+		}
+		
+		let delayCountRec = 0
+		for(let b = 0; b < 12 ; b++){
+			if(sprites[(backwards-b+12)%12].dirtyRec){
+					 this.time.delayedCall(delay * delayCountRec,() =>{
 							console.log(sprites[(backwards-b+12)%12].casa)
 							sprites[(backwards-b+12)%12].sprite.setTexture('i'+state[sprites[(backwards-b+12)%12].casa])
 					})
-					temp++
-					tempNew++
+					delayCountRec++
+					
 			}
 			sprites[(backwards-b+12)%12].sprite.dirtyRec= false
-		}
-	},delay*temp);
-		return tempNew;
-     
+		}    
 
+
+
+		this.time.delayedCall(delay*(count+1),()=>{
+			this.atualizaDepositos()
+		})
 	}
 
 
-	atualizaDepositos(temp){
-		setTimeout(()=>{
-			//Adiciona os ovos aos depositos
+	atualizaDepositos(){
+		
+		//Adiciona os ovos aos depositos
 		this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
 		this.numerodepJogador1 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
 		textodepJogador1.text = depJogador2
@@ -519,7 +535,7 @@ class Pvp extends Phaser.Scene {
 		this.nextPlayer();
 		this.atualizaSetas();
 		this.afterplay();
-		},delay*temp);
+	
 		
 	}
    
