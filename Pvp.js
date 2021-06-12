@@ -437,7 +437,7 @@ class Pvp extends Phaser.Scene {
 		let delayCount = 0;
 		for(let k = 0;k < 12 ; k++){
 			if(sprites[(pos+k)%12].dirty){
-					this.time.delayedCall(delay * delayCount,() =>{
+					await this.time.delayedCall(delay * delayCount,() =>{
 							console.log(sprites[(pos+k)%12].casa)
 							sprites[(pos+k)%12].sprite.setTexture('i'+state[sprites[(pos+k)%12].casa])
 					})
@@ -449,7 +449,8 @@ class Pvp extends Phaser.Scene {
 	}
 
 	async recolhePecas(pos,i ,temp){
-		setTimeout(()=>{
+
+		 setTimeout(()=>{
 			// Recolher as pedras
 			var posfinal = (pos + i - 1) % 12
 	
@@ -487,11 +488,11 @@ class Pvp extends Phaser.Scene {
 		let backwards = 5;
 		let tempNew = temp;
 
-		setTimeout(()=>{
+		 setTimeout(()=>{
 
 		for(let b = 0; b < 12 ; b++){
 			if(sprites[(backwards-b+12)%12].dirtyRec){
-					this.time.delayedCall(delay * temp,() =>{
+					 this.time.delayedCall(delay * temp,() =>{
 							console.log(sprites[(backwards-b+12)%12].casa)
 							sprites[(backwards-b+12)%12].sprite.setTexture('i'+state[sprites[(backwards-b+12)%12].casa])
 					})
