@@ -28,7 +28,6 @@ var casasPC = [6, 7, 8, 9, 10, 11]
 var casasJogador = [0, 1, 2, 3, 4, 5]
 var possoJogar = true;
 var delay = 400;
-var permsBot = false;
 
 
 var coords = [{x: 337,y: 355}, {x:405,y: 385}, {x:476, y:398}, {x:548, y:398},{x: 620,y: 386}, {x:689, y: 356},
@@ -85,7 +84,6 @@ class Pvc extends Phaser.Scene {
                 check = 0;
                 state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
                 possoJogar = true;
-                permsBot = false;
 
                 scorePlayer = stats.totalWon.slice();
 
@@ -179,19 +177,7 @@ class Pvc extends Phaser.Scene {
                 this.atualizarState(pos);
 
                 if (check === 1) { return; }
-                //console.log(dif)
-                this.time.delayedCall(2000, () => {
-                        if (player === 2 || permsBot == true) {
-
-                                pos = this.dificuldade();
-                                this.atualizarState(pos);
-                                this.atualizaTabuleiro(pos);
-                                this.nextPlayer();
-                                this.atualizaSetas();
-                                this.afterplay();
-
-                        }
-                })
+             
 
 
         }
@@ -639,12 +625,12 @@ class Pvc extends Phaser.Scene {
                         if (player === 1)
                                 {
                                  player = 2
-                                 permsBot = false;
                                  this.perm = this.add.sprite(1024,600, 'perms').setInteractive();
                                  this.perm.key = -1;
                                  this.perm.depth = 10;
                                  this.perm.on('pointerdown', () => this.clickPerms(this.perm));
                                  this.perm.setScale(1.3)
+
                                 } 
                         
                         else { player = 1 }
@@ -984,8 +970,8 @@ class Pvc extends Phaser.Scene {
                 this.scene.start('menu');
         }
         clickPerms(permObject) {
-                console.log('Perms dadas');
-                permsBot = true;
+                var pos = this.dificuldade();
+                this.atualizarState(pos);
                 permObject.setVisible(false);                
         }
 
