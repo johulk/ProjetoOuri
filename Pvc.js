@@ -488,7 +488,7 @@ class Pvc extends Phaser.Scene {
                 if (check === 1) {
 
                         var vencedor = this.terminar(state, depJogador, depComputador, false)
-                        
+
                         this.time.delayedCall(1000, () => {
                                 
                                 switch (vencedor) {
@@ -640,7 +640,7 @@ class Pvc extends Phaser.Scene {
                                 {
                                  player = 2
                                  permsBot = false;
-                                 this.perm = this.add.sprite( w,h, 'perms').setInteractive();
+                                 this.perm = this.add.sprite(1024,600, 'perms').setInteractive();
                                  this.perm.key = -1;
                                  this.perm.depth = 10;
                                  this.perm.on('pointerdown', () => this.clickPerms(this.perm));
