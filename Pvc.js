@@ -79,10 +79,10 @@ class Pvc extends Phaser.Scene {
                 this.computadorScore.setScale(0.75)
                 // Inicializar
                 player = 1;
-                depJogador = 0;
+                depJogador =25;
                 depComputador = 0;
                 check = 0;
-                state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
+                state = [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0];
                 possoJogar = true;
 
                 scorePlayer = stats.totalWon.slice();
@@ -104,8 +104,8 @@ class Pvc extends Phaser.Scene {
 
                 textP = this.add.text(915 * 2, 52 * 2, scorePInt, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
                 textC = this.add.text(915 * 2, 140 * 2, scoreCInt, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
-                textdepComputador = this.add.text(1438, 585, depJogador, { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
-                textdepJogador = this.add.text(580, 585, depComputador, { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
+                textdepComputador = this.add.text(580, 585, depComputador, { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
+                textdepJogador = this.add.text(1438, 585, depJogador, { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
                 textdepComputador.setDepth(8888)
                 textdepJogador.setDepth(8888)
 
@@ -266,7 +266,7 @@ class Pvc extends Phaser.Scene {
 
                 if (player === 1) {
                         while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal > 5 && posfinal < 12) {
-                                depJogador1 = depJogador1 + state[posfinal]
+                                depJogador = depJogador + state[posfinal]
                                 state[posfinal] = 0;
                                 sprites[posfinal].dirty = false;
                                 sprites[posfinal].dirtyRec = true;
@@ -277,7 +277,7 @@ class Pvc extends Phaser.Scene {
                 //Recolher as pedras para o player 2
                 if (player === 2) {
                         while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal >= 0 && posfinal < 6) {
-                                depJogador2 = depJogador2 + state[posfinal]
+                                depComputador =  depComputador + state[posfinal]
                                 state[posfinal] = 0;
                                 sprites[posfinal].dirty = false;
                                 sprites[posfinal].dirtyRec = true;
@@ -326,6 +326,9 @@ class Pvc extends Phaser.Scene {
         atualizaDepositos() {
 
                 //Adiciona os ovos aos depositos
+                console.log(depJogador + "ATUALZIA");
+                console.log(depComputador+ "ATUALZIA");
+
                 this.numerodepComputador = this.add.sprite(240 * 2, 300 * 2, 'i' + depComputador).setScale(0.6)
                 this.numerodepJogador = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador).setScale(0.6)
                 textdepComputador.text = depComputador
@@ -475,7 +478,7 @@ class Pvc extends Phaser.Scene {
 
                         var vencedor = this.terminar(state, depJogador, depComputador, false)
 
-                        this.time.delayedCall(1000, () => {
+                        this.time.delayedCall(5000, () => {
                                 
                                 switch (vencedor) {
                                 case 1:
@@ -499,9 +502,8 @@ class Pvc extends Phaser.Scene {
                                         this.quadroEmpate = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "empate").setScale(1.4).setDepth(8889);;
                                         break;
                                 }
-                        })
-                        
-                        
+
+                                
                         textP.text = scorePlayer[dif];
                         textC.text = scoreComputador[dif];
 
@@ -526,6 +528,12 @@ class Pvc extends Phaser.Scene {
                         this.forward.key = -1
                         this.forward.depth = 8890
 
+                        console.log(depJogador);
+                        console.log(depComputador);
+
+                        })
+                        
+                        
                 }
 
         }
@@ -587,8 +595,8 @@ class Pvc extends Phaser.Scene {
 
                 if (depTerminadoJogador === depTerminadoComputador) { res = 3 }
                 if (!isSimulado) {
-                        this.numerodepJogador = this.add.sprite(240 * 2, 300 * 2, 'i' + depTerminadoJogador).setScale(0.6)
-                        this.numerodepComputador = this.add.sprite(790 * 2, 300 * 2, 'i' + depTerminadoComputador).setScale(0.6)
+                        this.numerodepJogador = this.add.sprite(790 * 2, 300 * 2, 'i' + depTerminadoJogador).setScale(0.6)
+                        this.numerodepComputador = this.add.sprite(240 * 2, 300 * 2, 'i' + depTerminadoComputador).setScale(0.6)
                 }
 
                 return res
@@ -966,6 +974,8 @@ class Pvc extends Phaser.Scene {
         clickMenu() {
                 console.log('Menu');
                 this.saveStats();
+                depComputador = 0;
+		        depJogador = 0;
                 sprites = [];
                 this.scene.start('menu');
         }

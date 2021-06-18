@@ -77,7 +77,7 @@ class Pvp extends Phaser.Scene {
 		depJogador1 = 0;
 		depJogador2 = 0;
 		check = 0;
-		state = [3, 2, 1, 8, 7, 6, 0, 0, 0, 0, 2, 2];
+		state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
 		possoJogar = true;
 
 
