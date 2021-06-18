@@ -30,8 +30,8 @@ var possoJogar = true;
 var delay = 400;
 
 
-var coords = [{x: 337,y: 355}, {x:405,y: 385}, {x:476, y:398}, {x:548, y:398},{x: 620,y: 386}, {x:689, y: 356},
-	{x:689, y: 246}, {x:620, y: 215}, {x:548, y: 205},{x: 476, y: 205}, {x:405,y:  215}, {x:337,y:  246}];
+var coords = [{ x: 337, y: 355 }, { x: 405, y: 385 }, { x: 476, y: 398 }, { x: 548, y: 398 }, { x: 620, y: 386 }, { x: 689, y: 356 },
+{ x: 689, y: 246 }, { x: 620, y: 215 }, { x: 548, y: 205 }, { x: 476, y: 205 }, { x: 405, y: 215 }, { x: 337, y: 246 }];
 
 
 
@@ -79,10 +79,10 @@ class Pvc extends Phaser.Scene {
                 this.computadorScore.setScale(0.75)
                 // Inicializar
                 player = 1;
-                depJogador =25;
+                depJogador = 0;
                 depComputador = 0;
                 check = 0;
-                state = [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
                 possoJogar = true;
 
                 scorePlayer = stats.totalWon.slice();
@@ -124,37 +124,37 @@ class Pvc extends Phaser.Scene {
 
 
         }
-        
-	atualizaSetas() {
-		this.setaP1 = this.setaP1 || this.add.sprite(1024, 936, 'setaP1').setScale(0.7).setVisible(false)
-		this.setaP2 = this.setaP2 || this.add.sprite(1024, 100, 'setaP2').setScale(0.7).setVisible(false)
-		this.setaCounterP1 = this.setaCounterP1 || this.add.sprite(810 * 2, 72 * 2, 'setaCounter').setScale(0.7).setVisible(false)
-		this.setaCounterP2 = this.setaCounterP2 || this.add.sprite(810 * 2, 160 * 2, 'setaCounter').setScale(0.7).setVisible(false)
-		this.setaJog1 = this.setaJog1 || this.add.sprite(910 * 2, 736, 'setaP1').setScale(0.4).setVisible(false)
-		this.setaJog2 = this.setaJog2 || this.add.sprite(225, 736, 'setaP1').setScale(0.4).setVisible(false)
-		switch (player) {
-			
 
-			case 1:
-				this.setaP2.setVisible(false)
-				this.setaCounterP2.setVisible(false)
-				this.setaP1.setVisible(true)
-				this.setaCounterP1.setVisible(true)
-				this.setaJog1.setVisible(true)
-				this.setaJog2.setVisible(false)
-				break;
+        atualizaSetas() {
+                this.setaP1 = this.setaP1 || this.add.sprite(1024, 936, 'setaP1').setScale(0.7).setVisible(false)
+                this.setaP2 = this.setaP2 || this.add.sprite(1024, 100, 'setaP2').setScale(0.7).setVisible(false)
+                this.setaCounterP1 = this.setaCounterP1 || this.add.sprite(810 * 2, 72 * 2, 'setaCounter').setScale(0.7).setVisible(false)
+                this.setaCounterP2 = this.setaCounterP2 || this.add.sprite(810 * 2, 160 * 2, 'setaCounter').setScale(0.7).setVisible(false)
+                this.setaJog1 = this.setaJog1 || this.add.sprite(910 * 2, 736, 'setaP1').setScale(0.4).setVisible(false)
+                this.setaJog2 = this.setaJog2 || this.add.sprite(225, 736, 'setaP1').setScale(0.4).setVisible(false)
+                switch (player) {
 
-			case 2:
 
-				this.setaP1.setVisible(false)
-				this.setaCounterP1.setVisible(false)
-				this.setaP2.setVisible(true)
-				this.setaCounterP2.setVisible(true)
-				this.setaJog1.setVisible(false)
-				this.setaJog2.setVisible(true)
-				break
-		}
-	}
+                        case 1:
+                                this.setaP2.setVisible(false)
+                                this.setaCounterP2.setVisible(false)
+                                this.setaP1.setVisible(true)
+                                this.setaCounterP1.setVisible(true)
+                                this.setaJog1.setVisible(true)
+                                this.setaJog2.setVisible(false)
+                                break;
+
+                        case 2:
+
+                                this.setaP1.setVisible(false)
+                                this.setaCounterP1.setVisible(false)
+                                this.setaP2.setVisible(true)
+                                this.setaCounterP2.setVisible(true)
+                                this.setaJog1.setVisible(false)
+                                this.setaJog2.setVisible(true)
+                                break
+                }
+        }
 
         jogada(pointer, gameObject) {
                 // Impedir jogada quando se clica no home
@@ -177,7 +177,7 @@ class Pvc extends Phaser.Scene {
                 this.atualizarState(pos);
 
                 if (check === 1) { return; }
-             
+
 
 
         }
@@ -204,25 +204,25 @@ class Pvc extends Phaser.Scene {
 
         }
 
-        
-	setSetas(){
 
-		
-		this.setaP1 = this.setaP1 || this.add.sprite(1024, 936, 'setaP1').setScale(0.7).setVisible(false)
-		this.setaP2 = this.setaP2 || this.add.sprite(1024, 100, 'setaP2').setScale(0.7).setVisible(false)
-		this.setaCounterP1 = this.setaCounterP1 || this.add.sprite(810 * 2, 72 * 2, 'setaCounter').setScale(0.7).setVisible(false)
-		this.setaCounterP2 = this.setaCounterP2 || this.add.sprite(810 * 2, 160 * 2, 'setaCounter').setScale(0.7).setVisible(false)
-		this.setaJog1 = this.setaJog1 || this.add.sprite(910 * 2, 736, 'setaP1').setScale(0.4).setVisible(false)
-		this.setaJog2 = this.setaJog2 || this.add.sprite(225, 736, 'setaP1').setScale(0.4).setVisible(false)
+        setSetas() {
 
 
-		this.setaP2.setVisible(false)
-		this.setaCounterP2.setVisible(false)
-		this.setaP1.setVisible(true)
-		this.setaCounterP1.setVisible(true)
-		this.setaJog1.setVisible(true)
-		this.setaJog2.setVisible(false)
-	}
+                this.setaP1 = this.setaP1 || this.add.sprite(1024, 936, 'setaP1').setScale(0.7).setVisible(false)
+                this.setaP2 = this.setaP2 || this.add.sprite(1024, 100, 'setaP2').setScale(0.7).setVisible(false)
+                this.setaCounterP1 = this.setaCounterP1 || this.add.sprite(810 * 2, 72 * 2, 'setaCounter').setScale(0.7).setVisible(false)
+                this.setaCounterP2 = this.setaCounterP2 || this.add.sprite(810 * 2, 160 * 2, 'setaCounter').setScale(0.7).setVisible(false)
+                this.setaJog1 = this.setaJog1 || this.add.sprite(910 * 2, 736, 'setaP1').setScale(0.4).setVisible(false)
+                this.setaJog2 = this.setaJog2 || this.add.sprite(225, 736, 'setaP1').setScale(0.4).setVisible(false)
+
+
+                this.setaP2.setVisible(false)
+                this.setaCounterP2.setVisible(false)
+                this.setaP1.setVisible(true)
+                this.setaCounterP1.setVisible(true)
+                this.setaJog1.setVisible(true)
+                this.setaJog2.setVisible(false)
+        }
 
 
 
@@ -277,7 +277,7 @@ class Pvc extends Phaser.Scene {
                 //Recolher as pedras para o player 2
                 if (player === 2) {
                         while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal >= 0 && posfinal < 6) {
-                                depComputador =  depComputador + state[posfinal]
+                                depComputador = depComputador + state[posfinal]
                                 state[posfinal] = 0;
                                 sprites[posfinal].dirty = false;
                                 sprites[posfinal].dirtyRec = true;
@@ -327,7 +327,7 @@ class Pvc extends Phaser.Scene {
 
                 //Adiciona os ovos aos depositos
                 console.log(depJogador + "ATUALZIA");
-                console.log(depComputador+ "ATUALZIA");
+                console.log(depComputador + "ATUALZIA");
 
                 this.numerodepComputador = this.add.sprite(240 * 2, 300 * 2, 'i' + depComputador).setScale(0.6)
                 this.numerodepJogador = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador).setScale(0.6)
@@ -479,61 +479,61 @@ class Pvc extends Phaser.Scene {
                         var vencedor = this.terminar(state, depJogador, depComputador, false)
 
                         this.time.delayedCall(5000, () => {
-                                
+
                                 switch (vencedor) {
-                                case 1:
-                                        scorePInt += 1;
-                                        scorePlayer[dif] = scorePInt;
-                                        scoreComputador[dif] = scoreCInt;
-                                        stats.totalGames[dif] += 1
-                                        stats.totalWon[dif] += 1
+                                        case 1:
+                                                scorePInt += 1;
+                                                scorePlayer[dif] = scorePInt;
+                                                scoreComputador[dif] = scoreCInt;
+                                                stats.totalGames[dif] += 1
+                                                stats.totalWon[dif] += 1
 
-                                        this.quadroP1W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP1").setScale(1.4).setDepth(8889);
-                                        break;
+                                                this.quadroP1W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP1").setScale(1.4).setDepth(8889);
+                                                break;
 
-                                case 2:
-                                        scoreCInt += 1;
-                                        scorePlayer[dif] = scorePInt;
-                                        scoreComputador[dif] = scoreCInt;
-                                        stats.totalGames[dif] += 1
-                                        this.quadroCW = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouC").setScale(1.4).setDepth(8889);;
-                                        break;
-                                case 3:
-                                        this.quadroEmpate = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "empate").setScale(1.4).setDepth(8889);;
-                                        break;
+                                        case 2:
+                                                scoreCInt += 1;
+                                                scorePlayer[dif] = scorePInt;
+                                                scoreComputador[dif] = scoreCInt;
+                                                stats.totalGames[dif] += 1
+                                                this.quadroCW = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouC").setScale(1.4).setDepth(8889);;
+                                                break;
+                                        case 3:
+                                                this.quadroEmpate = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "empate").setScale(1.4).setDepth(8889);;
+                                                break;
                                 }
 
-                                
-                        textP.text = scorePlayer[dif];
-                        textC.text = scoreComputador[dif];
 
-                        //Fechar
-                        this.close = this.add.sprite(2 * (config.width / 4 + config.width / 24 + config.width / 150), 2 * (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98), 'close').setInteractive();
-                        this.close.on('pointerdown', () => { this.clickMenu() });
-                        this.close.setScale(0.62 * 2)
-                        this.close.key = -1
-                        this.close.depth = 8890
+                                textP.text = scorePlayer[dif];
+                                textC.text = scoreComputador[dif];
+
+                                //Fechar
+                                this.close = this.add.sprite(2 * (config.width / 4 + config.width / 24 + config.width / 150), 2 * (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98), 'close').setInteractive();
+                                this.close.on('pointerdown', () => { this.clickMenu() });
+                                this.close.setScale(0.62 * 2)
+                                this.close.key = -1
+                                this.close.depth = 8890
 
 
-                        //Forwards
-                        this.forward = this.add.sprite((config.width - config.width / 4 - config.width / 24 - config.width / 150) * 2, (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98) * 2, 'forward').setInteractive();
-                        this.forward.on('pointerdown', () => {
-                                this.scene.start("pvc")
-                                sprites = [];
-                                textdepJogador.text = "0"
-                                textdepComputador.text = "0"
+                                //Forwards
+                                this.forward = this.add.sprite((config.width - config.width / 4 - config.width / 24 - config.width / 150) * 2, (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98) * 2, 'forward').setInteractive();
+                                this.forward.on('pointerdown', () => {
+                                        this.scene.start("pvc")
+                                        sprites = [];
+                                        textdepJogador.text = "0"
+                                        textdepComputador.text = "0"
 
-                        });
-                        this.forward.setScale(0.62 * 2)
-                        this.forward.key = -1
-                        this.forward.depth = 8890
+                                });
+                                this.forward.setScale(0.62 * 2)
+                                this.forward.key = -1
+                                this.forward.depth = 8890
 
-                        console.log(depJogador);
-                        console.log(depComputador);
+                                console.log(depJogador);
+                                console.log(depComputador);
 
                         })
-                        
-                        
+
+
                 }
 
         }
@@ -630,17 +630,16 @@ class Pvc extends Phaser.Scene {
 
                 // Se nenhum tiver o tabuleiro vazio alterna-se as jogadas
                 else {
-                        if (player === 1)
-                                {
-                                 player = 2
-                                 this.perm = this.add.sprite(1024,600, 'perms').setInteractive();
-                                 this.perm.key = -1;
-                                 this.perm.depth = 10;
-                                 this.perm.on('pointerdown', () => this.clickPerms(this.perm));
-                                 this.perm.setScale(1.3)
+                        if (player === 1) {
+                                player = 2
+                                this.perm = this.add.sprite(1024, 600, 'perms').setInteractive();
+                                this.perm.key = -1;
+                                this.perm.depth = 10;
+                                this.perm.on('pointerdown', () => this.clickPerms(this.perm));
+                                this.perm.setScale(1.3)
 
-                                } 
-                        
+                        }
+
                         else { player = 1 }
                 }
 
@@ -975,14 +974,14 @@ class Pvc extends Phaser.Scene {
                 console.log('Menu');
                 this.saveStats();
                 depComputador = 0;
-		        depJogador = 0;
+                depJogador = 0;
                 sprites = [];
                 this.scene.start('menu');
         }
         clickPerms(permObject) {
                 var pos = this.dificuldade();
                 this.atualizarState(pos);
-                permObject.setVisible(false);                
+                permObject.setVisible(false);
         }
 
 

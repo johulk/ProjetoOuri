@@ -14,8 +14,8 @@ var delay = 400;
 
 
 
-var coords = [{x: 337,y: 355}, {x:405,y: 385}, {x:476, y:398}, {x:548, y:398},{x: 620,y: 386}, {x:689, y: 356},
-	{x:689, y: 246}, {x:620, y: 215}, {x:548, y: 205},{x: 476, y: 205}, {x:405,y:  215}, {x:337,y:  246}];
+var coords = [{ x: 337, y: 355 }, { x: 405, y: 385 }, { x: 476, y: 398 }, { x: 548, y: 398 }, { x: 620, y: 386 }, { x: 689, y: 356 },
+{ x: 689, y: 246 }, { x: 620, y: 215 }, { x: 548, y: 205 }, { x: 476, y: 205 }, { x: 405, y: 215 }, { x: 337, y: 246 }];
 
 
 class Pvp extends Phaser.Scene {
@@ -28,7 +28,7 @@ class Pvp extends Phaser.Scene {
 		var w = config.width;
 		var h = config.height;
 		this.scale.lockOrientation('landscape')
-		
+
 		// User Interface
 		this.background = this.add.sprite(w, h, "background_2");
 		this.background.displayWidth = 1024 * 2;
@@ -60,10 +60,10 @@ class Pvp extends Phaser.Scene {
 
 		textP1 = this.add.text(915 * 2, 52 * 2, scorePlayer1, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
 		textP2 = this.add.text(915 * 2, 140 * 2, scorePlayer2, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
-		textodepJogador2 = this.add.text(1438, 585, depJogador1 , { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
-        textodepJogador1 = this.add.text(580, 585, depJogador2 , { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
-        textodepJogador2.setDepth(8888)
-        textodepJogador1.setDepth(8888) 
+		textodepJogador2 = this.add.text(1438, 585, depJogador1, { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
+		textodepJogador1 = this.add.text(580, 585, depJogador2, { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
+		textodepJogador2.setDepth(8888)
+		textodepJogador1.setDepth(8888)
 
 		this.setaP1 = this.add.sprite(1024, 936, 'setaP1').setScale(0.7).setVisible(false)
 		this.setaP2 = this.add.sprite(1024, 250, 'setaP2').setScale(0.7).setVisible(false)
@@ -74,10 +74,10 @@ class Pvp extends Phaser.Scene {
 
 		// Inicializar
 		player = 1;
-		depJogador1 = 0;
+		depJogador1 = 25;
 		depJogador2 = 0;
 		check = 0;
-		state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
+		state = [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 		possoJogar = true;
 
 
@@ -90,14 +90,14 @@ class Pvp extends Phaser.Scene {
 
 	}
 
-	jogada(pointer,gameObject) {
+	jogada(pointer, gameObject) {
 		// Impedir jogada quando se clica no home
-		
-		if (gameObject.key == -1 || possoJogar == false){return}
-    
-        console.log(gameObject.key);
-        var pos = gameObject.key;
-        			
+
+		if (gameObject.key == -1 || possoJogar == false) { return }
+
+		console.log(gameObject.key);
+		var pos = gameObject.key;
+
 
 		// Impedir que um jogador jogue no campo errado
 		if ((player === 1 && pos > 5) || (player === 2 && pos < 6)) { return; }
@@ -112,13 +112,13 @@ class Pvp extends Phaser.Scene {
 
 		// A jogada e valida e pode começar
 		this.atualizarState(pos);
-	
-		
+
+
 	}
 
-	setSetas(){
+	setSetas() {
 
-		
+
 		this.setaP1 = this.setaP1 || this.add.sprite(1024, 936, 'setaP1').setScale(0.7).setVisible(false)
 		this.setaP2 = this.setaP2 || this.add.sprite(1024, 100, 'setaP2').setScale(0.7).setVisible(false)
 		this.setaCounterP1 = this.setaCounterP1 || this.add.sprite(810 * 2, 72 * 2, 'setaCounter').setScale(0.7).setVisible(false)
@@ -143,7 +143,7 @@ class Pvp extends Phaser.Scene {
 		this.setaJog1 = this.setaJog1 || this.add.sprite(910 * 2, 736, 'setaP1').setScale(0.4).setVisible(false)
 		this.setaJog2 = this.setaJog2 || this.add.sprite(225, 736, 'setaP1').setScale(0.4).setVisible(false)
 		switch (player) {
-			
+
 
 			case 1:
 				this.setaP2.setVisible(false)
@@ -177,7 +177,7 @@ class Pvp extends Phaser.Scene {
 				}
 			}
 		}
-		
+
 		var y = 0;
 		var i = 0;
 
@@ -204,7 +204,7 @@ class Pvp extends Phaser.Scene {
 
 			}
 			else {
-				
+
 				if (vencedor === 1) {
 					scorePlayer1 = scorePlayer1 + 1;
 				}
@@ -218,47 +218,44 @@ class Pvp extends Phaser.Scene {
 			textP2.text = scorePlayer2;
 
 			//Apresentar desforra
-			switch (vencedor) {
-				case 1:
-					this.quadroP1W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP1").setScale(1.4).setDepth(8889);;
+			this.time.delayedCall(5000, () => {
+				switch (vencedor) {
+					case 1:
+						this.quadroP1W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP1").setScale(1.4).setDepth(8889);;
 
-					break;
+						break;
 
-				case 2:
-					this.quadroP2W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP2").setScale(1.4).setDepth(8889);;
+					case 2:
+						this.quadroP2W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP2").setScale(1.4).setDepth(8889);;
 
-					break;
-				case 3:
-					this.quadroEmpate = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "empate").setScale(1.4).setDepth(8889);;
-					break;
+						break;
+					case 3:
+						this.quadroEmpate = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "empate").setScale(1.4).setDepth(8889);;
+						break;
 
-			}
+				}
 
-			//Fechar
-			this.close = this.add.sprite(2 * (config.width / 4 + config.width / 24 + config.width / 150), 2 * (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98), 'close').setInteractive();
-			this.close.on('pointerdown', () => { this.clickMenu() });
-			this.close.setScale(0.62 * 2)
-			this.close.key = -1
-			this.close.depth = 8890
+				//Fechar
+				this.close = this.add.sprite(2 * (config.width / 4 + config.width / 24 + config.width / 150), 2 * (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98), 'close').setInteractive();
+				this.close.on('pointerdown', () => { this.clickMenu() });
+				this.close.setScale(0.62 * 2)
+				this.close.key = -1
+				this.close.depth = 8890
 
-			//Forwards
-			this.forward = this.add.sprite((config.width - config.width / 4 - config.width / 24 - config.width / 150) * 2, (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98) * 2, 'forward').setInteractive();
-			this.forward.on('pointerdown', () => {
-				sprites = [];
-				textodepJogador1.text = "0"
-    			textodepJogador2.text = "0"
-				this.scene.start("pvp");
-				
-
-		});
-			this.forward.setScale(0.62 * 2)
-			this.forward.key = -1
-			this.forward.depth = 8890
+				//Forwards
+				this.forward = this.add.sprite((config.width - config.width / 4 - config.width / 24 - config.width / 150) * 2, (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98) * 2, 'forward').setInteractive();
+				this.forward.on('pointerdown', () => {
+					sprites = [];
+					textodepJogador1.text = "0"
+					textodepJogador2.text = "0"
+					this.scene.start("pvp");
+				});
+				this.forward.setScale(0.62 * 2)
+				this.forward.key = -1
+				this.forward.depth = 8890
+			});
+			//Atualiza indicadores de score
 		}
-		//Atualiza indicadores de score
-
-
-
 	}
 
 	popularOponente(pos) {
@@ -313,7 +310,7 @@ class Pvp extends Phaser.Scene {
 		if (depJogador1 > depJogador2) { res = 1 }
 		else { res = 2 }
 		this.numerodepJogador1 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
-        this.numerodepJogador2 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
+		this.numerodepJogador2 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
 		return res
 	}
 
@@ -345,11 +342,11 @@ class Pvp extends Phaser.Scene {
 		else {
 			if (player === 1) { player = 2 } else { player = 1 }
 		}
-		
+
 	}
 
 	atualizarState(pos) {
-    
+
 		var valor = state[pos];
 
 		possoJogar = false;
@@ -367,7 +364,7 @@ class Pvp extends Phaser.Scene {
 				valor--;
 			}
 		}
-		this.atualizaPecas(pos,i);
+		this.atualizaPecas(pos, i);
 
 	}
 
@@ -398,147 +395,147 @@ class Pvp extends Phaser.Scene {
 		return state[pos];
 	}
 
-    setTabuleiro(w,h){
-    	// Adiciona o Tabuleiro
+	setTabuleiro(w, h) {
+		// Adiciona o Tabuleiro
 		this.tabuleiro = this.add.sprite(w, h, 'tabuleiro');
 		this.tabuleiro.setScale(2)
-        var i = 0;
+		var i = 0;
 		coords.forEach(c => {
-			
+
 			sprites.push({
-				sprite: this.add.sprite(c.x * 2, c.y * 2,"i"+state[i]).setScale(0.45).setInteractive(),
+				sprite: this.add.sprite(c.x * 2, c.y * 2, "i" + state[i]).setScale(0.45).setInteractive(),
 				dirty: false,
 				dirtyRec: false,
-				casa : i
+				casa: i
 			})
-            i++;
+			i++;
 		})
 
-		sprites.forEach(spr =>{spr.sprite.key = spr.casa})
-	
-		this.atualizaPecas(-1)
-		
-    }
-	
-atualizaPecas(pos,i){
-        if(pos == -1) {return;}
-        this.atualizaTabuleiro(pos,i);            
-    }
+		sprites.forEach(spr => { spr.sprite.key = spr.casa })
 
-	atualizaTabuleiro(pos,i){
+		this.atualizaPecas(-1)
+
+	}
+
+	atualizaPecas(pos, i) {
+		if (pos == -1) { return; }
+		this.atualizaTabuleiro(pos, i);
+	}
+
+	atualizaTabuleiro(pos, i) {
 
 		let count = 0;
-		for(let b = 0; b < 12 ; b++){
-			if(sprites[(pos+b)%12].dirty){
+		for (let b = 0; b < 12; b++) {
+			if (sprites[(pos + b) % 12].dirty) {
 				count++
 			}
 		}
 
 
 		let delayCount = 0;
-		for(let k = 0;k < 12 ; k++){
-			if(sprites[(pos+k)%12].dirty){
-					this.time.delayedCall(delay * delayCount,() =>{
-							sprites[(pos+k)%12].sprite.setTexture('i'+state[sprites[(pos+k)%12].casa])
-					})
-					delayCount++
+		for (let k = 0; k < 12; k++) {
+			if (sprites[(pos + k) % 12].dirty) {
+				this.time.delayedCall(delay * delayCount, () => {
+					sprites[(pos + k) % 12].sprite.setTexture('i' + state[sprites[(pos + k) % 12].casa])
+				})
+				delayCount++
 			}
-			sprites[(pos+k)%12].sprite.dirty= false
+			sprites[(pos + k) % 12].sprite.dirty = false
 		}
 
-		this.time.delayedCall(delay*(count+1),()=>{
-			this.recolhePecas(pos,i);
+		this.time.delayedCall(delay * (count + 1), () => {
+			this.recolhePecas(pos, i);
 		})
 
 	}
 
-	recolhePecas(pos,i){
-    
+	recolhePecas(pos, i) {
 
-			// Recolher as pedras
-			var posfinal = (pos + i - 1) % 12
-	
-			if (player === 1) {
-				while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal > 5 && posfinal < 12) {
-					depJogador1 = depJogador1 + state[posfinal]
-					state[posfinal] = 0;
-					sprites[posfinal].dirty = false;
-					sprites[posfinal].dirtyRec = true;
-					posfinal = posfinal - 1;
-				}
+
+		// Recolher as pedras
+		var posfinal = (pos + i - 1) % 12
+
+		if (player === 1) {
+			while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal > 5 && posfinal < 12) {
+				depJogador1 = depJogador1 + state[posfinal]
+				state[posfinal] = 0;
+				sprites[posfinal].dirty = false;
+				sprites[posfinal].dirtyRec = true;
+				posfinal = posfinal - 1;
 			}
-	
-			//Recolher as pedras para o player 2
-			if (player === 2) {
-				while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal >= 0 && posfinal < 6) {
-					depJogador2 = depJogador2 + state[posfinal]
-					state[posfinal] = 0;
-					sprites[posfinal].dirty = false;
-					sprites[posfinal].dirtyRec = true;
-					posfinal = posfinal - 1;
-	
-				}
-			}	
+		}
+
+		//Recolher as pedras para o player 2
+		if (player === 2) {
+			while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal >= 0 && posfinal < 6) {
+				depJogador2 = depJogador2 + state[posfinal]
+				state[posfinal] = 0;
+				sprites[posfinal].dirty = false;
+				sprites[posfinal].dirtyRec = true;
+				posfinal = posfinal - 1;
+
+			}
+		}
 
 		this.atualizaRecolha();
 	}
 
 
-	atualizaRecolha(){
+	atualizaRecolha() {
 		// Coordenadas das imagens dos ovos
 		let backwards = 5;
 		let count = 0;
-    	console.log(sprites)
+		console.log(sprites)
 
-		
-		for(let b = 0; b < 12 ; b++){
-			if(sprites[(backwards-b+12)%12].dirtyRec){
+
+		for (let b = 0; b < 12; b++) {
+			if (sprites[(backwards - b + 12) % 12].dirtyRec) {
 				count++
 			}
 		}
-		
+
 		let delayCountRec = 0
-		for(let b = 0; b < 12 ; b++){
-			if(sprites[(backwards-b+12)%12].dirtyRec){
-					 this.time.delayedCall(delay * delayCountRec,() =>{
-							sprites[(backwards-b+12)%12].sprite.setTexture('i'+state[sprites[(backwards-b+12)%12].casa])
-					})
-					delayCountRec++
-					
+		for (let b = 0; b < 12; b++) {
+			if (sprites[(backwards - b + 12) % 12].dirtyRec) {
+				this.time.delayedCall(delay * delayCountRec, () => {
+					sprites[(backwards - b + 12) % 12].sprite.setTexture('i' + state[sprites[(backwards - b + 12) % 12].casa])
+				})
+				delayCountRec++
+
 			}
-			sprites[(backwards-b+12)%12].sprite.dirtyRec= false
-		}    
+			sprites[(backwards - b + 12) % 12].sprite.dirtyRec = false
+		}
 
 
 
-		this.time.delayedCall(delay*(count+1),()=>{
+		this.time.delayedCall(delay * (count + 1), () => {
 			this.atualizaDepositos()
 		})
 	}
 
 
-	atualizaDepositos(){
-		
+	atualizaDepositos() {
+
 		//Adiciona os ovos aos depositos
 		this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
 		this.numerodepJogador1 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
 		textodepJogador1.text = depJogador2
-    	textodepJogador2.text = depJogador1
+		textodepJogador2.text = depJogador1
 		possoJogar = true;
 		this.nextPlayer();
 		this.atualizaSetas();
 		this.afterplay();
-	
-		
+
+
 	}
-   
+
 	clickMenu() {
 		console.log('Menu');
 		scorePlayer1 = 0;
 		scorePlayer2 = 0;
 		depJogador1 = 0;
 		depJogador2 = 0;
-        sprites = [];
+		sprites = [];
 		this.scene.start('menu');
 	}
 
