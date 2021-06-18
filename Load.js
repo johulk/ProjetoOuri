@@ -53,6 +53,8 @@ class Load extends Phaser.Scene {
         this.load.image('medium', 'img_menu/button_medium.png');
         this.load.image('hard', 'img_menu/button_hard.png');
 
+        this.load.image('perms', 'img_menu/perms.png');
+
         //Elements
         this.load.image('ouri', 'img_menu/titulo.png');
         this.load.image('p1', 'img_menu/pinto01.png');

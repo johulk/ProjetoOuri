@@ -112,8 +112,7 @@ class Pvp extends Phaser.Scene {
 
 		// A jogada e valida e pode começar
 		this.atualizarState(pos);
-
-		
+	
 		
 	}
 
@@ -423,10 +422,7 @@ class Pvp extends Phaser.Scene {
 	
 atualizaPecas(pos,i){
         if(pos == -1) {return;}
-        
-        this.atualizaTabuleiro(pos,i);
-
-            
+        this.atualizaTabuleiro(pos,i);            
     }
 
 	atualizaTabuleiro(pos,i){
@@ -443,7 +439,6 @@ atualizaPecas(pos,i){
 		for(let k = 0;k < 12 ; k++){
 			if(sprites[(pos+k)%12].dirty){
 					this.time.delayedCall(delay * delayCount,() =>{
-							console.log(sprites[(pos+k)%12].casa)
 							sprites[(pos+k)%12].sprite.setTexture('i'+state[sprites[(pos+k)%12].casa])
 					})
 					delayCount++
@@ -459,7 +454,6 @@ atualizaPecas(pos,i){
 
 	recolhePecas(pos,i){
     
-    		console.log("ASDASD")
 
 			// Recolher as pedras
 			var posfinal = (pos + i - 1) % 12
@@ -507,7 +501,6 @@ atualizaPecas(pos,i){
 		for(let b = 0; b < 12 ; b++){
 			if(sprites[(backwards-b+12)%12].dirtyRec){
 					 this.time.delayedCall(delay * delayCountRec,() =>{
-							console.log(sprites[(backwards-b+12)%12].casa)
 							sprites[(backwards-b+12)%12].sprite.setTexture('i'+state[sprites[(backwards-b+12)%12].casa])
 					})
 					delayCountRec++

@@ -26,6 +26,13 @@ var depComputador = 0;
 var check = 0;
 var casasPC = [6, 7, 8, 9, 10, 11]
 var casasJogador = [0, 1, 2, 3, 4, 5]
+var possoJogar = true;
+var delay = 400;
+var permsBot = false;
+
+
+var coords = [{x: 337,y: 355}, {x:405,y: 385}, {x:476, y:398}, {x:548, y:398},{x: 620,y: 386}, {x:689, y: 356},
+	{x:689, y: 246}, {x:620, y: 215}, {x:548, y: 205},{x: 476, y: 205}, {x:405,y:  215}, {x:337,y:  246}];
 
 
 
@@ -77,8 +84,8 @@ class Pvc extends Phaser.Scene {
                 depComputador = 0;
                 check = 0;
                 state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
-
-
+                possoJogar = true;
+                permsBot = false;
 
                 scorePlayer = stats.totalWon.slice();
 
@@ -111,7 +118,7 @@ class Pvc extends Phaser.Scene {
                 this.setaJog1 = this.add.sprite(910 * 2, 736, 'setaP1').setScale(0.4).setVisible(false)
                 this.setaJog2 = this.add.sprite(225, 736, 'setaP1').setScale(0.4).setVisible(false)
 
-                this.setTabuleiro(w,h);
+                this.setTabuleiro(w, h);
                 this.atualizaSetas();
 
                 this.input.on('gameobjectdown', this.jogada, this);
@@ -119,45 +126,41 @@ class Pvc extends Phaser.Scene {
 
 
         }
+        
+	atualizaSetas() {
+		this.setaP1 = this.setaP1 || this.add.sprite(1024, 936, 'setaP1').setScale(0.7).setVisible(false)
+		this.setaP2 = this.setaP2 || this.add.sprite(1024, 100, 'setaP2').setScale(0.7).setVisible(false)
+		this.setaCounterP1 = this.setaCounterP1 || this.add.sprite(810 * 2, 72 * 2, 'setaCounter').setScale(0.7).setVisible(false)
+		this.setaCounterP2 = this.setaCounterP2 || this.add.sprite(810 * 2, 160 * 2, 'setaCounter').setScale(0.7).setVisible(false)
+		this.setaJog1 = this.setaJog1 || this.add.sprite(910 * 2, 736, 'setaP1').setScale(0.4).setVisible(false)
+		this.setaJog2 = this.setaJog2 || this.add.sprite(225, 736, 'setaP1').setScale(0.4).setVisible(false)
+		switch (player) {
+			
 
+			case 1:
+				this.setaP2.setVisible(false)
+				this.setaCounterP2.setVisible(false)
+				this.setaP1.setVisible(true)
+				this.setaCounterP1.setVisible(true)
+				this.setaJog1.setVisible(true)
+				this.setaJog2.setVisible(false)
+				break;
 
+			case 2:
 
-
-        atualizaSetas() {
-
-                this.setaP1 = this.setaP1 || this.add.sprite(1024, 936, 'setaP1').setScale(0.7).setVisible(false)
-                this.setaP2 = this.setaP2 || this.add.sprite(1024, 100, 'setaP2').setScale(0.7).setVisible(false)
-                this.setaCounterP1 = this.setaCounterP1 || this.add.sprite(810 * 2, 72 * 2, 'setaCounter').setScale(0.7).setVisible(false)
-                this.setaCounterP2 = this.setaCounterP2 || this.add.sprite(810 * 2, 160 * 2, 'setaCounter').setScale(0.7).setVisible(false)
-                this.setaJog1 = this.setaJog1 || this.add.sprite(910 * 2, 736, 'setaP1').setScale(0.4).setVisible(false)
-                this.setaJog2 = this.setaJog2 || this.add.sprite(225, 736, 'setaP1').setScale(0.4).setVisible(false)
-
-                switch (player) {
-
-                        case 1:
-                                this.setaP2.setVisible(false)
-                                this.setaCounterP2.setVisible(false)
-                                this.setaP1.setVisible(true)
-                                this.setaCounterP1.setVisible(true)
-                                this.setaJog1.setVisible(true)
-                                this.setaJog2.setVisible(false)
-                                break;
-
-                        case 2:
-
-                                this.setaP1.setVisible(false)
-                                this.setaCounterP1.setVisible(false)
-                                this.setaP2.setVisible(true)
-                                this.setaCounterP2.setVisible(true)
-                                this.setaJog1.setVisible(false)
-                                this.setaJog2.setVisible(true)
-                                break
-                }
-        }
+				this.setaP1.setVisible(false)
+				this.setaCounterP1.setVisible(false)
+				this.setaP2.setVisible(true)
+				this.setaCounterP2.setVisible(true)
+				this.setaJog1.setVisible(false)
+				this.setaJog2.setVisible(true)
+				break
+		}
+	}
 
         jogada(pointer, gameObject) {
                 // Impedir jogada quando se clica no home
-                if ((gameObject.key === -1) || (gameObject.key > 5)) { return; }
+                if ((gameObject.key === -1) || (gameObject.key > 5) || possoJogar == false) { return; }
 
                 var pos = gameObject.key;
 
@@ -175,20 +178,10 @@ class Pvc extends Phaser.Scene {
                 // A jogada e valida e pode começar
                 this.atualizarState(pos);
 
-                // Atualiza o tabuleiro de acordo com o state
-                this.atualizaTabuleiro(pos);
-
-                //Ve qual o proximo player a jogar
-                this.nextPlayer();
-                this.atualizaSetas();
-
-                //verifica se o jogo terminou
-                this.afterplay();
-
                 if (check === 1) { return; }
                 //console.log(dif)
-                this.time.delayedCall(2000,()=> {
-                        if (player === 2) {
+                this.time.delayedCall(2000, () => {
+                        if (player === 2 || permsBot == true) {
 
                                 pos = this.dificuldade();
                                 this.atualizarState(pos);
@@ -203,85 +196,172 @@ class Pvc extends Phaser.Scene {
 
         }
 
-        setTabuleiro(w,h){
+        setTabuleiro(w, h) {
                 // Adiciona o Tabuleiro
-                    this.tabuleiro = this.add.sprite(w, h, 'tabuleiro');
-                    this.tabuleiro.setScale(2)
-            var i = 0;
-                    coords.forEach(c => {
-                            
-                            sprites.push({
-                                    sprite: this.add.sprite(c.x * 2, c.y * 2,"i"+4).setScale(0.45).setInteractive(),
-                                    dirty: true,
-                                    casa : i
-                            })
-                i++;
-                    })
-    
-                    sprites.forEach(spr =>{spr.sprite.key = spr.casa})
-            
-                    this.atualizaTabuleiro(-1)
-                    
-                    
-         }
-            
-            
-       
-            //Atualiza as imagens dos tabuleiros
-            atualizaTabuleiro(pos) {
-		if(pos == -1){return};
-		// Coordenadas das imagens dos ovos
-		let delay = 400;
-		let delayCount = 0;
+                this.tabuleiro = this.add.sprite(w, h, 'tabuleiro');
+                this.tabuleiro.setScale(2)
+                var i = 0;
+                coords.forEach(c => {
 
-			
-		
-		for(let k = 0;k < 12 ; k++){
-			if(sprites[(pos+k)%12].dirty){
-					this.time.delayedCall(delay * delayCount,() =>{
-							console.log(sprites[(pos+k)%12].casa)
-							sprites[(pos+k)%12].sprite.setTexture('i'+state[sprites[(pos+k)%12].casa])
-					})
-					delayCount++
-			}
-			sprites[(pos+k)%12].sprite.dirty= false
-		}
+                        sprites.push({
+                                sprite: this.add.sprite(c.x * 2, c.y * 2, "i" + state[i]).setScale(0.45).setInteractive(),
+                                dirty: false,
+                                dirtyRec: false,
+                                casa: i
+                        })
+                        i++;
+                })
+
+                sprites.forEach(spr => { spr.sprite.key = spr.casa })
+
+                this.atualizaPecas(-1)
+
+        }
+
+        
+	setSetas(){
 
 		
-		delayCount++
-		let backwards = 5;
-		for(let b = 0; b < 12 ; b++){
-			if(sprites[(backwards-b+12)%12].dirtyRec){
-					this.time.delayedCall(delay * delayCount,() =>{
-							console.log(sprites[(backwards-b+12)%12].casa)
-							sprites[(backwards-b+12)%12].sprite.setTexture('i'+state[sprites[(backwards-b+12)%12].casa])
-					})
-					delayCount++
-			}
-			sprites[(backwards-b+12)%12].sprite.dirtyRec= false
-		}
-		delayCount++ 
+		this.setaP1 = this.setaP1 || this.add.sprite(1024, 936, 'setaP1').setScale(0.7).setVisible(false)
+		this.setaP2 = this.setaP2 || this.add.sprite(1024, 100, 'setaP2').setScale(0.7).setVisible(false)
+		this.setaCounterP1 = this.setaCounterP1 || this.add.sprite(810 * 2, 72 * 2, 'setaCounter').setScale(0.7).setVisible(false)
+		this.setaCounterP2 = this.setaCounterP2 || this.add.sprite(810 * 2, 160 * 2, 'setaCounter').setScale(0.7).setVisible(false)
+		this.setaJog1 = this.setaJog1 || this.add.sprite(910 * 2, 736, 'setaP1').setScale(0.4).setVisible(false)
+		this.setaJog2 = this.setaJog2 || this.add.sprite(225, 736, 'setaP1').setScale(0.4).setVisible(false)
 
-		setTimeout(()=>{
-			//Adiciona os ovos aos depositos
-		this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
-		this.numerodepJogador1 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
-		textodepJogador1.text = depJogador2
-    	textodepJogador2.text = depJogador1
-		},delay*delayCount);
-		
-		        
+
+		this.setaP2.setVisible(false)
+		this.setaCounterP2.setVisible(false)
+		this.setaP1.setVisible(true)
+		this.setaCounterP1.setVisible(true)
+		this.setaJog1.setVisible(true)
+		this.setaJog2.setVisible(false)
 	}
+
+
+
+        atualizaPecas(pos, i) {
+                if (pos == -1) { return; }
+                this.atualizaTabuleiro(pos, i);
+        }
+
+        atualizaTabuleiro(pos, i) {
+
+                let count = 0;
+                for (let b = 0; b < 12; b++) {
+                        if (sprites[(pos + b) % 12].dirty) {
+                                count++
+                        }
+                }
+
+
+                let delayCount = 0;
+                for (let k = 0; k < 12; k++) {
+                        if (sprites[(pos + k) % 12].dirty) {
+                                this.time.delayedCall(delay * delayCount, () => {
+                                        sprites[(pos + k) % 12].sprite.setTexture('i' + state[sprites[(pos + k) % 12].casa])
+                                })
+                                delayCount++
+                        }
+                        sprites[(pos + k) % 12].sprite.dirty = false
+                }
+
+                this.time.delayedCall(delay * (count + 1), () => {
+                        this.recolhePecas(pos, i);
+                })
+
+        }
+
+        recolhePecas(pos, i) {
+
+
+                // Recolher as pedras
+                var posfinal = (pos + i - 1) % 12
+
+                if (player === 1) {
+                        while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal > 5 && posfinal < 12) {
+                                depJogador1 = depJogador1 + state[posfinal]
+                                state[posfinal] = 0;
+                                sprites[posfinal].dirty = false;
+                                sprites[posfinal].dirtyRec = true;
+                                posfinal = posfinal - 1;
+                        }
+                }
+
+                //Recolher as pedras para o player 2
+                if (player === 2) {
+                        while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal >= 0 && posfinal < 6) {
+                                depJogador2 = depJogador2 + state[posfinal]
+                                state[posfinal] = 0;
+                                sprites[posfinal].dirty = false;
+                                sprites[posfinal].dirtyRec = true;
+                                posfinal = posfinal - 1;
+
+                        }
+                }
+
+                this.atualizaRecolha();
+        }
+
+
+        atualizaRecolha() {
+                // Coordenadas das imagens dos ovos
+                let backwards = 5;
+                let count = 0;
+                console.log(sprites)
+
+
+                for (let b = 0; b < 12; b++) {
+                        if (sprites[(backwards - b + 12) % 12].dirtyRec) {
+                                count++
+                        }
+                }
+
+                let delayCountRec = 0
+                for (let b = 0; b < 12; b++) {
+                        if (sprites[(backwards - b + 12) % 12].dirtyRec) {
+                                this.time.delayedCall(delay * delayCountRec, () => {
+                                        sprites[(backwards - b + 12) % 12].sprite.setTexture('i' + state[sprites[(backwards - b + 12) % 12].casa])
+                                })
+                                delayCountRec++
+
+                        }
+                        sprites[(backwards - b + 12) % 12].sprite.dirtyRec = false
+                }
+
+
+
+                this.time.delayedCall(delay * (count + 1), () => {
+                        this.atualizaDepositos()
+                })
+        }
+
+
+        atualizaDepositos() {
+
+                //Adiciona os ovos aos depositos
+                this.numerodepComputador = this.add.sprite(240 * 2, 300 * 2, 'i' + depComputador).setScale(0.6)
+                this.numerodepJogador = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador).setScale(0.6)
+                textdepComputador.text = depComputador
+                textdepJogador.text = depJogador
+                possoJogar = true;
+                this.nextPlayer();
+                this.atualizaSetas();
+                this.afterplay();
+
+
+        }
 
         atualizarState(pos) {
 
                 var valor = state[pos];
 
+                possoJogar = false;
+
                 // retirar as pedras da casa onde clicamos
                 state[pos] = 0;
 
                 sprites[pos].dirty = true;
-
                 // distribuir as pedras pelas casas seguintes
                 for (var i = 1; valor > 0; i++) {
                         //Quando atingir 12 pedras tem de saltar a casa onde clicamos
@@ -291,29 +371,8 @@ class Pvc extends Phaser.Scene {
                                 valor--;
                         }
                 }
+                this.atualizaPecas(pos, i);
 
-                // Recolher as pedras
-                var posfinal = (pos + i - 1) % 12
-
-                if (player === 1) {
-                        while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal > 5 && posfinal < 12) {
-                                depJogador = depJogador + state[posfinal]
-                                state[posfinal] = 0;
-                                sprites[posfinal].dirty = true;
-                                posfinal = posfinal - 1;
-                        }
-                }
-
-                //Recolher as pedras para o player 2
-                if (player === 2) {
-                        while ((state[posfinal] === 2 || state[posfinal] === 3) && posfinal >= 0 && posfinal < 6) {
-                                depComputador = depComputador + state[posfinal]
-                                state[posfinal] = 0;
-                                sprites[posfinal].dirty = true;
-                                posfinal = posfinal - 1;
-
-                        }
-                }
         }
 
         //------------------------------------------------------------------
@@ -429,7 +488,10 @@ class Pvc extends Phaser.Scene {
                 if (check === 1) {
 
                         var vencedor = this.terminar(state, depJogador, depComputador, false)
-                        switch (vencedor) {
+                        
+                        this.time.delayedCall(1000, () => {
+                                
+                                switch (vencedor) {
                                 case 1:
                                         scorePInt += 1;
                                         scorePlayer[dif] = scorePInt;
@@ -450,7 +512,10 @@ class Pvc extends Phaser.Scene {
                                 case 3:
                                         this.quadroEmpate = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "empate").setScale(1.4).setDepth(8889);;
                                         break;
-                        }
+                                }
+                        })
+                        
+                        
                         textP.text = scorePlayer[dif];
                         textC.text = scoreComputador[dif];
 
@@ -467,9 +532,9 @@ class Pvc extends Phaser.Scene {
                         this.forward.on('pointerdown', () => {
                                 this.scene.start("pvc")
                                 sprites = [];
-				textdepJogador.text = "0"
-    			        textdepComputador.text = "0"
-                                                        
+                                textdepJogador.text = "0"
+                                textdepComputador.text = "0"
+
                         });
                         this.forward.setScale(0.62 * 2)
                         this.forward.key = -1
@@ -571,7 +636,18 @@ class Pvc extends Phaser.Scene {
 
                 // Se nenhum tiver o tabuleiro vazio alterna-se as jogadas
                 else {
-                        if (player === 1) { player = 2 } else { player = 1 }
+                        if (player === 1)
+                                {
+                                 player = 2
+                                 permsBot = false;
+                                 this.perm = this.add.sprite( w,h, 'perms').setInteractive();
+                                 this.perm.key = -1;
+                                 this.perm.depth = 10;
+                                 this.perm.on('pointerdown', () => this.clickPerms(this.perm));
+                                 this.perm.setScale(1.3)
+                                } 
+                        
+                        else { player = 1 }
                 }
 
         }
@@ -907,5 +983,11 @@ class Pvc extends Phaser.Scene {
                 sprites = [];
                 this.scene.start('menu');
         }
+        clickPerms(permObject) {
+                console.log('Perms dadas');
+                permsBot = true;
+                permObject.setVisible(false);                
+        }
+
 
 }
