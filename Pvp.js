@@ -57,11 +57,19 @@ class Pvp extends Phaser.Scene {
 		this.player1Score.setScale(0.75)
 		this.player2Score = this.add.sprite(915 * 2, 160 * 2, "jogador2Score")
 		this.player2Score.setScale(0.75)
+		// Inicializar
+		player = 1;
+		depJogador1 = 25;
+		depJogador2 = 0;
+		check = 0;
+		state = [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0];
+		possoJogar = true;
+		
 
 		textP1 = this.add.text(915 * 2, 52 * 2, scorePlayer1, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
 		textP2 = this.add.text(915 * 2, 140 * 2, scorePlayer2, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
-		textodepJogador2 = this.add.text(1438, 585, depJogador1, { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
-		textodepJogador1 = this.add.text(580, 585, depJogador2, { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
+		textodepJogador2 = this.add.text(580, 585, depJogador2, { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
+		textodepJogador1 = this.add.text(1438, 585, depJogador1, { fontFamily: 'Arial', fontSize: 30, color: '#FFFFFF' }).setFontStyle('bold italic');
 		textodepJogador2.setDepth(8888)
 		textodepJogador1.setDepth(8888)
 
@@ -72,13 +80,7 @@ class Pvp extends Phaser.Scene {
 		this.setaJog1 = this.add.sprite(910 * 2, 736, 'setaP1').setScale(0.4).setVisible(false)
 		this.setaJog2 = this.add.sprite(225, 736, 'setaP1').setScale(0.4).setVisible(false)
 
-		// Inicializar
-		player = 1;
-		depJogador1 = 25;
-		depJogador2 = 0;
-		check = 0;
-		state = [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-		possoJogar = true;
+		
 
 
 
@@ -93,20 +95,23 @@ class Pvp extends Phaser.Scene {
 	jogada(pointer, gameObject) {
 		// Impedir jogada quando se clica no home
 
+		console.log(possoJogar);
+
 		if (gameObject.key == -1 || possoJogar == false) { return }
 
 		console.log(gameObject.key);
 		var pos = gameObject.key;
+		
 
 
 		// Impedir que um jogador jogue no campo errado
-		if ((player === 1 && pos > 5) || (player === 2 && pos < 6)) { return; }
+		if ((player === 1 && pos > 5) || (player === 2 && pos < 6)) {console.log(pos + "BRUH1"); return; }
 
 
 		// Verifica as regras do jogo
-		if (this.one(pos) === -1) { return; }
+		if (this.one(pos) === -1) {console.log(pos + "BRUH2"); return; }
 
-		if (this.popularOponente(pos) === -1) { return; }
+		if (this.popularOponente(pos) === -1) {console.log(pos + "BRUH3"); return; }
 
 		console.log(pos)
 
@@ -309,8 +314,8 @@ class Pvp extends Phaser.Scene {
 
 		if (depJogador1 > depJogador2) { res = 1 }
 		else { res = 2 }
-		this.numerodepJogador1 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
-		this.numerodepJogador2 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
+		this.numerodepJogador1 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
+		this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
 		return res
 	}
 
@@ -346,7 +351,8 @@ class Pvp extends Phaser.Scene {
 	}
 
 	atualizarState(pos) {
-
+        
+        console.log("BRUH")
 		var valor = state[pos];
 
 		possoJogar = false;
@@ -519,8 +525,8 @@ class Pvp extends Phaser.Scene {
 		//Adiciona os ovos aos depositos
 		this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
 		this.numerodepJogador1 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
-		textodepJogador1.text = depJogador2
-		textodepJogador2.text = depJogador1
+		textodepJogador1.text = depJogador1
+		textodepJogador2.text = depJogador2
 		possoJogar = true;
 		this.nextPlayer();
 		this.atualizaSetas();
