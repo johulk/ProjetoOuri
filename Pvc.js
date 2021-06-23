@@ -586,7 +586,7 @@ class Pvc extends Phaser.Scene {
                         depTerminadoJogador = depTerminadoJogador + estado[i]
                 }
 
-                for (i = 5; i < 12; i++) {
+                for (i = 6; i < 12; i++) {
                         depTerminadoComputador = depTerminadoComputador + estado[i]
                 }
 

@@ -62,9 +62,9 @@ class Pvp extends Phaser.Scene {
 		depJogador1 = 25;
 		depJogador2 = 0;
 		check = 0;
-		state = [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0];
+		state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
 		possoJogar = true;
-		
+
 
 		textP1 = this.add.text(915 * 2, 52 * 2, scorePlayer1, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
 		textP2 = this.add.text(915 * 2, 140 * 2, scorePlayer2, { fontFamily: 'Arial', fontSize: 70, color: '#000000' });
@@ -80,7 +80,7 @@ class Pvp extends Phaser.Scene {
 		this.setaJog1 = this.add.sprite(910 * 2, 736, 'setaP1').setScale(0.4).setVisible(false)
 		this.setaJog2 = this.add.sprite(225, 736, 'setaP1').setScale(0.4).setVisible(false)
 
-		
+
 
 
 
@@ -101,17 +101,17 @@ class Pvp extends Phaser.Scene {
 
 		console.log(gameObject.key);
 		var pos = gameObject.key;
-		
+
 
 
 		// Impedir que um jogador jogue no campo errado
-		if ((player === 1 && pos > 5) || (player === 2 && pos < 6)) {console.log(pos + "BRUH1"); return; }
+		if ((player === 1 && pos > 5) || (player === 2 && pos < 6)) { console.log(pos + "BRUH1"); return; }
 
 
 		// Verifica as regras do jogo
-		if (this.one(pos) === -1) {console.log(pos + "BRUH2"); return; }
+		if (this.one(pos) === -1) { console.log(pos + "BRUH2"); return; }
 
-		if (this.popularOponente(pos) === -1) {console.log(pos + "BRUH3"); return; }
+		if (this.popularOponente(pos) === -1) { console.log(pos + "BRUH3"); return; }
 
 		console.log(pos)
 
@@ -204,61 +204,65 @@ class Pvp extends Phaser.Scene {
 
 		if (check === 1) {
 			var vencedor = this.terminar()
-			if (depJogador1 === depJogador2) {
-				vencedor = 3
 
-			}
-			else {
-
-				if (vencedor === 1) {
-					scorePlayer1 = scorePlayer1 + 1;
-				}
-				if (vencedor === 2) {
-					scorePlayer2 = scorePlayer2 + 1;
-
+			this.time.delayedCall(delay * 8.5, () => {
+				if (depJogador1 === depJogador2) {
+					vencedor = 3
 
 				}
-			}
-			textP1.text = scorePlayer1;
-			textP2.text = scorePlayer2;
+				else {
 
-			//Apresentar desforra
-			this.time.delayedCall(5000, () => {
-				switch (vencedor) {
-					case 1:
-						this.quadroP1W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP1").setScale(1.4).setDepth(8889);;
+					if (vencedor === 1) {
+						scorePlayer1 = scorePlayer1 + 1;
+					}
+					if (vencedor === 2) {
+						scorePlayer2 = scorePlayer2 + 1;
 
-						break;
 
-					case 2:
-						this.quadroP2W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP2").setScale(1.4).setDepth(8889);;
-
-						break;
-					case 3:
-						this.quadroEmpate = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "empate").setScale(1.4).setDepth(8889);;
-						break;
-
+					}
 				}
+				textP1.text = scorePlayer1;
+				textP2.text = scorePlayer2;
 
-				//Fechar
-				this.close = this.add.sprite(2 * (config.width / 4 + config.width / 24 + config.width / 150), 2 * (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98), 'close').setInteractive();
-				this.close.on('pointerdown', () => { this.clickMenu() });
-				this.close.setScale(0.62 * 2)
-				this.close.key = -1
-				this.close.depth = 8890
+				//Apresentar desforra
+				this.time.delayedCall(1000, () => {
+					switch (vencedor) {
+						case 1:
+							this.quadroP1W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP1").setScale(1.4).setDepth(8889);;
 
-				//Forwards
-				this.forward = this.add.sprite((config.width - config.width / 4 - config.width / 24 - config.width / 150) * 2, (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98) * 2, 'forward').setInteractive();
-				this.forward.on('pointerdown', () => {
-					sprites = [];
-					textodepJogador1.text = "0"
-					textodepJogador2.text = "0"
-					this.scene.start("pvp");
+							break;
+
+						case 2:
+							this.quadroP2W = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "ganhouP2").setScale(1.4).setDepth(8889);;
+
+							break;
+						case 3:
+							this.quadroEmpate = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "empate").setScale(1.4).setDepth(8889);;
+							break;
+
+					}
+
+					//Fechar
+					this.close = this.add.sprite(2 * (config.width / 4 + config.width / 24 + config.width / 150), 2 * (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98), 'close').setInteractive();
+					this.close.on('pointerdown', () => { this.clickMenu() });
+					this.close.setScale(0.62 * 2)
+					this.close.key = -1
+					this.close.depth = 8890
+
+					//Forwards
+					this.forward = this.add.sprite((config.width - config.width / 4 - config.width / 24 - config.width / 150) * 2, (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98) * 2, 'forward').setInteractive();
+					this.forward.on('pointerdown', () => {
+						sprites = [];
+						textodepJogador1.text = "0"
+						textodepJogador2.text = "0"
+						this.scene.start("pvp");
+					});
+					this.forward.setScale(0.62 * 2)
+					this.forward.key = -1
+					this.forward.depth = 8890
 				});
-				this.forward.setScale(0.62 * 2)
-				this.forward.key = -1
-				this.forward.depth = 8890
-			});
+			})
+
 			//Atualiza indicadores de score
 		}
 	}
@@ -303,20 +307,53 @@ class Pvp extends Phaser.Scene {
 	terminar() {
 		var res = 1
 		var i;
+		//Esperar 2 segundos para ver o estado do tabuleiro
+		//Atualizar o state; state[n] = 0
+		//Recolher as casas opostas, 0/6,1/7,2/8,3/9,4/10,5/11 sprites[n] = wtv
+		//Ovos nos depósitos / atualizar numero de ovos no tabuleiro (cena escrita a branco)
+		//1 segundo
+		//End screen
+		this.time.delayedCall(delay * 2, () => {
+		})
+
+		let delayRecJ1 = 0;
+		let delayRecJ2 = 0;
+
 
 		for (i = 0; i < 6; i++) {
 			depJogador1 = depJogador1 + state[i]
+			state[i] = 0;
+			sprites[i].dirty = true;
 		}
 
-		for (i = 5; i < 12; i++) {
+		for (i = 6; i < 12; i++) {
 			depJogador2 = depJogador2 + state[i]
+			state[i] = 0;
+			sprites[i].dirty = true;
 		}
 
-		if (depJogador1 > depJogador2) { res = 1 }
-		else { res = 2 }
-		this.numerodepJogador1 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
-		this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
-		return res
+
+		for (let j = 0; j < 6; j++) {//Atualiza Jogador 1
+			this.time.delayedCall(delay * delayRecJ1, () => {
+				sprites[j].sprite.setTexture('i' + state[sprites[j].casa])
+			})
+			delayRecJ1++;
+		}
+
+		for (let k = 6; k < 12; k++) {//Atualiza Jogador 2
+			this.time.delayedCall(delay * delayRecJ2, () => {
+				sprites[k].sprite.setTexture('i' + state[sprites[k].casa])
+			})
+			delayRecJ2++;
+		}
+
+		this.time.delayedCall(delay * (6.5), () => {
+			if (depJogador1 > depJogador2) { res = 1 }
+			else { res = 2 }
+			this.numerodepJogador1 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
+			this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
+			return res
+		})
 	}
 
 	nextPlayer() {
@@ -351,8 +388,8 @@ class Pvp extends Phaser.Scene {
 	}
 
 	atualizarState(pos) {
-        
-        console.log("BRUH")
+
+		console.log("BRUH")
 		var valor = state[pos];
 
 		possoJogar = false;
@@ -514,7 +551,7 @@ class Pvp extends Phaser.Scene {
 
 
 
-		this.time.delayedCall(delay * (count + 1), () => {
+		this.time.delayedCall(delay * (count + 0.5), () => {
 			this.atualizaDepositos()
 		})
 	}
@@ -534,7 +571,7 @@ class Pvp extends Phaser.Scene {
 
 
 	}
-
+	/*
 	clickMenu() {
 		console.log('Menu');
 		scorePlayer1 = 0;
@@ -543,6 +580,12 @@ class Pvp extends Phaser.Scene {
 		depJogador2 = 0;
 		sprites = [];
 		this.scene.start('menu');
+	}
+	*/
+
+
+	clickMenu() {
+		this.terminar();
 	}
 
 }
