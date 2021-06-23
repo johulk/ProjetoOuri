@@ -1019,22 +1019,14 @@ class Pvc extends Phaser.Scene {
                 let statsstring = JSON.stringify(stats);
                 localStorage.setItem("OuriStats", statsstring);
         }
-       /*
-	clickMenu() {
-		console.log('Menu');
-		scorePlayer1 = 0;
-		scorePlayer2 = 0;
-		depJogador1 = 0;
-		depJogador2 = 0;
-		sprites = [];
-		this.scene.start('menu');
-	}
-	*/
-
-
-	clickMenu() {
-		this.terminar();
-	}
+        clickMenu() {
+                console.log('Menu');
+                this.saveStats();
+                depComputador = 0;
+                depJogador = 0;
+                sprites = [];
+                this.scene.start('menu');
+        }
         clickPerms(permObject) {
                 var pos = this.dificuldade();
                 this.atualizarState(pos);
