@@ -476,7 +476,7 @@ class Pvc extends Phaser.Scene {
 
                 if (check === 1) {
 
-                        var vencedor = this.terminar(state, depJogador, depComputador, false)
+                        var vencedor = this.terminar()
 
                         this.time.delayedCall(5000, () => {
 
@@ -578,7 +578,7 @@ class Pvc extends Phaser.Scene {
 
 
 
-        terminar(estado, depTerminadoJogador, depTerminadoComputador, isSimulado) {
+        terminarSimulado(estado, depTerminadoJogador, depTerminadoComputador) {
                 var res = 1
                 var i;
 
@@ -594,14 +594,63 @@ class Pvc extends Phaser.Scene {
                 else { res = 2 }
 
                 if (depTerminadoJogador === depTerminadoComputador) { res = 3 }
-                if (!isSimulado) {
-                        this.numerodepJogador = this.add.sprite(790 * 2, 300 * 2, 'i' + depTerminadoJogador).setScale(0.6)
-                        this.numerodepComputador = this.add.sprite(240 * 2, 300 * 2, 'i' + depTerminadoComputador).setScale(0.6)
-                }
 
                 return res
         }
 
+        terminar() {
+                var res = 1
+                var i;
+                //Esperar 2 segundos para ver o estado do tabuleiro
+                //Atualizar o state; state[n] = 0
+                //Recolher as casas opostas, 0/6,1/7,2/8,3/9,4/10,5/11 sprites[n] = wtv
+                //Ovos nos depósitos / atualizar numero de ovos no tabuleiro (cena escrita a branco)
+                //1 segundo
+                //End screen
+                this.time.delayedCall(delay * 2, () => {
+                })
+
+                let delayRecJ = 0;
+                let delayRecPC = 0;
+
+
+                for (i = 0; i < 6; i++) {
+                        depJogador = depJogador + state[i]
+                        state[i] = 0;
+                        sprites[i].dirty = true;
+                }
+
+                for (i = 6; i < 12; i++) {
+                        depComputador = depComputador + state[i]
+                        state[i] = 0;
+                        sprites[i].dirty = true;
+                }
+
+
+                for (let j = 0; j < 6; j++) {//Atualiza Jogador 1
+                        this.time.delayedCall(delay * delayRecJ, () => {
+                                sprites[j].sprite.setTexture('i' + state[sprites[j].casa])
+                        })
+                        delayRecJ++;
+                }
+
+                for (let k = 6; k < 12; k++) {//Atualiza PC
+                        this.time.delayedCall(delay * delayRecPC, () => {
+                                sprites[k].sprite.setTexture('i' + state[sprites[k].casa])
+                        })
+                        delayRecPC++;
+                }
+
+                this.time.delayedCall(delay * (6.5), () => {
+                        if (depJogador > depComputador) { res = 1 }
+                        else { res = 2 }
+                        this.numerodepComputador = this.add.sprite(240 * 2, 300 * 2, 'i' + depComputador).setScale(0.6)
+                        this.numerodepJogador = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador).setScale(0.6)
+                        textdepComputador.text = depComputador
+                        textdepJogador.text = depJogador
+                        return res
+                })
+        }
 
         // Funcao que decide qual é o proximo jogador a jogar
         nextPlayer() {
@@ -850,7 +899,7 @@ class Pvc extends Phaser.Scene {
                                         casaFinal--;
                                 }
                                 if (this.checkFinal(nudgeAuxState, 2, nudgeAuxDepJ, nudgeAuxDepC) === 1) {
-                                        var simVencedor = this.terminar(nudgeAuxState, nudgeAuxDepJ, nudgeAuxDepC, true)
+                                        var simVencedor = this.terminarSimulado(nudgeAuxState, nudgeAuxDepJ, nudgeAuxDepC)
                                         switch (simVencedor) {
                                                 case 1:
                                                         return nudgeValue -= 1000
@@ -887,7 +936,7 @@ class Pvc extends Phaser.Scene {
                                         casaFinal--;
                                 }
                                 if (this.checkFinal(nudgeAuxState, 1, nudgeAuxDepJ, nudgeAuxDepC) === 1) {
-                                        var simVencedor = this.terminar(nudgeAuxState, nudgeAuxDepJ, nudgeAuxDepC, true)
+                                        var simVencedor = this.terminarSimulado(nudgeAuxState, nudgeAuxDepJ, nudgeAuxDepC)
                                         switch (simVencedor) {
                                                 case 1:
                                                         return nudgeValue += 1000
@@ -970,14 +1019,22 @@ class Pvc extends Phaser.Scene {
                 let statsstring = JSON.stringify(stats);
                 localStorage.setItem("OuriStats", statsstring);
         }
-        clickMenu() {
-                console.log('Menu');
-                this.saveStats();
-                depComputador = 0;
-                depJogador = 0;
-                sprites = [];
-                this.scene.start('menu');
-        }
+       /*
+	clickMenu() {
+		console.log('Menu');
+		scorePlayer1 = 0;
+		scorePlayer2 = 0;
+		depJogador1 = 0;
+		depJogador2 = 0;
+		sprites = [];
+		this.scene.start('menu');
+	}
+	*/
+
+
+	clickMenu() {
+		this.terminar();
+	}
         clickPerms(permObject) {
                 var pos = this.dificuldade();
                 this.atualizarState(pos);

@@ -59,7 +59,7 @@ class Pvp extends Phaser.Scene {
 		this.player2Score.setScale(0.75)
 		// Inicializar
 		player = 1;
-		depJogador1 = 25;
+		depJogador1 = 0;
 		depJogador2 = 0;
 		check = 0;
 		state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
@@ -352,6 +352,8 @@ class Pvp extends Phaser.Scene {
 			else { res = 2 }
 			this.numerodepJogador1 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
 			this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
+			textodepJogador1.text = depJogador1
+			textodepJogador2.text = depJogador2
 			return res
 		})
 	}
