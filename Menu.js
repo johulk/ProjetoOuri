@@ -206,15 +206,33 @@ class Menu extends Phaser.Scene {
             totalWinsHard = 0;
         }
         else {
-
-            totalWins = ((stats.totalWon.reduce((a, b) => a + b, 0)) / totalJogos) * 100;
+            if (totalJogos != 0) {
+                 totalWins = ((stats.totalWon.reduce((a, b) => a + b, 0)) / totalJogos) * 100;
             totalWins = Math.round(totalWins)
+            }
+            
+            if (this.stats.totalGames[0] == 0){
+                totalWinsEasy = 0;
+            }
+            else{
             totalWinsEasy = (stats.totalWon[0] / stats.totalGames[0]) * 100
             totalWinsEasy = Math.round(totalWinsEasy)
-            totalWinsMedium = (stats.totalWon[1] / stats.totalGames[1]) * 100
-            totalWinsMedium = Math.round(totalWinsMedium)
+            }
+            if(this.this.stats.totalGames[1] == 0){
+                totalWinsMedium = 0;
+            }
+            else{
+                totalWinsMedium = (stats.totalWon[1] / stats.totalGames[1]) * 100
+                totalWinsMedium = Math.round(totalWinsMedium) 
+            }
+            
+            if (this.stats.totalGames[2] == 0){
+                totalWinsHard = 0;
+            }
+            else{
             totalWinsHard = (stats.totalWon[2] / stats.totalGames[2]) * 100
             totalWinsHard = Math.round(totalWinsHard)
+            }
         }
         console.log(totalJogos)
         var textTotalGames = this.add.text(1224, 270 * 2, totalJogos, { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
