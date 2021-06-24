@@ -89,37 +89,37 @@ class Menu extends Phaser.Scene {
         this.stats = this.add.sprite((w - w / 18 + w / 60) * 2, (h / 2 + h / 12 + h / 24) * 2, 'stats').setInteractive();
         this.stats.on('pointerdown', () => this.clickStats());
         this.stats.setScale(0.8 * 2)
-        
 
-       
+
+
     }
 
-    loadStats(){
-        if(typeof(Storage) === "undefined") {
+    loadStats() {
+        if (typeof (Storage) === "undefined") {
             return;
         }
-        
+
         let dataAux = localStorage.getItem('OuriStats');
-        if(dataAux != null){
+        if (dataAux != null) {
             let data = JSON.parse(dataAux);
             this.parseData(data);
         }
     }
 
-    parseData(data){
-        if(Array.isArray(data['totalGames']) && data['totalGames'].length === 3 && this.checkArrayInteger(data['totalGames'])){
+    parseData(data) {
+        if (Array.isArray(data['totalGames']) && data['totalGames'].length === 3 && this.checkArrayInteger(data['totalGames'])) {
             stats.totalGames = data['totalGames'].slice();
         }
-        if(Array.isArray(data['totalWon']) && data['totalWon'].length === 3 && this.checkArrayInteger(data['totalWon'])){
+        if (Array.isArray(data['totalWon']) && data['totalWon'].length === 3 && this.checkArrayInteger(data['totalWon'])) {
             stats.totalWon = data['totalWon'].slice();
         }
 
     }
 
     checkArrayInteger(array) {
-       
-        for (let i = 0; i < array.length;i++) {
-            if(!Number.isInteger(array[i]) || array[i] < 0){
+
+        for (let i = 0; i < array.length; i++) {
+            if (!Number.isInteger(array[i]) || array[i] < 0) {
                 return false;
             }
         }
@@ -192,36 +192,36 @@ class Menu extends Phaser.Scene {
 
         //Calculos de %
 
-        var totalJogos = stats.totalGames.reduce((a,b) => a+b,0)
+        var totalJogos = stats.totalGames.reduce((a, b) => a + b, 0)
 
-        var totalWins; 
+        var totalWins;
         var totalWinsEasy;
-        var totalWinsMedium; 
+        var totalWinsMedium;
         var totalWinsHard;
 
-        if ((stats.totalWon.reduce((a,b) => a+b,0) ===0)){
+        if ((stats.totalWon.reduce((a, b) => a + b, 0) === 0)) {
             totalWins = 0;
             totalWinsEasy = 0;
             totalWinsMedium = 0;
-            totalWinsHard = 0;          
+            totalWinsHard = 0;
         }
-        else{
+        else {
 
-            totalWins = ((stats.totalWon.reduce((a,b) => a+b,0)) / totalJogos )*100;
-            //totalWins.round()
-            totalWinsEasy = (stats.totalWon[0] / stats.totalGames[0])*100
-            //totalWinsEasy.round()
-            totalWinsMedium = (stats.totalWon[1] / stats.totalGames[1])*100
-            //totalWinsMedium.round()
-            totalWinsHard = (stats.totalWon[2] / stats.totalGames[2])*100
-            //totalWinsHard.round()
+            totalWins = ((stats.totalWon.reduce((a, b) => a + b, 0)) / totalJogos) * 100;
+            totalWins = Math.round(totalWins)
+            totalWinsEasy = (stats.totalWon[0] / stats.totalGames[0]) * 100
+            totalWinsEasy = Math.round(totalWinsEasy)
+            totalWinsMedium = (stats.totalWon[1] / stats.totalGames[1]) * 100
+            totalWinsMedium = Math.round(totalWinsMedium)
+            totalWinsHard = (stats.totalWon[2] / stats.totalGames[2]) * 100
+            totalWinsHard = Math.round(totalWinsHard)
         }
         console.log(totalJogos)
-        var textTotalGames = this.add.text(1224, 270 * 2, totalJogos , { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
-        var textTotalWins  = this.add.text(1224 ,305 * 2, totalWins+"%", { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
-        var textWinsEasy   = this.add.text(1224 , 386 * 2, totalWinsEasy+ "%", { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
-        var textWinsMedium = this.add.text(1224 , 422 * 2, totalWinsMedium+ "%", { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
-        var textWinsHard   = this.add.text(1224 , 457 * 2, totalWinsHard+ "%", { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
+        var textTotalGames = this.add.text(1224, 270 * 2, totalJogos, { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
+        var textTotalWins = this.add.text(1224, 305 * 2, totalWins + "%", { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
+        var textWinsEasy = this.add.text(1224, 386 * 2, totalWinsEasy + "%", { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
+        var textWinsMedium = this.add.text(1224, 422 * 2, totalWinsMedium + "%", { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
+        var textWinsHard = this.add.text(1224, 457 * 2, totalWinsHard + "%", { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
 
 
         console.log('Stats');
