@@ -95,27 +95,25 @@ class Pvp extends Phaser.Scene {
 	jogada(pointer, gameObject) {
 		// Impedir jogada quando se clica no home
 
-		console.log(possoJogar);
 
 		if (gameObject.key == -1 || possoJogar == false) { return }
 
-		console.log(gameObject.key);
 		var pos = gameObject.key;
 
 
 
 		// Impedir que um jogador jogue no campo errado
-		if ((player === 1 && pos > 5) || (player === 2 && pos < 6)) { console.log(pos + "BRUH1"); return; }
+		if ((player === 1 && pos > 5) || (player === 2 && pos < 6)) { return; }
 
 
 		// Verifica as regras do jogo
 		// Não deixa jogar se houver casas maior que 1
-		if (this.one(pos) === -1) { console.log(pos + "BRUH2"); return; }
+		if (this.one(pos) === -1) {return; }
 		
 		// Verifica se eu tenho alguma jogada que coloca ovos no outro player
-		if (this.popularOponente(pos) === -1) { console.log(pos + "BRUH3"); return; }
+		if (this.popularOponente(pos) === -1) {return; }
 
-		console.log(pos)
+		
 
 		// A jogada e valida e pode começar
 		this.atualizarState(pos);
@@ -536,7 +534,6 @@ class Pvp extends Phaser.Scene {
 		// Coordenadas das imagens dos ovos
 		let backwards = 5;
 		let count = 0;
-		console.log(sprites)
 
 
 		for (let b = 0; b < 12; b++) {
@@ -581,7 +578,6 @@ class Pvp extends Phaser.Scene {
 	}
 	
 	clickMenu() {
-		console.log('Menu');
 		scorePlayer1 = 0;
 		scorePlayer2 = 0;
 		depJogador1 = 0;

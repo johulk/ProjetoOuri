@@ -126,18 +126,14 @@ class Menu extends Phaser.Scene {
         return true;
     }
     clickPlayers() {
-        console.log('2 Jogadores');
         this.scene.start("pvp");
     }
 
     clickComputer() {
-        console.log('Computador')
         this.scene.start("dificuldade");
     }
 
     clickInfo() {
-
-        console.log('Informações');
         var counter = 1;
         //info1
         this.informacoes = this.add.sprite(config.width, config.height + config.height / 6, "info1");
@@ -169,27 +165,15 @@ class Menu extends Phaser.Scene {
         this.close.on('pointerdown', () => this.scene.start("menu"));
         this.close.setScale(0.62 * 2)
         this.close.depth = 4
-        console.log('Créditos');
     }
     clickStats() {
-        console.log("XD")
-        console.log(this.stats);
-        console.log("Bababuye")
-        console.log(stats);
-        console.log("xxxxxxxxxxxxxDDDDDDDDD")
+    
         this.statsQuadro = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "statsQuadro").setScale(1.4);
         //Fechar
         this.close = this.add.sprite((config.width - config.width / 4 - config.width / 30) * 2, 2 * (config.height / 2 - config.height / 12 - config.height / 24 - config.height / 48 - config.height / 64), 'close').setInteractive();
         this.close.on('pointerdown', () => this.scene.start("menu"));
         this.close.setScale(0.62 * 2)
         this.close.depth = 4
-
-        console.log("XD")
-        console.log(this.stats);
-        console.log("Bababuye")
-        console.log(stats);
-        console.log("xxxxxxxxxxxxxDDDDDDDDD")
-
         //Calculos de %
 
         var totalJogos = stats.totalGames.reduce((a, b) => a + b, 0)
@@ -234,7 +218,6 @@ class Menu extends Phaser.Scene {
             totalWinsHard = Math.round(totalWinsHard)
             }
         }
-        console.log(totalJogos)
         var textTotalGames = this.add.text(1224, 270 * 2, totalJogos, { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
         var textTotalWins = this.add.text(1224, 305 * 2, totalWins + "%", { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
         var textWinsEasy = this.add.text(1224, 386 * 2, totalWinsEasy + "%", { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
@@ -242,7 +225,6 @@ class Menu extends Phaser.Scene {
         var textWinsHard = this.add.text(1224, 457 * 2, totalWinsHard + "%", { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
 
 
-        console.log('Stats');
     }
 
 

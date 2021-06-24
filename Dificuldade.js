@@ -79,25 +79,21 @@ class Dificuldade extends Phaser.Scene {
     }
 
     clickEasy() {
-        console.log('Easy');
         dif = 0;
         this.scene.start("pvc");
     }
 
     clickMedium() {
-        console.log('Medium')
         dif = 1;
         this.scene.start("pvc");
     }
 
     clickHard() {
-        console.log('Hard')
         dif = 2;
         this.scene.start("pvc");
     }
 
     clickMenu() {
-        console.log('Menu');
         this.scene.start('menu');
     }
 

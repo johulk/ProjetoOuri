@@ -171,7 +171,6 @@ class Pvc extends Phaser.Scene {
                 // Verifica se é necessario popular o oponente
                 if (this.popularOponente(state, pos, 1) === -1) { return; }
 
-                console.log('update')
 
                 // A jogada e valida e pode começar
                 this.atualizarState(pos);
@@ -294,7 +293,6 @@ class Pvc extends Phaser.Scene {
                 // Coordenadas das imagens dos ovos
                 let backwards = 5;
                 let count = 0;
-                console.log(sprites)
 
 
                 for (let b = 0; b < 12; b++) {
@@ -326,8 +324,6 @@ class Pvc extends Phaser.Scene {
         atualizaDepositos() {
 
                 //Adiciona os ovos aos depositos
-                console.log(depJogador + "ATUALZIA");
-                console.log(depComputador + "ATUALZIA");
 
                 this.numerodepComputador = this.add.sprite(240 * 2, 300 * 2, 'i' + depComputador).setScale(0.6)
                 this.numerodepJogador = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador).setScale(0.6)
@@ -527,9 +523,6 @@ class Pvc extends Phaser.Scene {
                                 this.forward.setScale(0.62 * 2)
                                 this.forward.key = -1
                                 this.forward.depth = 8890
-
-                                console.log(depJogador);
-                                console.log(depComputador);
 
                         })
 
@@ -1020,7 +1013,6 @@ class Pvc extends Phaser.Scene {
                 localStorage.setItem("OuriStats", statsstring);
         }
         clickMenu() {
-                console.log('Menu');
                 this.saveStats();
                 depComputador = 0;
                 depJogador = 0;
