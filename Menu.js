@@ -172,6 +172,11 @@ class Menu extends Phaser.Scene {
         console.log('Créditos');
     }
     clickStats() {
+        console.log("XD")
+        console.log(this.stats);
+        console.log("Bababuye")
+        console.log(stats);
+        console.log("xxxxxxxxxxxxxDDDDDDDDD")
         this.statsQuadro = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "statsQuadro").setScale(1.4);
         //Fechar
         this.close = this.add.sprite((config.width - config.width / 4 - config.width / 30) * 2, 2 * (config.height / 2 - config.height / 12 - config.height / 24 - config.height / 48 - config.height / 64), 'close').setInteractive();
@@ -179,6 +184,11 @@ class Menu extends Phaser.Scene {
         this.close.setScale(0.62 * 2)
         this.close.depth = 4
 
+        console.log("XD")
+        console.log(this.stats);
+        console.log("Bababuye")
+        console.log(stats);
+        console.log("xxxxxxxxxxxxxDDDDDDDDD")
 
         //Calculos de %
 
@@ -198,13 +208,13 @@ class Menu extends Phaser.Scene {
         else{
 
             totalWins = ((stats.totalWon.reduce((a,b) => a+b,0)) / totalJogos )*100;
-            totalWins.round()
+            //totalWins.round()
             totalWinsEasy = (stats.totalWon[0] / stats.totalGames[0])*100
-            totalWinsEasy.round()
+            //totalWinsEasy.round()
             totalWinsMedium = (stats.totalWon[1] / stats.totalGames[1])*100
-            totalWinsMedium.round()
+            //totalWinsMedium.round()
             totalWinsHard = (stats.totalWon[2] / stats.totalGames[2])*100
-            totalWinsHard.round()
+            //totalWinsHard.round()
         }
         console.log(totalJogos)
         var textTotalGames = this.add.text(1224, 270 * 2, totalJogos , { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
@@ -214,19 +224,10 @@ class Menu extends Phaser.Scene {
         var textWinsHard   = this.add.text(1224 , 457 * 2, totalWinsHard+ "%", { fontFamily: 'Arial', fontSize: 50, color: '#FFFFFF' }).setFontStyle('bold italic');
 
 
-
-
-
-
-
-
-
-
-
-
-
         console.log('Stats');
     }
+
+
     counterInfo(contador) {
         if ((contador > 0) && (contador < 17)) {
 

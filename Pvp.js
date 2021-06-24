@@ -109,8 +109,10 @@ class Pvp extends Phaser.Scene {
 
 
 		// Verifica as regras do jogo
+		// Não deixa jogar se houver casas maior que 1
 		if (this.one(pos) === -1) { console.log(pos + "BRUH2"); return; }
-
+		
+		// Verifica se eu tenho alguma jogada que coloca ovos no outro player
 		if (this.popularOponente(pos) === -1) { console.log(pos + "BRUH3"); return; }
 
 		console.log(pos)
@@ -173,6 +175,9 @@ class Pvp extends Phaser.Scene {
 
 	afterplay() {
 		if ((depJogador1 > 24) || (depJogador2 > 24) || (depJogador1 === 24 && depJogador2 === 24)) { check = 1 } //Verifica pelos depositos		
+		
+		
+		// verifica a regra de dois ovos em duas casas opostas 
 		if ((depJogador1 + depJogador2) === 46) {
 			for (var i = 0; i < 6; i++) {
 				if (state[i] === 1) {

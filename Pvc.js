@@ -249,7 +249,7 @@ class Pvc extends Phaser.Scene {
                                 })
                                 delayCount++
                         }
-                        sprites[(pos + k) % 12].sprite.dirty = false
+                        sprites[(pos + k) % 12].dirty = false
                 }
 
                 this.time.delayedCall(delay * (count + 1), () => {
@@ -312,7 +312,7 @@ class Pvc extends Phaser.Scene {
                                 delayCountRec++
 
                         }
-                        sprites[(backwards - b + 12) % 12].sprite.dirtyRec = false
+                        sprites[(backwards - b + 12) % 12].dirtyRec = false
                 }
 
 
