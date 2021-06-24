@@ -211,14 +211,14 @@ class Menu extends Phaser.Scene {
             totalWins = Math.round(totalWins)
             }
             
-            if (this.stats.totalGames[0] == 0){
+            if (stats.totalGames[0] === 0){
                 totalWinsEasy = 0;
             }
             else{
             totalWinsEasy = (stats.totalWon[0] / stats.totalGames[0]) * 100
             totalWinsEasy = Math.round(totalWinsEasy)
             }
-            if(this.this.stats.totalGames[1] == 0){
+            if(stats.totalGames[1] === 0){
                 totalWinsMedium = 0;
             }
             else{
@@ -226,7 +226,7 @@ class Menu extends Phaser.Scene {
                 totalWinsMedium = Math.round(totalWinsMedium) 
             }
             
-            if (this.stats.totalGames[2] == 0){
+            if (stats.totalGames[2] === 0){
                 totalWinsHard = 0;
             }
             else{
