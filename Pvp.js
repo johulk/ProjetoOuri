@@ -193,7 +193,7 @@ class Pvp extends Phaser.Scene {
 		}
 
 		if (player === 2) {
-			for (i = 5; i < 12; i++) {
+			for (i = 6; i < 12; i++) {
 				y = y + this.popularOponente(i)
 			}
 		}
@@ -274,7 +274,7 @@ class Pvp extends Phaser.Scene {
 		var y = 0;
 
 		if (player === 1) {
-			for (i = 5; i < 12; i++) {
+			for (i = 6; i < 12; i++) {
 				soma = soma + state[i]
 			}
 		}
@@ -391,7 +391,6 @@ class Pvp extends Phaser.Scene {
 
 	atualizarState(pos) {
 
-		console.log("BRUH")
 		var valor = state[pos];
 
 		possoJogar = false;
@@ -571,9 +570,8 @@ class Pvp extends Phaser.Scene {
 		this.atualizaSetas();
 		this.afterplay();
 
-
 	}
-	/*
+	
 	clickMenu() {
 		console.log('Menu');
 		scorePlayer1 = 0;
@@ -583,11 +581,7 @@ class Pvp extends Phaser.Scene {
 		sprites = [];
 		this.scene.start('menu');
 	}
-	*/
 
-
-	clickMenu() {
-		this.terminar();
-	}
+	
 
 }

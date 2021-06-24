@@ -545,7 +545,7 @@ class Pvc extends Phaser.Scene {
                 var y = true;
 
                 if (jogador === 1) {
-                        for (i = 5; i < 12; i++) {
+                        for (i = 6; i < 12; i++) {
                                 soma = soma + estado[i]
                         }
                 }
