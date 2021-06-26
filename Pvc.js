@@ -25,7 +25,9 @@ var casasPC = [6, 7, 8, 9, 10, 11]
 var casasJogador = [0, 1, 2, 3, 4, 5]
 var possoJogar = true;
 var delay = 400;
-var vencedor; 
+var depjimg;
+var depcimg;
+var vencedor;
 var permObject;
 
 var coords = [{ x: 337, y: 355 }, { x: 405, y: 385 }, { x: 476, y: 398 }, { x: 548, y: 398 }, { x: 620, y: 386 }, { x: 689, y: 356 },
@@ -197,7 +199,9 @@ class Pvc extends Phaser.Scene {
 
                 sprites.forEach(spr => { spr.sprite.key = spr.casa })
 
-                this.atualizaPecas(-1)
+                depjimg = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador).setScale(0.6)
+                depcimg = this.add.sprite(240 * 2, 300 * 2, 'i' + depComputador).setScale(0.6)
+
 
         }
 
@@ -221,12 +225,6 @@ class Pvc extends Phaser.Scene {
                 this.setaJog2.setVisible(false)
         }
 
-
-
-        atualizaPecas(pos, i) {
-                if (pos == -1) { return; }
-                this.atualizaTabuleiro(pos, i);
-        }
 
         atualizaTabuleiro(pos, i) {
 
@@ -323,15 +321,23 @@ class Pvc extends Phaser.Scene {
 
                 //Adiciona os ovos aos depositos
 
-                this.numerodepComputador = this.add.sprite(240 * 2, 300 * 2, 'i' + depComputador).setScale(0.6)
-                this.numerodepJogador = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador).setScale(0.6)
+                if (depComputador >= 25) {
+                        depcimg.setTexture('i' + 25)
+                }
+                else if (depJogador >= 25) {
+                        depjimg.setTexture('i' + 25)
+                }
+                else {
+                        depcimg.setTexture('i' + depComputador)
+                        depjimg.setTexture('i' + depJogador)
+                }
                 textdepComputador.text = depComputador
                 textdepJogador.text = depJogador
                 possoJogar = true;
-                
+
 
                 this.nextPlayer();
-                
+
                 this.atualizaSetas();
                 this.afterplay();
 
@@ -357,7 +363,7 @@ class Pvc extends Phaser.Scene {
                                 valor--;
                         }
                 }
-                this.atualizaPecas(pos, i);
+                this.atualizaTabuleiro(pos, i);
 
         }
 
@@ -474,9 +480,9 @@ class Pvc extends Phaser.Scene {
                 if (check === 1) {
                         permObject.destroy();
                         this.terminar()
-                        
-                        this.time.delayedCall(delay*7, () => {
-                                
+
+                        this.time.delayedCall(delay * 7, () => {
+
                                 switch (vencedor) {
                                         case 1:
                                                 scorePInt += 1;
@@ -601,7 +607,7 @@ class Pvc extends Phaser.Scene {
                 //Ovos nos depósitos / atualizar numero de ovos no tabuleiro (cena escrita a branco)
                 //1 segundo
                 //End screen
-                
+
 
                 let delayRecJ = 0;
                 let delayRecPC = 0;
@@ -636,10 +642,20 @@ class Pvc extends Phaser.Scene {
 
                 this.time.delayedCall(delay * (6.5), () => {
                         if (depJogador > depComputador) { res = 1 }
-                        else if(depJogador < depComputador) {res = 2}
+                        else if (depJogador < depComputador) { res = 2 }
                         else { res = 3 }
-                        this.numerodepComputador = this.add.sprite(240 * 2, 300 * 2, 'i' + depComputador).setScale(0.6)
-                        this.numerodepJogador = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador).setScale(0.6)
+                        if (depComputador >= 25) {
+                                depcimg.setTexture('i' + 25)
+                        }
+                        else if (depJogador >= 25) {
+                                depjimg.setTexture('i' + 25)
+                        }
+                        else {
+                                depcimg.setTexture('i' + depComputador)
+                                depjimg.setTexture('i' + depJogador)
+                        }
+
+
                         textdepComputador.text = depComputador
                         textdepJogador.text = depJogador
                         vencedor = res
@@ -951,19 +967,19 @@ class Pvc extends Phaser.Scene {
 
                 //Avalia buracos tabuleiro
                 for (var i = 0; i < nudgeSimState.length; i++) {
-                         var numOvos = nudgeSimState[i];
-                         if (casasJogador.indexOf(i) != -1) {
-                                 if (numOvos === 0) { nudgeValue += 4 }
-                                 if (numOvos === (1 || 2)) { nudgeValue += 3 }
-                                 if (numOvos >= 12) { nudgeValue -= 2 }
-                         }
-                 }
-                 if (casasPC.indexOf(i) != -1) {
-                         if (numOvos === 0) { nudgeValue -= 4 }
-                         if (numOvos === (1 || 2)) { nudgeValue -= 3 }
-                         if (numOvos >= 12) { nudgeValue += 2 }
-                 }
-                 
+                        var numOvos = nudgeSimState[i];
+                        if (casasJogador.indexOf(i) != -1) {
+                                if (numOvos === 0) { nudgeValue += 4 }
+                                if (numOvos === (1 || 2)) { nudgeValue += 3 }
+                                if (numOvos >= 12) { nudgeValue -= 2 }
+                        }
+                }
+                if (casasPC.indexOf(i) != -1) {
+                        if (numOvos === 0) { nudgeValue -= 4 }
+                        if (numOvos === (1 || 2)) { nudgeValue -= 3 }
+                        if (numOvos >= 12) { nudgeValue += 2 }
+                }
+
                 return (nudgeValue)
 
         }

@@ -5,13 +5,15 @@ var textodepJogador1;
 var state = []
 var sprites = [];
 var setas = []; // eliminar, nao parece servir para nada!
+var dep1img;
+var dep2img;
 var player = 1;
 var depJogador1 = 0;
 var depJogador2 = 0;
 var check = 0;
 var possoJogar = true;
 var delay = 400;
-var vencedor; 
+var vencedor;
 
 
 var coords = [{ x: 337, y: 355 }, { x: 405, y: 385 }, { x: 476, y: 398 }, { x: 548, y: 398 }, { x: 620, y: 386 }, { x: 689, y: 356 },
@@ -344,10 +346,18 @@ class Pvp extends Phaser.Scene {
 
 		this.time.delayedCall(delay * (6.5), () => {
 			if (depJogador1 > depJogador2) { res = 1 }
-			else if (depJogador1 < depJogador2) {res = 2}
+			else if (depJogador1 < depJogador2) { res = 2 }
 			else { res = 3 }
-			this.numerodepJogador1 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
-			this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
+			if (depJogador1 >= 25) {
+				depj1img.setTexture('i' + 25)
+			}
+			else if (depJogador2 >= 25) {
+				depj2img.setTexture('i' + 25)
+			}
+			else {
+				depj1img.setTexture('i' + depJogador1)
+				depj2mg.setTexture('i' + depJogador2)
+			}
 			textodepJogador1.text = depJogador1
 			textodepJogador2.text = depJogador2
 			vencedor = res
@@ -453,6 +463,9 @@ class Pvp extends Phaser.Scene {
 
 		sprites.forEach(spr => { spr.sprite.key = spr.casa })
 
+		dep1img = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
+		dep2img = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
+
 	}
 
 	atualizaTabuleiro(pos, i) {
@@ -551,8 +564,16 @@ class Pvp extends Phaser.Scene {
 	atualizaDepositos() {
 
 		//Adiciona os ovos aos depositos
-		this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
-		this.numerodepJogador1 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
+		if (depJogador1 >= 25) {
+			dep1img.setTexture('i' + 25)
+		}
+		else if (depJogador2 >= 25) {
+			dep2img.setTexture('i' + 25)
+		}
+		else {
+			dep1img.setTexture('i' + depJogador1)
+			dep2img.setTexture('i' + depJogador2)
+		}
 		textodepJogador1.text = depJogador1
 		textodepJogador2.text = depJogador2
 		possoJogar = true;
