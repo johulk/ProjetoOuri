@@ -11,7 +11,7 @@ var depJogador2 = 0;
 var check = 0;
 var possoJogar = true;
 var delay = 400;
-
+var vencedor; 
 
 
 var coords = [{ x: 337, y: 355 }, { x: 405, y: 385 }, { x: 476, y: 398 }, { x: 548, y: 398 }, { x: 620, y: 386 }, { x: 689, y: 356 },
@@ -198,7 +198,7 @@ class Pvp extends Phaser.Scene {
 		}
 
 		if (check === 1) {
-			var vencedor = this.terminar()
+			this.terminar()
 
 			this.time.delayedCall(delay * 8.5, () => {
 				if (depJogador1 === depJogador2) {
@@ -350,7 +350,7 @@ class Pvp extends Phaser.Scene {
 			this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
 			textodepJogador1.text = depJogador1
 			textodepJogador2.text = depJogador2
-			return res
+			vencedor = res
 		})
 	}
 

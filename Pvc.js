@@ -77,10 +77,10 @@ class Pvc extends Phaser.Scene {
                 this.computadorScore.setScale(0.75)
                 // Inicializar
                 player = 1;
-                depJogador = 24;
+                depJogador = 0;
                 depComputador = 0;
                 check = 0;
-                state = [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0];
+                state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
                 possoJogar = true;
 
                 scorePlayer = stats.totalWon.slice();
@@ -329,10 +329,11 @@ class Pvc extends Phaser.Scene {
                 textdepJogador.text = depJogador
                 possoJogar = true;
                 
-                this.afterplay();
+
                 this.nextPlayer();
-                this.atualizaSetas();
                 
+                this.atualizaSetas();
+                this.afterplay();
 
 
         }
@@ -471,9 +472,9 @@ class Pvc extends Phaser.Scene {
                 check = this.checkFinal(state, player, depJogador, depComputador);
 
                 if (check === 1) {
-
+                        permObject.destroy();
                         this.terminar()
-                        permObject.kill;
+                        
                         this.time.delayedCall(delay*7, () => {
                                 
                                 switch (vencedor) {
