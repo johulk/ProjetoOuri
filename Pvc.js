@@ -25,7 +25,8 @@ var casasPC = [6, 7, 8, 9, 10, 11]
 var casasJogador = [0, 1, 2, 3, 4, 5]
 var possoJogar = true;
 var delay = 400;
-var vencedor;
+var vencedor; 
+var permObject;
 
 var coords = [{ x: 337, y: 355 }, { x: 405, y: 385 }, { x: 476, y: 398 }, { x: 548, y: 398 }, { x: 620, y: 386 }, { x: 689, y: 356 },
 { x: 689, y: 246 }, { x: 620, y: 215 }, { x: 548, y: 205 }, { x: 476, y: 205 }, { x: 405, y: 215 }, { x: 337, y: 246 }];
@@ -472,7 +473,7 @@ class Pvc extends Phaser.Scene {
                 if (check === 1) {
 
                         this.terminar()
-
+                        permObject.kill;
                         this.time.delayedCall(delay*7, () => {
                                 
                                 switch (vencedor) {
@@ -662,11 +663,11 @@ class Pvc extends Phaser.Scene {
                 // Se o player 1 tiver o tabuleiro vazio, joga o player 2
                 if (totalP1 === 0) {
                         player = 2
-                        this.perm = this.add.sprite(1024, 600, 'perms').setInteractive();
-                        this.perm.key = -1;
-                        this.perm.depth = 10;
-                        this.perm.on('pointerdown', () => this.clickPerms(this.perm));
-                        this.perm.setScale(1.3)
+                        permObject = this.add.sprite(1024, 600, 'perms').setInteractive();
+                        permObject.key = -1;
+                        permObject.depth = 10;
+                        permObject.on('pointerdown', () => this.clickPerms());
+                        permObject.setScale(1.3)
                 }
 
                 // Se o player 2 tiver o tabuleiro vazio, joga o player 1
@@ -678,11 +679,11 @@ class Pvc extends Phaser.Scene {
                 else {
                         if (player === 1) {
                                 player = 2
-                                this.perm = this.add.sprite(1024, 600, 'perms').setInteractive();
-                                this.perm.key = -1;
-                                this.perm.depth = 10;
-                                this.perm.on('pointerdown', () => this.clickPerms(this.perm));
-                                this.perm.setScale(1.3)
+                                permObject = this.add.sprite(1024, 600, 'perms').setInteractive();
+                                permObject.key = -1;
+                                permObject.depth = 10;
+                                permObject.on('pointerdown', () => this.clickPerms());
+                                permObject.setScale(1.3)
 
                         }
 
@@ -1023,7 +1024,7 @@ class Pvc extends Phaser.Scene {
                 sprites = [];
                 this.scene.start('menu');
         }
-        clickPerms(permObject) {
+        clickPerms() {
                 var pos = this.dificuldade();
                 this.atualizarState(pos);
                 permObject.setVisible(false);
