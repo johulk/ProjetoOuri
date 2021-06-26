@@ -3,15 +3,12 @@ function EstadoSimulado(stateTabuleiro, deposito2, deposito1, isOver) {
         this.depJogador = deposito2;
         this.depComputador = deposito1;
         this.over = isOver;
-
 }
 
 function TreeNode() {
         this.root = 0;
         this.descendants = [];
         this.estadoSimulado = new EstadoSimulado([], 0, 0);
-        this.node = 0;
-
 }
 
 var textP;
@@ -28,7 +25,7 @@ var casasPC = [6, 7, 8, 9, 10, 11]
 var casasJogador = [0, 1, 2, 3, 4, 5]
 var possoJogar = true;
 var delay = 400;
-
+var vencedor = 5;
 
 var coords = [{ x: 337, y: 355 }, { x: 405, y: 385 }, { x: 476, y: 398 }, { x: 548, y: 398 }, { x: 620, y: 386 }, { x: 689, y: 356 },
 { x: 689, y: 246 }, { x: 620, y: 215 }, { x: 548, y: 205 }, { x: 476, y: 205 }, { x: 405, y: 215 }, { x: 337, y: 246 }];
@@ -79,10 +76,10 @@ class Pvc extends Phaser.Scene {
                 this.computadorScore.setScale(0.75)
                 // Inicializar
                 player = 1;
-                depJogador = 0;
+                depJogador = 24;
                 depComputador = 0;
                 check = 0;
-                state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
+                state = [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0];
                 possoJogar = true;
 
                 scorePlayer = stats.totalWon.slice();
@@ -472,10 +469,10 @@ class Pvc extends Phaser.Scene {
 
                 if (check === 1) {
 
-                        var vencedor = this.terminar()
+                        this.terminar()//async 400*6.5
 
-                        this.time.delayedCall(5000, () => {
-
+                        this.time.delayedCall(delay*7, () => {
+                                console.log(vencedor + "??")
                                 switch (vencedor) {
                                         case 1:
                                                 scorePInt += 1;
@@ -600,8 +597,7 @@ class Pvc extends Phaser.Scene {
                 //Ovos nos depósitos / atualizar numero de ovos no tabuleiro (cena escrita a branco)
                 //1 segundo
                 //End screen
-                this.time.delayedCall(delay * 2, () => {
-                })
+                
 
                 let delayRecJ = 0;
                 let delayRecPC = 0;
@@ -636,12 +632,13 @@ class Pvc extends Phaser.Scene {
 
                 this.time.delayedCall(delay * (6.5), () => {
                         if (depJogador > depComputador) { res = 1 }
-                        else { res = 2 }
+                        else if(depJogador < depComputador) {res = 2}
+                        else { res = 3 }
                         this.numerodepComputador = this.add.sprite(240 * 2, 300 * 2, 'i' + depComputador).setScale(0.6)
                         this.numerodepJogador = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador).setScale(0.6)
                         textdepComputador.text = depComputador
                         textdepJogador.text = depJogador
-                        return res
+                        vencedor = res
                 })
         }
 
@@ -663,6 +660,11 @@ class Pvc extends Phaser.Scene {
                 // Se o player 1 tiver o tabuleiro vazio, joga o player 2
                 if (totalP1 === 0) {
                         player = 2
+                        this.perm = this.add.sprite(1024, 600, 'perms').setInteractive();
+                        this.perm.key = -1;
+                        this.perm.depth = 10;
+                        this.perm.on('pointerdown', () => this.clickPerms(this.perm));
+                        this.perm.setScale(1.3)
                 }
 
                 // Se o player 2 tiver o tabuleiro vazio, joga o player 1
@@ -944,20 +946,20 @@ class Pvc extends Phaser.Scene {
 
 
                 //Avalia buracos tabuleiro
-                /* for (var i = 0; i < nudgeSimState.length; i++) {
+                for (var i = 0; i < nudgeSimState.length; i++) {
                          var numOvos = nudgeSimState[i];
                          if (casasJogador.indexOf(i) != -1) {
                                  if (numOvos === 0) { nudgeValue += 4 }
                                  if (numOvos === (1 || 2)) { nudgeValue += 3 }
-                                 if (numOvos == 12) { nudgeValue -= 2 }
+                                 if (numOvos >= 12) { nudgeValue -= 2 }
                          }
                  }
                  if (casasPC.indexOf(i) != -1) {
                          if (numOvos === 0) { nudgeValue -= 4 }
                          if (numOvos === (1 || 2)) { nudgeValue -= 3 }
-                         if (numOvos == 12) { nudgeValue += 2 }
+                         if (numOvos >= 12) { nudgeValue += 2 }
                  }
-                 */
+                 
                 return (nudgeValue)
 
         }

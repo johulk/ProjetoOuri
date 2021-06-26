@@ -4,7 +4,7 @@ var textodepJogador2;
 var textodepJogador1;
 var state = []
 var sprites = [];
-var setas = [];
+var setas = []; // eliminar, nao parece servir para nada!
 var player = 1;
 var depJogador1 = 0;
 var depJogador2 = 0;
@@ -95,30 +95,22 @@ class Pvp extends Phaser.Scene {
 	jogada(pointer, gameObject) {
 		// Impedir jogada quando se clica no home
 
-
 		if (gameObject.key == -1 || possoJogar == false) { return }
 
 		var pos = gameObject.key;
 
-
-
 		// Impedir que um jogador jogue no campo errado
 		if ((player === 1 && pos > 5) || (player === 2 && pos < 6)) { return; }
 
-
 		// Verifica as regras do jogo
 		// Não deixa jogar se houver casas maior que 1
-		if (this.one(pos) === -1) {return; }
-		
-		// Verifica se eu tenho alguma jogada que coloca ovos no outro player
-		if (this.popularOponente(pos) === -1) {return; }
+		if (this.one(pos) === -1) { return; }
 
-		
+		// Verifica se eu tenho alguma jogada que coloca ovos no outro player
+		if (this.popularOponente(pos) === -1) { return; }
 
 		// A jogada e valida e pode começar
 		this.atualizarState(pos);
-
-
 	}
 
 	setSetas() {
@@ -173,8 +165,8 @@ class Pvp extends Phaser.Scene {
 
 	afterplay() {
 		if ((depJogador1 > 24) || (depJogador2 > 24) || (depJogador1 === 24 && depJogador2 === 24)) { check = 1 } //Verifica pelos depositos		
-		
-		
+
+
 		// verifica a regra de dois ovos em duas casas opostas 
 		if ((depJogador1 + depJogador2) === 46) {
 			for (var i = 0; i < 6; i++) {
@@ -352,7 +344,8 @@ class Pvp extends Phaser.Scene {
 
 		this.time.delayedCall(delay * (6.5), () => {
 			if (depJogador1 > depJogador2) { res = 1 }
-			else { res = 2 }
+			else if (depJogador1 < depJogador2) {res = 2}
+			else { res = 3 }
 			this.numerodepJogador1 = this.add.sprite(790 * 2, 300 * 2, 'i' + depJogador1).setScale(0.6)
 			this.numerodepJogador2 = this.add.sprite(240 * 2, 300 * 2, 'i' + depJogador2).setScale(0.6)
 			textodepJogador1.text = depJogador1
@@ -411,7 +404,7 @@ class Pvp extends Phaser.Scene {
 				valor--;
 			}
 		}
-		this.atualizaPecas(pos, i);
+		this.atualizaTabuleiro(pos, i);
 
 	}
 
@@ -460,13 +453,6 @@ class Pvp extends Phaser.Scene {
 
 		sprites.forEach(spr => { spr.sprite.key = spr.casa })
 
-		this.atualizaPecas(-1)
-
-	}
-
-	atualizaPecas(pos, i) {
-		if (pos == -1) { return; }
-		this.atualizaTabuleiro(pos, i);
 	}
 
 	atualizaTabuleiro(pos, i) {
@@ -477,7 +463,6 @@ class Pvp extends Phaser.Scene {
 				count++
 			}
 		}
-
 
 		let delayCount = 0;
 		for (let k = 0; k < 12; k++) {
@@ -576,7 +561,7 @@ class Pvp extends Phaser.Scene {
 		this.afterplay();
 
 	}
-	
+
 	clickMenu() {
 		scorePlayer1 = 0;
 		scorePlayer2 = 0;
@@ -586,6 +571,6 @@ class Pvp extends Phaser.Scene {
 		this.scene.start('menu');
 	}
 
-	
+
 
 }
