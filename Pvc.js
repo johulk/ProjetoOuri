@@ -25,7 +25,7 @@ var casasPC = [6, 7, 8, 9, 10, 11]
 var casasJogador = [0, 1, 2, 3, 4, 5]
 var possoJogar = true;
 var delay = 400;
-var vencedor = 5;
+var vencedor;
 
 var coords = [{ x: 337, y: 355 }, { x: 405, y: 385 }, { x: 476, y: 398 }, { x: 548, y: 398 }, { x: 620, y: 386 }, { x: 689, y: 356 },
 { x: 689, y: 246 }, { x: 620, y: 215 }, { x: 548, y: 205 }, { x: 476, y: 205 }, { x: 405, y: 215 }, { x: 337, y: 246 }];
@@ -327,9 +327,11 @@ class Pvc extends Phaser.Scene {
                 textdepComputador.text = depComputador
                 textdepJogador.text = depJogador
                 possoJogar = true;
+                
+                this.afterplay();
                 this.nextPlayer();
                 this.atualizaSetas();
-                this.afterplay();
+                
 
 
         }
@@ -469,10 +471,10 @@ class Pvc extends Phaser.Scene {
 
                 if (check === 1) {
 
-                        this.terminar()//async 400*6.5
+                        this.terminar()
 
                         this.time.delayedCall(delay*7, () => {
-                                console.log(vencedor + "??")
+                                
                                 switch (vencedor) {
                                         case 1:
                                                 scorePInt += 1;
