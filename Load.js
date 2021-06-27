@@ -73,6 +73,7 @@ class Load extends Phaser.Scene {
         this.load.image('ganhouP2', 'img_menu/parabens_2.png')
         this.load.image('ganhouC', 'img_menu/parabens_3.png')
         this.load.image('empate', 'img_menu/empatado.png')
+        this.load.image('impasse','img_menu/impasse.png')
 
         for (var i = 0; i < 31; i++) {
             this.load.image('i' + i, 'img/' + i + '.png')

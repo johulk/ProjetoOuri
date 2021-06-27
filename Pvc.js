@@ -29,6 +29,10 @@ var depjimg;
 var depcimg;
 var vencedor;
 var permObject;
+var rondasSemCaptura;
+var depJogadorMax;
+var depComputadorMax;
+var aceitouImpasse;
 
 var coords = [{ x: 337, y: 355 }, { x: 405, y: 385 }, { x: 476, y: 398 }, { x: 548, y: 398 }, { x: 620, y: 386 }, { x: 689, y: 356 },
 { x: 689, y: 246 }, { x: 620, y: 215 }, { x: 548, y: 205 }, { x: 476, y: 205 }, { x: 405, y: 215 }, { x: 337, y: 246 }];
@@ -62,11 +66,11 @@ class Pvc extends Phaser.Scene {
 
                 let difImg = new Map()
 
-                difImg.set(0,"easy");
-                difImg.set(1,"medium");
-                difImg.set(2,"hard");
+                difImg.set(0, "easy");
+                difImg.set(1, "medium");
+                difImg.set(2, "hard");
 
-                this.indicadorDif = this.add.sprite(170*2,250,difImg.get(dif))
+                this.indicadorDif = this.add.sprite(170 * 2, 250, difImg.get(dif))
 
                 //Pintainho 1
                 this.pinto1 = this.add.sprite(910 * 2, 290 * 2, 'pinto_1')
@@ -90,7 +94,7 @@ class Pvc extends Phaser.Scene {
                 depJogador = 0;
                 depComputador = 0;
                 check = 0;
-                state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
+                state = [0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0];
                 possoJogar = true;
 
                 scorePlayer = stats.totalWon.slice();
@@ -452,7 +456,10 @@ class Pvc extends Phaser.Scene {
                 var jogadaFinal = melhoresJogadas[Math.floor(Math.random() * melhoresJogadas.length)];
                 delete arvore.descendants
 
-                return jogadaFinal
+                if(jogadaFinal = undefined){
+                        return this.facil();
+                }
+                else return jogadaFinal
         };
 
         //-------------------------------
@@ -480,8 +487,45 @@ class Pvc extends Phaser.Scene {
                 } return isFinal;
         }
 
+        checkImpasse() {
+                let ovosRestantes = 0
+
+                state.forEach(casa => ovosRestantes = ovosRestantes + casa)
+
+
+                if (((depJogadorMax < depJogador) || (depComputadorMax < depComputador)) && ovosRestantes <= 8) {
+                        rondasSemCaptura = 0;
+                        depJogadorMax = depJogador;
+                        depComputadorMax = depComputador;
+                }
+                else {
+                        if (rondasSemCaptura == 12) {
+
+                                possoJogar = false;
+                                this.quadroImpasse = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "impasse").setScale(1.4).setDepth(8889);
+                                //Fechar
+                                this.close = this.add.sprite(2 * (config.width / 4 + config.width / 24 + config.width / 150), 2 * (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98), 'close').setInteractive();
+                                this.close.on('pointerdown', () => { this.clickNotAccept() });
+                                this.close.setScale(0.62 * 2)
+                                this.close.key = -1
+                                this.close.depth = 8890
+
+
+                                //Forwards
+                                this.forward = this.add.sprite((config.width - config.width / 4 - config.width / 24 - config.width / 150) * 2, (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98) * 2, 'forward').setInteractive();
+                                this.forward.on('pointerdown', () => { this.clickAccept(this.quadroImpasse,this.close,this.forward) });
+                                this.forward.setScale(0.62 * 2)
+                                this.forward.key = -1
+                                this.forward.depth = 8890
+
+                        }
+                        else (rondasSemCaptura++);
+                }
+        }
+
 
         afterplay() { //Verifica se o jogo acabou
+
 
                 check = this.checkFinal(state, player, depJogador, depComputador);
 
@@ -1053,6 +1097,23 @@ class Pvc extends Phaser.Scene {
                 var pos = this.dificuldade();
                 this.atualizarState(pos);
                 permObject.setVisible(false);
+        }
+
+        clickAccept(){
+                this.scene.start("pvc")
+                sprites = [];
+                textdepJogador.text = "0"
+                textdepComputador.text = "0"
+        }
+
+        clickNotAccept(quadro,sim,nao){
+
+                possoJogar = true;
+                quadro.setVisible(false);
+                sim.setVisible(false);
+                nao.setVisible(false);
+                rondasSemCaptura = 0;
+
         }
 
 
