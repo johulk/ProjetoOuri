@@ -66,7 +66,7 @@ class Pvc extends Phaser.Scene {
                 difImg.set(1,"medium");
                 difImg.set(2,"hard");
 
-                this.indicadorDif = this.add.sprite(150*2,200,difImg.get(dif))
+                this.indicadorDif = this.add.sprite(170*2,250,difImg.get(dif))
 
                 //Pintainho 1
                 this.pinto1 = this.add.sprite(910 * 2, 290 * 2, 'pinto_1')
