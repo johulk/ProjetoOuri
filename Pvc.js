@@ -95,6 +95,9 @@ class Pvc extends Phaser.Scene {
                 check = 0;
                 state = [0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0];
                 possoJogar = true;
+                rondasSemCaptura = 0;
+                depJogadorMax = 0;
+                depComputadorMax = 0;
 
                 scorePlayer = stats.totalWon.slice();
 
@@ -455,7 +458,7 @@ class Pvc extends Phaser.Scene {
                 var jogadaFinal = melhoresJogadas[Math.floor(Math.random() * melhoresJogadas.length)];
                 delete arvore.descendants
 
-                if(jogadaFinal == undefined){
+                if (jogadaFinal == undefined) {
                         return this.facil();
                 }
                 else return jogadaFinal
@@ -502,23 +505,23 @@ class Pvc extends Phaser.Scene {
 
                                 possoJogar = false;
                                 this.quadroImpasse = this.add.sprite((config.width / 2) * 2, (config.height / 2 + config.height / 12) * 2, "impasse").setScale(1.4).setDepth(8889);
-                                //Fechar
-                                this.close = this.add.sprite(2 * (config.width / 4 + config.width / 24 + config.width / 150), 2 * (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98), 'close').setInteractive();
-                                this.close.on('pointerdown', () => { this.clickNotAccept() });
-                                this.close.setScale(0.62 * 2)
-                                this.close.key = -1
-                                this.close.depth = 8890
+
 
 
                                 //Forwards
                                 this.forward = this.add.sprite((config.width - config.width / 4 - config.width / 24 - config.width / 150) * 2, (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98) * 2, 'forward').setInteractive();
-                                this.forward.on('pointerdown', () => { this.clickAccept(this.quadroImpasse,this.close,this.forward) });
+                                this.forward.on('pointerdown', () => { this.clickAccept() });
                                 this.forward.setScale(0.62 * 2)
                                 this.forward.key = -1
                                 this.forward.depth = 8890
-
+                                //Fechar
+                                this.close = this.add.sprite(2 * (config.width / 4 + config.width / 24 + config.width / 150), 2 * (config.height / 2 + config.height / 6 + config.height / 6 + config.height / 24 - config.height / 98), 'close').setInteractive();
+                                this.close.on('pointerdown', () => { this.clickNotAccept(this.quadroImpasse, this.close, this.forward) });
+                                this.close.setScale(0.62 * 2)
+                                this.close.key = -1
+                                this.close.depth = 8890
                         }
-                        else {console.log(rondasSemCaptura);rondasSemCaptura++};
+                        else { console.log(rondasSemCaptura); rondasSemCaptura++ };
                 }
         }
 
@@ -1099,14 +1102,15 @@ class Pvc extends Phaser.Scene {
                 permObject.setVisible(false);
         }
 
-        clickAccept(){
+        clickAccept() {
                 this.scene.start("pvc")
                 sprites = [];
                 textdepJogador.text = "0"
                 textdepComputador.text = "0"
+                rondasSemCaptura = 0;
         }
 
-        clickNotAccept(quadro,sim,nao){
+        clickNotAccept(quadro, sim, nao) {
 
                 possoJogar = true;
                 quadro.setVisible(false);
