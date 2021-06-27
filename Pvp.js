@@ -61,10 +61,10 @@ class Pvp extends Phaser.Scene {
 		this.player2Score.setScale(0.75)
 		// Inicializar
 		player = 1;
-		depJogador1 = 0;
-		depJogador2 = 0;
+		depJogador1 = 23;
+		depJogador2 = 23;
 		check = 0;
-		state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
+		state = [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0];
 		possoJogar = true;
 
 
@@ -349,14 +349,14 @@ class Pvp extends Phaser.Scene {
 			else if (depJogador1 < depJogador2) { res = 2 }
 			else { res = 3 }
 			if (depJogador1 >= 25) {
-				depj1img.setTexture('i' + 25)
+				dep1img.setTexture('i' + 25)
 			}
 			else if (depJogador2 >= 25) {
-				depj2img.setTexture('i' + 25)
+				dep2img.setTexture('i' + 25)
 			}
 			else {
-				depj1img.setTexture('i' + depJogador1)
-				depj2mg.setTexture('i' + depJogador2)
+				dep1img.setTexture('i' + depJogador1)
+				dep2img.setTexture('i' + depJogador2)
 			}
 			textodepJogador1.text = depJogador1
 			textodepJogador2.text = depJogador2

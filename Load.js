@@ -79,7 +79,6 @@ class Load extends Phaser.Scene {
         }
 
         //Board Elements
-        this.load.image('cesto', 'img_menu/cesto.png');
         this.load.image('tabuleiro', 'img_menu/tabuleiro_verde.png')
     }
 
