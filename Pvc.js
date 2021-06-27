@@ -518,7 +518,7 @@ class Pvc extends Phaser.Scene {
                                 this.forward.depth = 8890
 
                         }
-                        else (rondasSemCaptura++);
+                        else {console.log(rondasSemCaptura);rondasSemCaptura++};
                 }
         }
 
