@@ -61,10 +61,12 @@ class Pvp extends Phaser.Scene {
 		this.player2Score.setScale(0.75)
 		// Inicializar
 		player = 1;
-		depJogador1 = 23;
-		depJogador2 = 23;
+		depJogador1 = 0;
+		depJogador2 = 0;
 		check = 0;
-		state = [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0];
+		//state = [3, 1, 2, 0, 0, 2, 1,1 , 0, 0, 0, 0];
+
+		state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
 		possoJogar = true;
 
 

@@ -60,6 +60,14 @@ class Pvc extends Phaser.Scene {
                 //this.ouri.displayWidth = 
                 this.ouri.depth = 2
 
+                let difImg = new Map()
+
+                difImg.set(0,"easy");
+                difImg.set(1,"medium");
+                difImg.set(2,"hard");
+
+                this.indicadorDif = this.add.sprite(150*2,200,difImg.get(dif))
+
                 //Pintainho 1
                 this.pinto1 = this.add.sprite(910 * 2, 290 * 2, 'pinto_1')
                 //this.pinto1.setScale(0.5)
