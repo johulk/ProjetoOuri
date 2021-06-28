@@ -93,7 +93,7 @@ class Pvc extends Phaser.Scene {
                 depJogador = 0;
                 depComputador = 0;
                 check = 0;
-                state = [0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0];
+		state = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
                 possoJogar = true;
                 rondasSemCaptura = 0;
                 depJogadorMax = 0;
